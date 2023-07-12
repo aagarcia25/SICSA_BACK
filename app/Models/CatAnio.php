@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * Created by Reliese Model.
+ */
+
+namespace App\Models;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * Class CatAnio
+ * 
+ * @property string $id
+ * @property string $deleted
+ * @property Carbon $UltimaActualizacion
+ * @property Carbon $FechaCreacion
+ * @property string $ModificadoPor
+ * @property string $CreadoPor
+ * @property int $anio
+ *
+ * @package App\Models
+ */
+class CatAnio extends Model
+{
+	protected $table = 'Cat_Anios';
+	public $incrementing = false;
+	public $timestamps = false;
+
+	protected $casts = [
+		'deleted' => 'binary',
+		'UltimaActualizacion' => 'datetime',
+		'FechaCreacion' => 'datetime',
+		'anio' => 'int'
+	];
+
+	protected $fillable = [
+		'deleted',
+		'UltimaActualizacion',
+		'FechaCreacion',
+		'ModificadoPor',
+		'CreadoPor',
+		'anio'
+	];
+}
