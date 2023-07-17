@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AniosController;
+use App\Http\Controllers\AuditoriaController;
 use App\Http\Controllers\Entidad_FiscalizadaController;
 use App\Http\Controllers\Estatus_AccionesController;
 use App\Http\Controllers\Grupo_FuncionalController;
@@ -27,7 +28,10 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'prefix' => 'Api_SICSA'
 ], function () {
+
+
         Route::post('aniosindex',                  [AniosController::class, 'aniosindex']);
+        Route::post('Auditoriaindex',              [AuditoriaController::class, 'Auditoriaindex']);
         Route::post('Entidad_Fiscalizada_index',   [Entidad_FiscalizadaController::class, 'Entidad_Fiscalizada_index']);
         Route::post('Estatus_Acciones_index',      [Estatus_AccionesController::class, 'Estatus_Acciones_index']);
         Route::post('Grupo_Funcional_index',       [Grupo_FuncionalController::class, 'Grupo_Funcional_index']);

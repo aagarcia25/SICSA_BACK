@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CatEntidadFiscalizada;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Entidad_FiscalizadaController extends Controller
 {
@@ -56,7 +57,7 @@ class Entidad_FiscalizadaController extends Controller
                 } else if ($type == 4) {
                     $response = DB::table('Cat_Entidad_Fiscalizada')
                     ->where('deleted','=', 0)
-                    ->orderBy('anio', 'desc')
+                    ->orderBy('FechaCreacion', 'desc')
                     ->get();
                 }
             } catch (\Exception $e) {

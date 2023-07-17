@@ -40,6 +40,7 @@ class CatTiposAccion extends Model
 		'FechaCreacion',
 		'ModificadoPor',
 		'CreadoPor',
-		'Descripcion'
+		'Descripcion',
+		'Abreviatura'
 	];
 }

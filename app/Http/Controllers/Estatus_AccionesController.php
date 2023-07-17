@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CatEstatusAccione;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Estatus_AccionesController extends Controller
 {
@@ -54,9 +55,9 @@ class Estatus_AccionesController extends Controller
     
     
                 } else if ($type == 4) {
-                    $response = DB::table('CatEstatusAccione')
+                    $response = DB::table('Cat_Estatus_Acciones')
                     ->where('deleted','=', 0)
-                    ->orderBy('anio', 'desc')
+                    ->orderBy('FechaCreacion', 'desc')
                     ->get();
                 }
             } catch (\Exception $e) {

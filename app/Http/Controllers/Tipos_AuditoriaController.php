@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CatTiposAuditorium;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Tipos_AuditoriaController extends Controller
 {
@@ -54,9 +55,9 @@ class Tipos_AuditoriaController extends Controller
     
     
                 } else if ($type == 4) {
-                    $response = DB::table('CatTiposAuditorium')
+                    $response = DB::table('Cat_Tipos_Auditoria')
                     ->where('deleted','=', 0)
-                    ->orderBy('anio', 'desc')
+                    ->orderBy('FechaCreacion', 'desc')
                     ->get();
                 }
             } catch (\Exception $e) {

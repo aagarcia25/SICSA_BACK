@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CatInforme;
+use App\Models\Auditorium;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class InformesController extends Controller
+class AuditoriaController extends Controller
 {
-     /* SE IDENTIFICA EL TIPO DE OPERACION A REALIZAR
+        /* SE IDENTIFICA EL TIPO DE OPERACION A REALIZAR
          1._ INSERTAR UN REGISTRO
          2._ ACTUALIZAR UN REGISTRO
          3._ ELIMINAR UN REGISTRO
          4._ CONSULTAR GENERAL DE REGISTROS, (SE INCLUYEN FILTROS)
         */
 
-        public function Informes_index(Request $request)  {
+        public function Auditoriaindex(Request $request)  {
         
             $SUCCESS = true;
             $NUMCODE = 0;
@@ -27,7 +27,7 @@ class InformesController extends Controller
                 $type = $request->NUMOPERACION;
     
                 if ($type == 1) {
-                    $OBJ = new CatInforme();
+                    $OBJ = new Auditorium();
 
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->CreadoPor = $request->CHUSER;
@@ -38,7 +38,7 @@ class InformesController extends Controller
     
                 } else if ($type == 2) {
     
-                    $OBJ = CatInforme::find($request->CHID);
+                    $OBJ = Auditorium::find($request->CHID);
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->Nombre = $request->NOMBRE;
                     $OBJ->Descripcion = $request->DESCRIPCION;
@@ -47,7 +47,7 @@ class InformesController extends Controller
     
     
                 } else if ($type == 3) {
-                    $OBJ = CatInforme::find($request->CHID);
+                    $OBJ = Auditorium::find($request->CHID);
                     $OBJ->deleted = 1;
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->save();
@@ -55,7 +55,7 @@ class InformesController extends Controller
     
     
                 } else if ($type == 4) {
-                    $response = DB::table('Cat_Informes')
+                    $response = DB::table('Auditoria')
                     ->where('deleted','=', 0)
                     ->orderBy('FechaCreacion', 'desc')
                     ->get();
@@ -78,5 +78,6 @@ class InformesController extends Controller
                  ] );
     
      }
+
 
 }

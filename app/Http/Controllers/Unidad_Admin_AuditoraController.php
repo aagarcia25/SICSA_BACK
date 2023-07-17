@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CatUnidadAdminAuditora;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Unidad_Admin_AuditoraController extends Controller
 {
@@ -57,7 +58,7 @@ class Unidad_Admin_AuditoraController extends Controller
                 } else if ($type == 4) {
                     $response = DB::table('Cat_Unidad_Admin_Auditora')
                     ->where('deleted','=', 0)
-                    ->orderBy('anio', 'desc')
+                    ->orderBy('FechaCreacion', 'desc')
                     ->get();
                 }
             } catch (\Exception $e) {

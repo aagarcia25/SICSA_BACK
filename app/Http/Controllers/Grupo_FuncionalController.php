@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CatGrupoFuncional;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Grupo_FuncionalController extends Controller
 {
@@ -54,9 +55,9 @@ class Grupo_FuncionalController extends Controller
     
     
                 } else if ($type == 4) {
-                    $response = DB::table('CatGrupoFuncional')
+                    $response = DB::table('Cat_Grupo_Funcional')
                     ->where('deleted','=', 0)
-                    ->orderBy('anio', 'desc')
+                    ->orderBy('FechaCreacion', 'desc')
                     ->get();
                 }
             } catch (\Exception $e) {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CatSector;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SectorController extends Controller
 {
@@ -54,9 +55,9 @@ class SectorController extends Controller
     
     
                 } else if ($type == 4) {
-                    $response = DB::table('CatSector')
+                    $response = DB::table('Cat_Sector')
                     ->where('deleted','=', 0)
-                    ->orderBy('anio', 'desc')
+                    ->orderBy('FechaCreacion', 'desc')
                     ->get();
                 }
             } catch (\Exception $e) {
