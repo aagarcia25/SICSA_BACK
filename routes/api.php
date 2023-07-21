@@ -11,6 +11,7 @@ use App\Http\Controllers\InformesController;
 use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\Origen_AuditoriaController;
 use App\Http\Controllers\SectorController;
+use App\Http\Controllers\SelectController;
 use App\Http\Controllers\Tipos_AuditoriaController;
 use App\Http\Controllers\TiposAccionController;
 use App\Http\Controllers\Unidad_Admin_AuditoraController;
@@ -47,5 +48,8 @@ Route::group([
         Route::post('TiposAccion_index',           [TiposAccionController::class, 'TiposAccion_index']);
         Route::post('Tipos_Auditoria_index',       [Tipos_AuditoriaController::class, 'Tipos_Auditoria_index']);
         Route::post('Unidad_Admin_Auditora_index', [Unidad_Admin_AuditoraController::class, 'Unidad_Admin_Auditora_index']);
+        Route::post('SelectIndex',                 [SelectController::class, 'SelectIndex']);
+
+        
 
 });
