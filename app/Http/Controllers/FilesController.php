@@ -85,12 +85,18 @@ class FilesController extends Controller
     
     
                 } else if ($type == 3) {
+
+                    $data =$this->DeleteFileByRoute($request->TOKEN,$request->P_ROUTE) ;
+                    if($data->SUCCESS){
                     $OBJ = File::find($request->CHID);
-                    $OBJ->deleted = 1;
+                    $OBJ->deleted =1;
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->save();
                     $response = $OBJ;
-    
+                    }else{
+                        throw new Exception($data->STRMESSAGE);
+
+                    }
     
                 } else if ($type == 4) {
 

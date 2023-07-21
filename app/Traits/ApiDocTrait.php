@@ -76,7 +76,7 @@ trait ApiDocTrait
         return  $data;
     }
 
-
+    
     public function DeleteFile($TOKEN,$Ruta, $nombre_archivo){
 
         $client = new Client();
@@ -101,6 +101,31 @@ trait ApiDocTrait
 
         ]];
         $requestter = new Psr7Request('POST',  env('APP_DOC_API').'/api/ApiDoc/DeleteFile', $headers);
+        $res = $client->sendAsync($requestter, $options)->wait();
+        $data = json_decode($res->getBody()->getContents());
+        return  $data;
+    }
+
+    public function DeleteFileByRoute($TOKEN,$Ruta){
+
+        $client = new Client();
+        $headers = [
+        'Authorization' => $TOKEN
+         ];
+         $options = [
+          'timeout'   => 500.14,
+          'multipart' => [
+            [
+             'name' => 'ROUTE',
+             'contents' => $Ruta
+            ],
+            [
+             'name' => 'APP',
+             'contents' => 'SICSA'
+            ],
+
+        ]];
+        $requestter = new Psr7Request('POST',  env('APP_DOC_API').'/api/ApiDoc/DeleteFileByRoute', $headers);
         $res = $client->sendAsync($requestter, $options)->wait();
         $data = json_decode($res->getBody()->getContents());
         return  $data;

@@ -30,7 +30,7 @@ class CatAnio extends Model
 	public $timestamps = false;
 
 	protected $casts = [
-		'deleted' => 'binary',
+		
 		'UltimaActualizacion' => 'datetime',
 		'FechaCreacion' => 'datetime',
 		'anio' => 'int'

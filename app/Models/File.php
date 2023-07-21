@@ -32,7 +32,6 @@ class File extends Model
 	public $timestamps = false;
 
 	protected $casts = [
-		'deleted' => 'binary',
 		'UltimaActualizacion' => 'datetime',
 		'FechaCreacion' => 'datetime'
 	];
