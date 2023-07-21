@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Auditorium;
+use App\Models\CContestacionArea;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class AuditoriaController extends Controller
+class ContestacionController extends Controller
 {
-        /* SE IDENTIFICA EL TIPO DE OPERACION A REALIZAR
+      /* SE IDENTIFICA EL TIPO DE OPERACION A REALIZAR
          1._ INSERTAR UN REGISTRO
          2._ ACTUALIZAR UN REGISTRO
          3._ ELIMINAR UN REGISTRO
          4._ CONSULTAR GENERAL DE REGISTROS, (SE INCLUYEN FILTROS)
         */
 
-        public function Auditoriaindex(Request $request)  {
+        public function Contestacionindex(Request $request)  {
         
             $SUCCESS = true;
             $NUMCODE = 0;
@@ -27,7 +27,7 @@ class AuditoriaController extends Controller
                 $type = $request->NUMOPERACION;
     
                 if ($type == 1) {
-                    $OBJ = new Auditorium();
+                    $OBJ = new CContestacionArea();
 
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->CreadoPor = $request->CHUSER;
@@ -38,7 +38,7 @@ class AuditoriaController extends Controller
     
                 } else if ($type == 2) {
     
-                    $OBJ = Auditorium::find($request->CHID);
+                    $OBJ = CContestacionArea::find($request->CHID);
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->Nombre = $request->NOMBRE;
                     $OBJ->Descripcion = $request->DESCRIPCION;
@@ -47,7 +47,7 @@ class AuditoriaController extends Controller
     
     
                 } else if ($type == 3) {
-                    $OBJ = Auditorium::find($request->CHID);
+                    $OBJ = CContestacionArea::find($request->CHID);
                     $OBJ->deleted = 1;
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->save();
@@ -56,30 +56,23 @@ class AuditoriaController extends Controller
     
                 } else if ($type == 4) {
 
-                    $query = "
-                    SELECT               
+                    $query = "SELECT 
                     id,
                     deleted,
                     UltimaActualizacion,
                     FechaCreacion,
                     getUserName(ModificadoPor) modi,
                     getUserName(CreadoPor) creado,
-                    Consecutivo,
-                    FolioSIGA,
-                    Encargado,
-                    PersonalEncargado,
-                    NAUDITORIA,
-                    NombreAudoria,
-                    ActaInicio,
-                    OFinicio,
-                    Fecha_Recibido,
-                    Fecha_Vencimiento
-                    FROM SICSA.Auditoria   
-                    where deleted =0 
+                    Dependencia,
+                    Prorroga,
+                    Oficio,
+                    SIGAOficio
+                    FROM SICSA.C_Contestacion_area
+                    where deleted =0
                     ";
+                    $query =  $query . " and    idNotificacion='" . $request->P_IDNOTIFICACION. "'";
                     $response = DB::select($query);
-
-
+                   
                 }
             } catch (\Exception $e) {
                 $SUCCESS = false;
@@ -99,6 +92,4 @@ class AuditoriaController extends Controller
                  ] );
     
      }
-
-
 }

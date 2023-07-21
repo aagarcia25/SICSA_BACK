@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class CatTiposAuditorium
+ * Class File
  * 
  * @property string $id
  * @property string $deleted
@@ -18,13 +18,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $FechaCreacion
  * @property string $ModificadoPor
  * @property string $CreadoPor
- * @property string|null $Descripcion
+ * @property string|null $idowner
+ * @property string|null $Route
+ * @property string|null $Nombre
  *
  * @package App\Models
  */
-class CatTiposAuditorium extends Model
+class File extends Model
 {
-	protected $table = 'Cat_Tipos_Auditoria';
+	protected $table = 'Files';
 	protected $keyType ='string';
 	public $incrementing = false;
 	public $timestamps = false;
@@ -41,6 +43,8 @@ class CatTiposAuditorium extends Model
 		'FechaCreacion',
 		'ModificadoPor',
 		'CreadoPor',
-		'Descripcion'
+		'idowner',
+		'Route',
+		'Nombre'
 	];
 }

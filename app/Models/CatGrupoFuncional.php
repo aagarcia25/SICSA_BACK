@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
 class CatGrupoFuncional extends Model
 {
 	protected $table = 'Cat_Grupo_Funcional';
+	protected $keyType ='string';
 	public $incrementing = false;
 	public $timestamps = false;
 

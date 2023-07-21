@@ -19,7 +19,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $ModificadoPor
  * @property string $CreadoPor
  * @property int $Consecutivo
+ * @property string|null $FolioSIGA
  * @property string|null $Encargado
+ * @property string|null $PersonalEncargado
  * @property int|null $NAUDITORIA
  * @property string|null $NombreAudoria
  * @property string|null $ActaInicio
@@ -32,6 +34,7 @@ use Illuminate\Database\Eloquent\Model;
 class Auditorium extends Model
 {
 	protected $table = 'Auditoria';
+	protected $keyType ='string';
 	public $incrementing = false;
 	public $timestamps = false;
 
@@ -52,7 +55,9 @@ class Auditorium extends Model
 		'ModificadoPor',
 		'CreadoPor',
 		'Consecutivo',
+		'FolioSIGA',
 		'Encargado',
+		'PersonalEncargado',
 		'NAUDITORIA',
 		'NombreAudoria',
 		'ActaInicio',

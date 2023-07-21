@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CatAnio extends Model
 {
+	protected $keyType ='string';
 	protected $table = 'Cat_Anios';
 	public $incrementing = false;
 	public $timestamps = false;

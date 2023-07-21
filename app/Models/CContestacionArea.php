@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class CatTiposAuditorium
+ * Class CContestacionArea
  * 
  * @property string $id
  * @property string $deleted
@@ -18,13 +18,19 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $FechaCreacion
  * @property string $ModificadoPor
  * @property string $CreadoPor
- * @property string|null $Descripcion
+ * @property string|null $Dependencia
+ * @property Carbon|null $Prorroga
+ * @property string|null $idNotificacion
+ * @property string|null $Oficio
+ * @property string|null $SIGAOficio
+ * 
+ * @property CNotificacionArea|null $c_notificacion_area
  *
  * @package App\Models
  */
-class CatTiposAuditorium extends Model
+class CContestacionArea extends Model
 {
-	protected $table = 'Cat_Tipos_Auditoria';
+	protected $table = 'C_Contestacion_area';
 	protected $keyType ='string';
 	public $incrementing = false;
 	public $timestamps = false;
@@ -32,7 +38,8 @@ class CatTiposAuditorium extends Model
 	protected $casts = [
 		'deleted' => 'binary',
 		'UltimaActualizacion' => 'datetime',
-		'FechaCreacion' => 'datetime'
+		'FechaCreacion' => 'datetime',
+		'Prorroga' => 'datetime'
 	];
 
 	protected $fillable = [
@@ -41,6 +48,15 @@ class CatTiposAuditorium extends Model
 		'FechaCreacion',
 		'ModificadoPor',
 		'CreadoPor',
-		'Descripcion'
+		'Dependencia',
+		'Prorroga',
+		'idNotificacion',
+		'Oficio',
+		'SIGAOficio'
 	];
+
+	public function c_notificacion_area()
+	{
+		return $this->belongsTo(CNotificacionArea::class, 'idNotificacion');
+	}
 }

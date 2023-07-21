@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
 class CatInforme extends Model
 {
 	protected $table = 'Cat_Informes';
+	protected $keyType ='string';
 	public $incrementing = false;
 	public $timestamps = false;
 

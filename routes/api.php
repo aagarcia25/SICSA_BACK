@@ -2,10 +2,13 @@
 
 use App\Http\Controllers\AniosController;
 use App\Http\Controllers\AuditoriaController;
+use App\Http\Controllers\ContestacionController;
 use App\Http\Controllers\Entidad_FiscalizadaController;
 use App\Http\Controllers\Estatus_AccionesController;
+use App\Http\Controllers\FilesController;
 use App\Http\Controllers\Grupo_FuncionalController;
 use App\Http\Controllers\InformesController;
+use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\Origen_AuditoriaController;
 use App\Http\Controllers\SectorController;
 use App\Http\Controllers\Tipos_AuditoriaController;
@@ -32,6 +35,9 @@ Route::group([
 
         Route::post('aniosindex',                  [AniosController::class, 'aniosindex']);
         Route::post('Auditoriaindex',              [AuditoriaController::class, 'Auditoriaindex']);
+        Route::post('Notificacionindex',           [NotificacionController::class, 'Notificacionindex']);
+        Route::post('Contestacionindex',           [ContestacionController::class, 'Contestacionindex']);
+        Route::post('Filesindex',                  [FilesController::class, 'Filesindex']);
         Route::post('Entidad_Fiscalizada_index',   [Entidad_FiscalizadaController::class, 'Entidad_Fiscalizada_index']);
         Route::post('Estatus_Acciones_index',      [Estatus_AccionesController::class, 'Estatus_Acciones_index']);
         Route::post('Grupo_Funcional_index',       [Grupo_FuncionalController::class, 'Grupo_Funcional_index']);
