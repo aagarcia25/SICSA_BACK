@@ -10,6 +10,7 @@ use App\Http\Controllers\Grupo_FuncionalController;
 use App\Http\Controllers\InformesController;
 use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\Origen_AuditoriaController;
+use App\Http\Controllers\RamoController;
 use App\Http\Controllers\SectorController;
 use App\Http\Controllers\SelectController;
 use App\Http\Controllers\Tipos_AuditoriaController;
@@ -35,6 +36,7 @@ Route::group([
 
 
         Route::post('aniosindex',                  [AniosController::class, 'aniosindex']);
+        Route::post('Ramo_index',                  [RamoController::class, 'Ramo_index']);
         Route::post('Auditoriaindex',              [AuditoriaController::class, 'Auditoriaindex']);
         Route::post('Notificacionindex',           [NotificacionController::class, 'Notificacionindex']);
         Route::post('Contestacionindex',           [ContestacionController::class, 'Contestacionindex']);
