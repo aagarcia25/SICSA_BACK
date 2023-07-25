@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccionesController;
 use App\Http\Controllers\AniosController;
 use App\Http\Controllers\AuditoriaController;
 use App\Http\Controllers\ContestacionController;
@@ -37,6 +38,7 @@ Route::group([
 
         Route::post('aniosindex',                  [AniosController::class, 'aniosindex']);
         Route::post('Ramo_index',                  [RamoController::class, 'Ramo_index']);
+        Route::post('Acciones_index',              [AccionesController::class, 'Acciones_index']);
         Route::post('Auditoriaindex',              [AuditoriaController::class, 'Auditoriaindex']);
         Route::post('Notificacionindex',           [NotificacionController::class, 'Notificacionindex']);
         Route::post('Contestacionindex',           [ContestacionController::class, 'Contestacionindex']);
