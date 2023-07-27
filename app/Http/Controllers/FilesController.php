@@ -8,6 +8,7 @@ use App\Models\CNotificacionArea;
 use Illuminate\Http\Request;
 
 use App\Models\File;
+use App\Models\OficiosA;
 use App\Traits\ApiDocTrait;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -47,6 +48,9 @@ class FilesController extends Controller
                 $OBJ = CContestacionArea::find($request->ID);
                 $NOTIFICACION =$OBJ->c_notificacion_area;
                 $FOLIO = $NOTIFICACION->auditorium->NAUDITORIA."/".$NOTIFICACION->Oficio."/". $OBJ->Oficio;
+               }else if($request->TIPO ==4){
+                $OBJ = OficiosA::find($request->ID);
+                $FOLIO = $OBJ->auditorium->NAUDITORIA."/".$OBJ->Oficio;
                }
 
 
