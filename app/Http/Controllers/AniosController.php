@@ -42,8 +42,8 @@ class AniosController extends Controller
     
                     $OBJ = CatAnio::find($request->CHID);
                     $OBJ->ModificadoPor = $request->CHUSER;
-                    $OBJ->Nombre = $request->NOMBRE;
-                    $OBJ->Descripcion = $request->DESCRIPCION;
+                    $OBJ->anio = $request->NOMBRE;
+                
                     $OBJ->save();
                     $response = $OBJ;
     
