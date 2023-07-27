@@ -55,10 +55,25 @@ class Entidad_FiscalizadaController extends Controller
     
     
                 } else if ($type == 4) {
-                    $response = DB::table('Cat_Entidad_Fiscalizada')
-                    ->where('deleted','=', 0)
-                    ->orderBy('FechaCreacion', 'desc')
-                    ->get();
+                    $query = "
+                    SELECT               
+                    id,
+                    deleted,
+                    UltimaActualizacion,
+                    FechaCreacion,
+                    getUserName(ModificadoPor) ModificadoPor,
+                    getUserName(CreadoPor) CreadoPor,
+                    Descripcion
+                    FROM SICSA.Cat_Entidad_Fiscalizada   
+                    where deleted =0 
+                    order by FechaCreacion desc
+                    ";
+                    $response = DB::select($query);
+
+                    // $response = DB::table('Cat_Entidad_Fiscalizada')
+                    // ->where('deleted','=', 0)
+                    // ->orderBy('FechaCreacion', 'desc')
+                    // ->get();
                 }
             } catch (\Exception $e) {
                 $SUCCESS = false;
