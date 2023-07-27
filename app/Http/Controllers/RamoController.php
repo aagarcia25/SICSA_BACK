@@ -28,7 +28,7 @@ class RamoController extends Controller
     
                 if ($type == 1) {
                     $OBJ = new CatRamo();
-
+                    
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->CreadoPor = $request->CHUSER;
                     $OBJ->Descripcion = $request->DESCRIPCION;
