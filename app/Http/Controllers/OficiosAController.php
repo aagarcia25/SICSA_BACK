@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CatUnidadAdminAuditora;
+use App\Models\OficiosA;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class Unidad_Admin_AuditoraController extends Controller
+class OficiosAController extends Controller
 {
-    
      /* SE IDENTIFICA EL TIPO DE OPERACION A REALIZAR
          1._ INSERTAR UN REGISTRO
          2._ ACTUALIZAR UN REGISTRO
@@ -16,7 +15,7 @@ class Unidad_Admin_AuditoraController extends Controller
          4._ CONSULTAR GENERAL DE REGISTROS, (SE INCLUYEN FILTROS)
         */
 
-        public function Unidad_Admin_Auditora_index(Request $request)  {
+        public function OficiosA_index(Request $request)  {
         
             $SUCCESS = true;
             $NUMCODE = 0;
@@ -28,27 +27,30 @@ class Unidad_Admin_AuditoraController extends Controller
                 $type = $request->NUMOPERACION;
     
                 if ($type == 1) {
-                    $OBJ = new CatUnidadAdminAuditora();
-
-                    $OBJ->ModificadoPor = $request->CHUSER;
-                    $OBJ->CreadoPor = $request->CHUSER;
-                    $OBJ->Descripcion = $request->DESCRIPCION;
+                    $OBJ = new OficiosA();
+                    $OBJ->ModificadoPor    = $request->CHUSER;
+                    $OBJ->CreadoPor        = $request->CHUSER;
+                    $OBJ->idAuditoria      = $request->idAuditoria;
+                    $OBJ->Oficio           = $request->Oficio;
+                    $OBJ->FechaRecibido    = $request->FechaRecibido;
+                    $OBJ->FechaVencimiento = $request->FechaVencimiento;
                     $OBJ->save();
                     $response = $OBJ;
     
     
                 } else if ($type == 2) {
     
-                    $OBJ = CatUnidadAdminAuditora::find($request->CHID);
-                    $OBJ->ModificadoPor = $request->CHUSER;
-                    //$OBJ->Nombre = $request->NOMBRE;
-                    $OBJ->Descripcion = $request->DESCRIPCION;
+                    $OBJ = OficiosA::find($request->CHID);
+                    $OBJ->ModificadoPor    = $request->CHUSER;
+                    $OBJ->Oficio           = $request->Oficio;
+                    $OBJ->FechaRecibido    = $request->FechaRecibido;
+                    $OBJ->FechaVencimiento = $request->FechaVencimiento;
                     $OBJ->save();
                     $response = $OBJ;
     
     
                 } else if ($type == 3) {
-                    $OBJ = CatUnidadAdminAuditora::find($request->CHID);
+                    $OBJ = OficiosA::find($request->CHID);
                     $OBJ->deleted = 1;
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->save();
@@ -58,25 +60,23 @@ class Unidad_Admin_AuditoraController extends Controller
                 } else if ($type == 4) {
 
                     $query = "
-                    SELECT 
-                    id, 
-                    deleted, 
-                    UltimaActualizacion, 
+                    SELECT               
+                    id,
+                    deleted,
+                    UltimaActualizacion,
                     FechaCreacion,
-                    getUserName(ModificadoPor) ModificadoPor,
-                    getUserName(CreadoPor) CreadoPor,
-                    Descripcion
-                    FROM SICSA.Cat_Unidad_Admin_Auditora   
-                    where deleted =0 
-                    order by FechaCreacion desc
+                    getUserName(ModificadoPor) modi,
+                    getUserName(CreadoPor) creado,
+                    Oficio,
+                    FechaRecibido,
+                    FechaVencimiento,
+                    idAuditoria
+                    FROM SICSA.OficiosA   
+                    where deleted =0
                     ";
+                    $query =  $query . " and    idAuditoria='" . $request->P_IDAUDITORIA. "'";
                     $response = DB::select($query);
 
-
-                    // $response = DB::table('Cat_Unidad_Admin_Auditora')
-                    // ->where('deleted','=', 0)
-                    // ->orderBy('FechaCreacion', 'desc')
-                    // ->get();
                 }
             } catch (\Exception $e) {
                 $SUCCESS = false;
@@ -96,4 +96,5 @@ class Unidad_Admin_AuditoraController extends Controller
                  ] );
     
      }
+
 }

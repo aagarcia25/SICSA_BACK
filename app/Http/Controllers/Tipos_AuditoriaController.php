@@ -31,7 +31,7 @@ class Tipos_AuditoriaController extends Controller
 
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->CreadoPor = $request->CHUSER;
-                    $OBJ->anio = $request->NOMBRE;
+                    $OBJ->Descripcion = $request->DESCRIPCION;
                     $OBJ->save();
                     $response = $OBJ;
     
@@ -40,7 +40,7 @@ class Tipos_AuditoriaController extends Controller
     
                     $OBJ = CatTiposAuditorium::find($request->CHID);
                     $OBJ->ModificadoPor = $request->CHUSER;
-                    $OBJ->Nombre = $request->NOMBRE;
+                    //$OBJ->Nombre = $request->NOMBRE;
                     $OBJ->Descripcion = $request->DESCRIPCION;
                     $OBJ->save();
                     $response = $OBJ;
@@ -55,10 +55,27 @@ class Tipos_AuditoriaController extends Controller
     
     
                 } else if ($type == 4) {
-                    $response = DB::table('Cat_Tipos_Auditoria')
-                    ->where('deleted','=', 0)
-                    ->orderBy('FechaCreacion', 'desc')
-                    ->get();
+
+                    $query = "
+                    SELECT 
+                    id, 
+                    deleted, 
+                    UltimaActualizacion, 
+                    FechaCreacion,
+                    getUserName(ModificadoPor) ModificadoPor,
+                    getUserName(CreadoPor) CreadoPor,
+                    Descripcion
+                    FROM SICSA.Cat_Tipos_Auditoria   
+                    where deleted =0 
+                    order by FechaCreacion desc
+                    ";
+                    $response = DB::select($query);
+
+
+                    // $response = DB::table('Cat_Tipos_Auditoria')
+                    // ->where('deleted','=', 0)
+                    // ->orderBy('FechaCreacion', 'desc')
+                    // ->get();
                 }
             } catch (\Exception $e) {
                 $SUCCESS = false;

@@ -70,10 +70,7 @@ class AuditoriaController extends Controller
                     PersonalEncargado,
                     NAUDITORIA,
                     NombreAudoria,
-                    ActaInicio,
-                    OFinicio,
-                    Fecha_Recibido,
-                    Fecha_Vencimiento
+                    ActaInicio
                     FROM SICSA.Auditoria   
                     where deleted =0 
                     ";

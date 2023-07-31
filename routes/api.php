@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccionesController;
 use App\Http\Controllers\AniosController;
 use App\Http\Controllers\AuditoriaController;
 use App\Http\Controllers\ContestacionController;
@@ -9,7 +10,9 @@ use App\Http\Controllers\FilesController;
 use App\Http\Controllers\Grupo_FuncionalController;
 use App\Http\Controllers\InformesController;
 use App\Http\Controllers\NotificacionController;
+use App\Http\Controllers\OficiosAController;
 use App\Http\Controllers\Origen_AuditoriaController;
+use App\Http\Controllers\RamoController;
 use App\Http\Controllers\SectorController;
 use App\Http\Controllers\SelectController;
 use App\Http\Controllers\Tipos_AuditoriaController;
@@ -35,6 +38,8 @@ Route::group([
 
 
         Route::post('aniosindex',                  [AniosController::class, 'aniosindex']);
+        Route::post('Ramo_index',                  [RamoController::class, 'Ramo_index']);
+        Route::post('Acciones_index',              [AccionesController::class, 'Acciones_index']);
         Route::post('Auditoriaindex',              [AuditoriaController::class, 'Auditoriaindex']);
         Route::post('Notificacionindex',           [NotificacionController::class, 'Notificacionindex']);
         Route::post('Contestacionindex',           [ContestacionController::class, 'Contestacionindex']);
@@ -49,7 +54,7 @@ Route::group([
         Route::post('Tipos_Auditoria_index',       [Tipos_AuditoriaController::class, 'Tipos_Auditoria_index']);
         Route::post('Unidad_Admin_Auditora_index', [Unidad_Admin_AuditoraController::class, 'Unidad_Admin_Auditora_index']);
         Route::post('SelectIndex',                 [SelectController::class, 'SelectIndex']);
-
+        Route::post('OficiosA_index',              [OficiosAController::class, 'OficiosA_index']);
         
 
 });
