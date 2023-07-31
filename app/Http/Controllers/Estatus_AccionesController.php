@@ -55,10 +55,26 @@ class Estatus_AccionesController extends Controller
     
     
                 } else if ($type == 4) {
-                    $response = DB::table('Cat_Estatus_Acciones')
-                    ->where('deleted','=', 0)
-                    ->orderBy('FechaCreacion', 'desc')
-                    ->get();
+
+                    $query = "
+                    SELECT 
+                    id, 
+                    deleted, 
+                    UltimaActualizacion, 
+                    FechaCreacion,
+                    getUserName(ModificadoPor) ModificadoPor,
+                    getUserName(CreadoPor) CreadoPor,
+                    Descripcion
+                    FROM SICSA.Cat_Estatus_Acciones   
+                    where deleted =0 
+                    order by FechaCreacion desc
+                    ";
+                    $response = DB::select($query);
+
+                    // $response = DB::table('Cat_Estatus_Acciones')
+                    // ->where('deleted','=', 0)
+                    // ->orderBy('FechaCreacion', 'desc')
+                    // ->get();
                 }
             } catch (\Exception $e) {
                 $SUCCESS = false;

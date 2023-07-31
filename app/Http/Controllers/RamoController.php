@@ -67,6 +67,7 @@ class RamoController extends Controller
                     Descripcion
                     FROM SICSA.Cat_Ramo   
                     where deleted =0 
+                    order by FechaCreacion desc
                     ";
                     $response = DB::select($query);
 

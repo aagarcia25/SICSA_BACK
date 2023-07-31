@@ -43,6 +43,7 @@ class AniosController extends Controller
                     $OBJ = CatAnio::find($request->CHID);
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->anio = $request->ANIO;
+                
                     $OBJ->save();
                     $response = $OBJ;
     
@@ -53,20 +54,30 @@ class AniosController extends Controller
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->save();
                     $response = $OBJ;
+    
+    
                 } else if ($type == 4) {
+
+                    
                     $query = "
-                    SELECT               
-                    id,
-                    deleted,
-                    UltimaActualizacion,
+                    SELECT 
+                    id, 
+                    deleted, 
+                    UltimaActualizacion, 
                     FechaCreacion,
-                    getUserName(ModificadoPor) modi,
-                    getUserName(CreadoPor) creado,
+                    getUserName(ModificadoPor) ModificadoPor,
+                    getUserName(CreadoPor) CreadoPor,
                     anio
                     FROM SICSA.Cat_Anios   
                     where deleted =0 
+                    order by FechaCreacion desc
                     ";
                     $response = DB::select($query);
+
+                    // $response = DB::table('Cat_Anios')
+                    // ->where('deleted','=', 0)
+                    // ->orderBy('anio', 'desc')
+                    // ->get();
                 }
             } catch (\Exception $e) {
                 $SUCCESS = false;

@@ -55,10 +55,27 @@ class Grupo_FuncionalController extends Controller
     
     
                 } else if ($type == 4) {
-                    $response = DB::table('Cat_Grupo_Funcional')
-                    ->where('deleted','=', 0)
-                    ->orderBy('FechaCreacion', 'desc')
-                    ->get();
+
+                    $query = "
+                    SELECT               
+                    id,
+                    deleted,
+                    UltimaActualizacion,
+                    FechaCreacion,
+                    getUserName(ModificadoPor) CreadoPor,
+                    getUserName(CreadoPor) ModificadoPor,
+                    Descripcion
+                    FROM SICSA.Cat_Grupo_Funcional   
+                    where deleted =0 
+                    order by FechaCreacion desc
+                    ";
+                    $response = DB::select($query);
+
+
+                    // $response = DB::table('Cat_Grupo_Funcional')
+                    // ->where('deleted','=', 0)
+                    // ->orderBy('FechaCreacion', 'desc')
+                    // ->get();
                 }
             } catch (\Exception $e) {
                 $SUCCESS = false;
