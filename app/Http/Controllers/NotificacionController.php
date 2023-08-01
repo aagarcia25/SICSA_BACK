@@ -28,10 +28,13 @@ class NotificacionController extends Controller
     
                 if ($type == 1) {
                     $OBJ = new CNotificacionArea();
-
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->CreadoPor = $request->CHUSER;
-                    $OBJ->anio = $request->NOMBRE;
+                    $OBJ->idAuditoria= $request->idAuditoria;
+                    $OBJ->Dependencia= $request->Dependencia;
+                    $OBJ->Prorroga= $request->Prorroga;
+                    $OBJ->Oficio= $request->Oficio;
+                    $OBJ->SIGAOficio= $request->SIGAOficio;      
                     $OBJ->save();
                     $response = $OBJ;
     
@@ -40,8 +43,10 @@ class NotificacionController extends Controller
     
                     $OBJ = CNotificacionArea::find($request->CHID);
                     $OBJ->ModificadoPor = $request->CHUSER;
-                    $OBJ->Nombre = $request->NOMBRE;
-                    $OBJ->Descripcion = $request->DESCRIPCION;
+                    $OBJ->Dependencia= $request->Dependencia;
+                    $OBJ->Prorroga= $request->Prorroga;
+                    $OBJ->Oficio= $request->Oficio;
+                    $OBJ->SIGAOficio= $request->SIGAOficio;      
                     $OBJ->save();
                     $response = $OBJ;
     
