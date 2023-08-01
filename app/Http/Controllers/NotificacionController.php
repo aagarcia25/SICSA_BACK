@@ -34,7 +34,8 @@ class NotificacionController extends Controller
                     $OBJ->Dependencia= $request->Dependencia;
                     $OBJ->Prorroga= $request->Prorroga;
                     $OBJ->Oficio= $request->Oficio;
-                    $OBJ->SIGAOficio= $request->SIGAOficio;      
+                    $OBJ->SIGAOficio= $request->SIGAOficio;     
+                    $OBJ->FOficio= $request->FOficio; 
                     $OBJ->save();
                     $response = $OBJ;
     
@@ -46,7 +47,8 @@ class NotificacionController extends Controller
                     $OBJ->Dependencia= $request->Dependencia;
                     $OBJ->Prorroga= $request->Prorroga;
                     $OBJ->Oficio= $request->Oficio;
-                    $OBJ->SIGAOficio= $request->SIGAOficio;      
+                    $OBJ->SIGAOficio= $request->SIGAOficio;     
+                    $OBJ->FOficio= $request->FOficio;  
                     $OBJ->save();
                     $response = $OBJ;
     
@@ -71,7 +73,8 @@ class NotificacionController extends Controller
                     Dependencia,
                     Prorroga,
                     Oficio,
-                    SIGAOficio
+                    SIGAOficio,
+                    FOficio
                     FROM SICSA.C_Notificacion_area
                     where deleted =0
                     ";

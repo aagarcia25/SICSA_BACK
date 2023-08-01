@@ -54,7 +54,8 @@ class CNotificacionArea extends Model
 		'Dependencia',
 		'Prorroga',
 		'Oficio',
-		'SIGAOficio'
+		'SIGAOficio',
+		'FOficio'
 	];
 
 	public function auditorium()
