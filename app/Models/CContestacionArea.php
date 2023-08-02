@@ -52,7 +52,8 @@ class CContestacionArea extends Model
 		'Prorroga',
 		'idNotificacion',
 		'Oficio',
-		'SIGAOficio'
+		'SIGAOficio',
+		'FOficio'
 	];
 
 	public function c_notificacion_area()
