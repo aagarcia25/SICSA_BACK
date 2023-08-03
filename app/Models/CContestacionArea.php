@@ -39,7 +39,8 @@ class CContestacionArea extends Model
 		
 		'UltimaActualizacion' => 'datetime',
 		'FechaCreacion' => 'datetime',
-		'Prorroga' => 'datetime'
+		'Prorroga' => 'datetime',
+		'FOficio' => 'datetime'
 	];
 
 	protected $fillable = [
@@ -48,7 +49,7 @@ class CContestacionArea extends Model
 		'FechaCreacion',
 		'ModificadoPor',
 		'CreadoPor',
-		'Dependencia',
+		'Dependencia', 
 		'Prorroga',
 		'idNotificacion',
 		'Oficio',
