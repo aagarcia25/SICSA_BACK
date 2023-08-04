@@ -74,6 +74,7 @@ class AccionesController extends Controller
 
                     $query = "
                     SELECT
+                      accion.id,
                       accion.deleted,
                       accion.UltimaActualizacion,
                       accion.FechaCreacion,

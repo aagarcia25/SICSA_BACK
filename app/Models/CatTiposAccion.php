@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
 class CatTiposAccion extends Model
 {
 	protected $table = 'Cat_Tipos_Accion';
+	protected $primaryKey = 'id';
 	protected $keyType ='string';
 	public $incrementing = false;
 	public $timestamps = false;
