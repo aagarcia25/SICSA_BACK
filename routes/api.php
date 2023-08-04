@@ -9,6 +9,7 @@ use App\Http\Controllers\Estatus_AccionesController;
 use App\Http\Controllers\FilesController;
 use App\Http\Controllers\Grupo_FuncionalController;
 use App\Http\Controllers\InformesController;
+use App\Http\Controllers\MigraDataController;
 use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\OficiosAController;
 use App\Http\Controllers\Origen_AuditoriaController;
@@ -36,7 +37,8 @@ Route::group([
     'prefix' => 'Api_SICSA'
 ], function () {
 
-
+    
+        Route::post('migraData',                   [MigraDataController::class, 'migraData']);
         Route::post('aniosindex',                  [AniosController::class, 'aniosindex']);
         Route::post('Ramo_index',                  [RamoController::class, 'Ramo_index']);
         Route::post('Acciones_index',              [AccionesController::class, 'Acciones_index']);
