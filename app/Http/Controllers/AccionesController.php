@@ -96,6 +96,8 @@ class AccionesController extends Controller
                       LEFT JOIN SICSA.Cat_Estatus_Acciones cea ON accion.idEstatusAccion = cea.id  
                     where accion.deleted =0 
                     ";
+
+                    $query =  $query . " and accion.idAuditoria='" . $request->P_IDAUDITORIA  . "'";
                     $response = DB::select($query);
 
                 }
