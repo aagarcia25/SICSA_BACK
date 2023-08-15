@@ -37,7 +37,6 @@ class AccionesController extends Controller
                     $OBJ->idEstatusAccion= $request->idEstatusAccion;
                     $OBJ->ClaveAccion= $request->ClaveAccion;
                     $OBJ->TextoAccion= $request->TextoAccion;
-                    // $OBJ->NAUDITORIA= $request->NAUDITORIA;
                     $OBJ->Valor= $request->Valor;
                 
                     $OBJ->save();
