@@ -28,17 +28,18 @@ class AccionesController extends Controller
     
                 if ($type == 1) {
                     $OBJ = new Accione();
-                    $OBJ->FechaCreacion= $request->CHUSER;
+                 
                     $OBJ->ModificadoPor= $request->CHUSER;
                     $OBJ->CreadoPor= $request->CHUSER;
-                    $OBJ->anio= $request->CHUSER;
-                    $OBJ->idTipoAccion= $request->CHUSER;
-                    $OBJ->idAuditoria= $request->CHUSER;
-                    $OBJ->idEstatusAccion= $request->CHUSER;
-                    $OBJ->ClaveAccion= $request->CHUSER;
-                    $OBJ->TextoAccion= $request->CHUSER;
-                    $OBJ->Valor= $request->CHUSER;
-                    $OBJ->UltimaActualizacion= $request->CHUSER;
+                    $OBJ->anio= $request->anio;
+                    $OBJ->idTipoAccion= $request->idTipoAccion;
+                    $OBJ->idAuditoria= $request->idAuditoria;
+                    $OBJ->idEstatusAccion= $request->idEstatusAccion;
+                    $OBJ->ClaveAccion= $request->ClaveAccion;
+                    $OBJ->TextoAccion= $request->TextoAccion;
+                    // $OBJ->NAUDITORIA= $request->NAUDITORIA;
+                    $OBJ->Valor= $request->Valor;
+                
                     $OBJ->save();
                     $response = $OBJ;
     
@@ -46,17 +47,15 @@ class AccionesController extends Controller
                 } else if ($type == 2) {
     
                     $OBJ = Accione::find($request->CHID);
-                    $OBJ->FechaCreacion= $request->CHUSER;
                     $OBJ->ModificadoPor= $request->CHUSER;
                     $OBJ->CreadoPor= $request->CHUSER;
-                    $OBJ->anio= $request->CHUSER;
-                    $OBJ->idTipoAccion= $request->CHUSER;
-                    $OBJ->idAuditoria= $request->CHUSER;
-                    $OBJ->idEstatusAccion= $request->CHUSER;
-                    $OBJ->ClaveAccion= $request->CHUSER;
-                    $OBJ->TextoAccion= $request->CHUSER;
-                    $OBJ->Valor= $request->CHUSER;
-                    $OBJ->UltimaActualizacion= $request->CHUSER;
+                    $OBJ->anio= $request->anio;
+                    $OBJ->idTipoAccion= $request->idTipoAccion;
+                    $OBJ->idAuditoria= $request->idAuditoria;
+                    $OBJ->idEstatusAccion= $request->idEstatusAccion;
+                    $OBJ->ClaveAccion= $request->ClaveAccion;
+                    $OBJ->TextoAccion= $request->TextoAccion;
+                    $OBJ->Valor= $request->Valor;
                     $OBJ->save();
                     $response = $OBJ;
     
@@ -97,6 +96,8 @@ class AccionesController extends Controller
                       LEFT JOIN SICSA.Cat_Estatus_Acciones cea ON accion.idEstatusAccion = cea.id  
                     where accion.deleted =0 
                       ";
+
+                    $query =  $query . " and accion.idAuditoria='" . $request->P_IDAUDITORIA  . "'";  
                     $response = DB::select($query);
 
                 }
