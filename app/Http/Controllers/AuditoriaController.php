@@ -73,6 +73,7 @@ class AuditoriaController extends Controller
                     ActaInicio
                     FROM SICSA.Auditoria   
                     where deleted =0 
+                    order by Consecutivo asc
                     ";
                     $response = DB::select($query);
 
