@@ -74,6 +74,7 @@ class AccionesController extends Controller
 
                     $query = "
                     SELECT
+                      accion.id,
                       accion.deleted,
                       accion.UltimaActualizacion,
                       accion.FechaCreacion,
@@ -85,16 +86,22 @@ class AccionesController extends Controller
                       accion.idEstatusAccion,
                       accion.ClaveAccion,
                       accion.TextoAccion,
-                      accion.Valor,
+                      accion.Valor ,
                       aud.NAUDITORIA,
-                      cta.Descripcion,
-                      cea.Descripcion
+                      cta.Descripcion AS DescripcionTipoDeAccion,
+                      cea.Descripcion AS DescripcionEstatusAccion
+
                       FROM SICSA.Acciones accion
                       LEFT JOIN SICSA.Auditoria aud ON accion.idAuditoria = aud.id
                       LEFT JOIN SICSA.Cat_Tipos_Accion cta ON accion.idTipoAccion = cta.id
                       LEFT JOIN SICSA.Cat_Estatus_Acciones cea ON accion.idEstatusAccion = cea.id  
                     where accion.deleted =0 
-                    ";
+
+                      ";
+
+
+                    $query =  $query . " and accion.idAuditoria='" . $request->P_IDAUDITORIA  . "'";
+
                     $response = DB::select($query);
 
                 }
