@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Auditorium
- * 
+ *
  * @property string $id
  * @property string $deleted
  * @property Carbon $UltimaActualizacion
@@ -33,7 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $idTipoAuditoria
  * @property string|null $idCatSector
  * @property string|null $idCatEntidadFiscalizada
- * 
+ *
  * @property CatInforme|null $cat_informe
  * @property CatTiposAuditorium|null $cat_tipos_auditorium
  * @property CatSector|null $cat_sector
@@ -44,64 +44,64 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Auditorium extends Model
 {
-	protected $table = 'Auditoria';
-	public $incrementing = false;
-	public $timestamps = false;
-	protected $primaryKey = 'id';
-	protected $keyType ='string';
-	protected $casts = [
-		'UltimaActualizacion' => 'datetime',
-		'FechaCreacion' => 'datetime',
-		'Consecutivo' => 'int',
-		'NAUDITORIA' => 'int',
-		'Fecha_Recibido' => 'datetime',
-		'Fecha_Vencimiento' => 'datetime'
-	];
+    protected $_table = 'auditoria';
+    public $incrementing = false;
+    public $timestamps = false;
+    protected $_primaryKey = 'id';
+    protected $_keyType = 'string';
+    protected $_casts = [
+        'UltimaActualizacion' => 'datetime',
+        'FechaCreacion' => 'datetime',
+        'Consecutivo' => 'int',
+        'NAUDITORIA' => 'int',
+        'Fecha_Recibido' => 'datetime',
+        'Fecha_Vencimiento' => 'datetime',
+    ];
 
-	protected $fillable = [
-		'deleted',
-		'UltimaActualizacion',
-		'FechaCreacion',
-		'ModificadoPor',
-		'CreadoPor',
-		'Consecutivo',
-		'FolioSIGA',
-		'Encargado',
-		'PersonalEncargado',
-		'NAUDITORIA',
-		'NombreAudoria',
-		'ActaInicio',
-		'OFinicio',
-		'Fecha_Recibido',
-		'Fecha_Vencimiento',
-		'idCatInforme',
-		'idTipoAuditoria',
-		'idCatSector',
-		'idCatEntidadFiscalizada'
-	];
+    protected $_fillable = [
+        'id',
+        'deleted',
+        'UltimaActualizacion',
+        'FechaCreacion',
+        'ModificadoPor',
+        'CreadoPor',
+        'Tipo',
+        'Consecutivo',
+        'FolioSIGA',
+        'Encargado',
+        'PersonalEncargado',
+        'NAUDITORIA',
+        'NombreAudoria',
+        'ActaInicio',
+        'idCatInforme',
+        'idTipoAuditoria',
+        'idCatSector',
+        'idCatEntidadFiscalizada',
+        'idCatGrupoFuncional',
+    ];
 
-	public function cat_informe()
-	{
-		return $this->belongsTo(CatInforme::class, 'idCatInforme');
-	}
+    public function cat_informe()
+    {
+        return $this->belongsTo(CatInforme::class, 'idCatInforme');
+    }
 
-	public function cat_tipos_auditorium()
-	{
-		return $this->belongsTo(CatTiposAuditorium::class, 'idTipoAuditoria');
-	}
+    public function cat_tipos_auditorium()
+    {
+        return $this->belongsTo(CatTiposAuditorium::class, 'idTipoAuditoria');
+    }
 
-	public function cat_sector()
-	{
-		return $this->belongsTo(CatSector::class, 'idCatSector');
-	}
+    public function cat_sector()
+    {
+        return $this->belongsTo(CatSector::class, 'idCatSector');
+    }
 
-	public function cat_entidad_fiscalizada()
-	{
-		return $this->belongsTo(CatEntidadFiscalizada::class, 'idCatEntidadFiscalizada');
-	}
+    public function cat_entidad_fiscalizada()
+    {
+        return $this->belongsTo(CatEntidadFiscalizada::class, 'idCatEntidadFiscalizada');
+    }
 
-	public function c_notificacion_areas()
-	{
-		return $this->hasMany(CNotificacionArea::class, 'idAuditoria');
-	}
+    public function c_notificacion_areas()
+    {
+        return $this->hasMany(CNotificacionArea::class, 'idAuditoria');
+    }
 }
