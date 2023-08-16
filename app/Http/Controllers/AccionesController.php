@@ -28,34 +28,32 @@ class AccionesController extends Controller
 
             if ($type == 1) {
                 $OBJ = new Accione();
-                $OBJ->FechaCreacion = $request->CHUSER;
-                $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
-                $OBJ->anio = $request->CHUSER;
-                $OBJ->idTipoAccion = $request->CHUSER;
-                $OBJ->idAuditoria = $request->CHUSER;
-                $OBJ->idEstatusAccion = $request->CHUSER;
-                $OBJ->ClaveAccion = $request->CHUSER;
-                $OBJ->TextoAccion = $request->CHUSER;
-                $OBJ->Valor = $request->CHUSER;
-                $OBJ->UltimaActualizacion = $request->CHUSER;
+                $OBJ->ModificadoPor = $request->CHUSER;
+                $OBJ->anio = $request->anio;
+                $OBJ->idTipoAccion = $request->idTipoAccion;
+                $OBJ->idAuditoria = $request->idAuditoria;
+                $OBJ->idEstatusAccion = $request->idEstatusAccion;
+                $OBJ->ClaveAccion = $request->ClaveAccion;
+                $OBJ->TextoAccion = $request->TextoAccion;
+                $OBJ->Valor = $request->Valor;
+                $OBJ->accionSuperviviente = $request->accionSuperviviente;
                 $OBJ->save();
                 $response = $OBJ;
 
             } elseif ($type == 2) {
 
                 $OBJ = Accione::find($request->CHID);
-                $OBJ->FechaCreacion = $request->CHUSER;
                 $OBJ->ModificadoPor = $request->CHUSER;
-                $OBJ->CreadoPor = $request->CHUSER;
-                $OBJ->anio = $request->CHUSER;
-                $OBJ->idTipoAccion = $request->CHUSER;
-                $OBJ->idAuditoria = $request->CHUSER;
-                $OBJ->idEstatusAccion = $request->CHUSER;
-                $OBJ->ClaveAccion = $request->CHUSER;
-                $OBJ->TextoAccion = $request->CHUSER;
-                $OBJ->Valor = $request->CHUSER;
-                $OBJ->UltimaActualizacion = $request->CHUSER;
+                $OBJ->anio = $request->anio;
+                $OBJ->idTipoAccion = $request->idTipoAccion;
+                $OBJ->idAuditoria = $request->idAuditoria;
+                $OBJ->idEstatusAccion = $request->idEstatusAccion;
+                $OBJ->ClaveAccion = $request->ClaveAccion;
+                $OBJ->TextoAccion = $request->TextoAccion;
+                $OBJ->Valor = $request->Valor;
+                $OBJ->accionSuperviviente = $request->accionSuperviviente;
+
                 $OBJ->save();
                 $response = $OBJ;
 
@@ -85,9 +83,9 @@ class AccionesController extends Controller
                       accion.Valor ,
                       aud.NAUDITORIA,
                       cta.Descripcion AS DescripcionTipoDeAccion,
-                      cea.Descripcion AS DescripcionEstatusAccion
-
-                      FROM SICSA.Acciones accion
+                      cea.Descripcion AS DescripcionEstatusAccion,
+                      accion.accionSuperviviente
+                      FROM SICSA.acciones accion
                       LEFT JOIN SICSA.auditoria aud ON accion.idAuditoria = aud.id
                       LEFT JOIN SICSA.Cat_Tipos_Accion cta ON accion.idTipoAccion = cta.id
                       LEFT JOIN SICSA.Cat_Estatus_Acciones cea ON accion.idEstatusAccion = cea.id
