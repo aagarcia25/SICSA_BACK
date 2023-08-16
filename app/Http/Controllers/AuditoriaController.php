@@ -32,6 +32,7 @@ class AuditoriaController extends Controller
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
                 $OBJ->Tipo = $request->CHUSER;
+                $OBJ->Anio = $request->Anio;
                 $OBJ->FolioSIGA = $request->FolioSIGA;
                 $OBJ->Encargado = $request->Encargado;
                 $OBJ->PersonalEncargado = $request->PersonalEncargado;
@@ -55,6 +56,7 @@ class AuditoriaController extends Controller
                 $OBJ = Auditorium::find($request->CHID);
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->Tipo = $request->CHUSER;
+                $OBJ->Anio = $request->Anio;
                 $OBJ->FolioSIGA = $request->FolioSIGA;
                 $OBJ->Encargado = $request->Encargado;
                 $OBJ->PersonalEncargado = $request->PersonalEncargado;
