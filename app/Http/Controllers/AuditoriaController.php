@@ -32,12 +32,12 @@ class AuditoriaController extends Controller
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
                 $OBJ->Tipo = $request->CHUSER;
-                $OBJ->Anio = $request->Anio;
                 $OBJ->FolioSIGA = $request->FolioSIGA;
                 $OBJ->Encargado = $request->Encargado;
                 $OBJ->PersonalEncargado = $request->PersonalEncargado;
                 $OBJ->NAUDITORIA = $request->NAUDITORIA;
-                $OBJ->Anio = $request->Anio;
+                $OBJ->anio = $request->anio;
+                $OBJ->Modalidad = $request->Modalidad;
                 $OBJ->NombreAudoria = $request->NombreAudoria;
                 $OBJ->ActaInicio = $request->ActaInicio;
                 $OBJ->idCatInforme = $request->idCatInforme;
@@ -56,12 +56,11 @@ class AuditoriaController extends Controller
                 $OBJ = Auditorium::find($request->CHID);
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->Tipo = $request->CHUSER;
-                $OBJ->Anio = $request->Anio;
                 $OBJ->FolioSIGA = $request->FolioSIGA;
                 $OBJ->Encargado = $request->Encargado;
                 $OBJ->PersonalEncargado = $request->PersonalEncargado;
                 $OBJ->NAUDITORIA = $request->NAUDITORIA;
-                $OBJ->Anio = $request->Anio;
+                $OBJ->anio = $request->anio;
                 $OBJ->NombreAudoria = $request->NombreAudoria;
                 $OBJ->ActaInicio = $request->ActaInicio;
                 $OBJ->idCatInforme = $request->idCatInforme;
@@ -98,6 +97,7 @@ class AuditoriaController extends Controller
                     aud.NAUDITORIA,
                     aud.NombreAudoria,
                     aud.ActaInicio,
+                    anio,
                     ci.id ciid,
                     ci.Descripcion ciDescripcion,
                     cta.id ctaid,
