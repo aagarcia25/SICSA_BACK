@@ -30,7 +30,6 @@ class AccionesController extends Controller
                 $OBJ = new Accione();
                 $OBJ->CreadoPor = $request->CHUSER;
                 $OBJ->ModificadoPor = $request->CHUSER;
-                $OBJ->anio = $request->anio;
                 $OBJ->idTipoAccion = $request->idTipoAccion;
                 $OBJ->idAuditoria = $request->idAuditoria;
                 $OBJ->idEstatusAccion = $request->idEstatusAccion;
@@ -45,7 +44,6 @@ class AccionesController extends Controller
 
                 $OBJ = Accione::find($request->CHID);
                 $OBJ->ModificadoPor = $request->CHUSER;
-                $OBJ->anio = $request->anio;
                 $OBJ->idTipoAccion = $request->idTipoAccion;
                 $OBJ->idAuditoria = $request->idAuditoria;
                 $OBJ->idEstatusAccion = $request->idEstatusAccion;
@@ -74,7 +72,6 @@ class AccionesController extends Controller
                       accion.FechaCreacion,
                       getUserName(accion.ModificadoPor) modi,
                       getUserName(accion.CreadoPor) creado,
-                      accion.anio,
                       accion.idTipoAccion,
                       accion.idAuditoria,
                       accion.idEstatusAccion,
