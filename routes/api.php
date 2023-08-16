@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccionesController;
 use App\Http\Controllers\AniosController;
+use App\Http\Controllers\Area_AuditoraController;
 use App\Http\Controllers\AuditoriaController;
 use App\Http\Controllers\ContestacionController;
 use App\Http\Controllers\Entidad_FiscalizadaController;
@@ -56,5 +57,6 @@ Route::group([
     Route::post('Unidad_Admin_Auditora_index', [Unidad_Admin_AuditoraController::class, 'Unidad_Admin_Auditora_index']);
     Route::post('SelectIndex', [SelectController::class, 'SelectIndex']);
     Route::post('OficiosA_index', [OficiosAController::class, 'OficiosA_index']);
+    Route::post('areaindex', [Area_AuditoraController::class, 'areaindex']);
 
 });
