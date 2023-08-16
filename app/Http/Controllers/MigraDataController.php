@@ -4,12 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Imports\AccioneImport;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Excel as ExcelExcel;
-use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MigraDataController extends Controller
 {
+
+    public function ValidaServicio(Request $request)
+    {
+
+        $SUCCESS = true;
+        $NUMCODE = 0;
+        $STRMESSAGE = 'Exito';
+        $response = "Servicio Activo";
+
+        return response()->json(
+            [
+                'NUMCODE' => $NUMCODE,
+                'STRMESSAGE' => $STRMESSAGE,
+                'RESPONSE' => $response,
+                'SUCCESS' => $SUCCESS,
+
+            ]
+        );
+
+    }
+
     public function migraData(Request $request)
     {
         $SUCCESS = true;
@@ -25,7 +45,6 @@ class MigraDataController extends Controller
                     Excel::import(new AccioneImport($request->CHUSER), request()->file('inputfile'), ExcelExcel::XLS);
                     break;
 
-
                 default:
                     $response = "No se Encuentra configurado para la migración";
             }
@@ -35,14 +54,12 @@ class MigraDataController extends Controller
             $SUCCESS = false;
         }
 
-
-
         return response()->json(
             [
                 'NUMCODE' => $NUMCODE,
                 'STRMESSAGE' => $STRMESSAGE,
                 'RESPONSE' => $response,
-                'SUCCESS' => $SUCCESS
+                'SUCCESS' => $SUCCESS,
 
             ]
         );
