@@ -53,7 +53,6 @@ class Accione extends Model
         'FechaCreacion',
         'ModificadoPor',
         'CreadoPor',
-        'anio',
         'idTipoAccion',
         'idAuditoria',
         'idEstatusAccion',
