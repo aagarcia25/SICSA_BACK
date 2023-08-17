@@ -36,6 +36,8 @@ class AuditoriaController extends Controller
                 $OBJ->Encargado = $request->Encargado;
                 $OBJ->PersonalEncargado = $request->PersonalEncargado;
                 $OBJ->NAUDITORIA = $request->NAUDITORIA;
+                $OBJ->anio = $request->anio;
+                $OBJ->Modalidad = $request->Modalidad;
                 $OBJ->NombreAudoria = $request->NombreAudoria;
                 $OBJ->ActaInicio = $request->ActaInicio;
                 $OBJ->idCatInforme = $request->idCatInforme;
@@ -43,9 +45,12 @@ class AuditoriaController extends Controller
                 $OBJ->idCatSector = $request->idCatSector;
                 $OBJ->idCatEntidadFiscalizada = $request->idCatEntidadFiscalizada;
                 $OBJ->idCatGrupoFuncional = $request->idCatGrupoFuncional;
+                $OBJ->universopesos = $request->universopesos;
+                $OBJ->muestrapesos = $request->muestrapesos;
+                
                 $OBJ->save();
                 $response = $OBJ;
-
+                
             } elseif ($type == 2) {
 
                 $OBJ = Auditorium::find($request->CHID);
@@ -55,6 +60,7 @@ class AuditoriaController extends Controller
                 $OBJ->Encargado = $request->Encargado;
                 $OBJ->PersonalEncargado = $request->PersonalEncargado;
                 $OBJ->NAUDITORIA = $request->NAUDITORIA;
+                $OBJ->anio = $request->anio;
                 $OBJ->NombreAudoria = $request->NombreAudoria;
                 $OBJ->ActaInicio = $request->ActaInicio;
                 $OBJ->idCatInforme = $request->idCatInforme;
@@ -62,6 +68,8 @@ class AuditoriaController extends Controller
                 $OBJ->idCatSector = $request->idCatSector;
                 $OBJ->idCatEntidadFiscalizada = $request->idCatEntidadFiscalizada;
                 $OBJ->idCatGrupoFuncional = $request->idCatGrupoFuncional;
+                $OBJ->universopesos = $request->universopesos;
+                $OBJ->muestrapesos = $request->muestrapesos;
                 $OBJ->save();
                 $response = $OBJ;
 
@@ -89,6 +97,7 @@ class AuditoriaController extends Controller
                     aud.NAUDITORIA,
                     aud.NombreAudoria,
                     aud.ActaInicio,
+                    anio,
                     ci.id ciid,
                     ci.Descripcion ciDescripcion,
                     cta.id ctaid,
