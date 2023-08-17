@@ -20,7 +20,7 @@ class SelectController extends Controller
             $query = "";
 
             if ($type == 1) {
-                $query = "SELECT anio value , anio label FROM SICSA.Cat_Anios";
+                $query = "SELECT CONVERT(anio, CHAR) value , anio label FROM SICSA.Cat_Anios";
             } else if ($type == 2) {
                 $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Entidad_Fiscalizada WHERE DELETED=0";
             } else if ($type == 3) {
