@@ -108,8 +108,13 @@ class FilesController extends Controller
                     getUserName(CreadoPor) creado,
                     idowner,
                     Route,
-                    Nombre
-                    FROM Files
+                    Nombre,
+                    CASE
+                    WHEN estatus =0 then 'Pendiente de Verificación'
+                    when estatus =1 then 'Verificado'
+						  ELSE 'Buscando Estatus....'
+						  END  estatus
+                    FROM files
                     where deleted =0
                     ";
                 $query = $query . " and    idowner='" . $request->P_IDAUDITORIA . "'";
@@ -118,6 +123,29 @@ class FilesController extends Controller
             } elseif ($type == 5) {
                 $data = $this->GetByRoute($request->TOKEN, $request->P_ROUTE, $request->P_NOMBRE);
                 $response = $data->RESPONSE;
+            } elseif ($type == 6) {
+                $OBJ = File::find($request->CHID);
+                $OBJ->ModificadoPor = $request->CHUSER;
+                $OBJ->Estatus = 1;
+                $OBJ->save();
+                $response = $OBJ;
+
+            } elseif ($type == 7) {
+                $query = "SELECT
+                         fl.id,
+                         fl.FechaCreacion,
+                         getUserName(fl.ModificadoPor) Nombre,
+                        CASE
+                          WHEN estatus =0 then 'Pendiente de Verificación'
+                          when estatus =1 then 'Verificado'
+						  ELSE 'Buscando Estatus....'
+						  END  estatus
+                        FROM SICSA.filesLog fl
+                        where 1=1
+                    ";
+                $query = $query . " and    fl.idfile='" . $request->P_IDFILE . "'";
+                $response = DB::select($query);
+
             }
         } catch (\Exception $e) {
             $SUCCESS = false;
