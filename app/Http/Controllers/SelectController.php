@@ -60,6 +60,16 @@ class SelectController extends Controller
                              UNION ALL
                              SELECT 'Por Medios Electrónicos'     value ,'Por Medios Electrónicos' label FROM DUAL";
 
+            } elseif ($type == 13) {
+                $query = "   SELECT
+                    caa.id value,
+                    CONCAT(caa.Clave,' ',caa.Descripcion) label
+                    FROM SICSA.cat_area_auditoras caa
+                    where caa.deleted =0
+                   ";
+                $query = $query . " and caa.idCatUnidadAdmin='" . $request->P_ID . "'";
+                $query = $query . "  order by caa.FechaCreacion desc";
+
             }
 
             $response = DB::select($query);
