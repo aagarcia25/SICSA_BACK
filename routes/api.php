@@ -14,6 +14,7 @@ use App\Http\Controllers\MigraDataController;
 use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\OficiosAController;
 use App\Http\Controllers\Origen_AuditoriaController;
+use App\Http\Controllers\PlandetrabajoController;
 use App\Http\Controllers\RamoController;
 use App\Http\Controllers\SectorController;
 use App\Http\Controllers\SelectController;
@@ -58,5 +59,6 @@ Route::group([
     Route::post('SelectIndex', [SelectController::class, 'SelectIndex']);
     Route::post('OficiosA_index', [OficiosAController::class, 'OficiosA_index']);
     Route::post('areaindex', [Area_AuditoraController::class, 'areaindex']);
+    Route::post('planindex', [PlandetrabajoController::class, 'planindex']);
 
 });
