@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CatRamo extends Model
 {
-    protected $_table = 'cat_ramo';
+    public $table = 'cat_ramo';
     public $incrementing = false;
     public $timestamps = false;
     protected $_keyType = 'string';

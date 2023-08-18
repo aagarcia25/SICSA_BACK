@@ -30,7 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PlandetrabajoAnual extends Model
 {
-    protected $_table = 'plandetrabajoAnual';
+    public $table = 'plandetrabajoAnual';
     public $incrementing = false;
     public $timestamps = false;
     protected $_keyType = 'string';

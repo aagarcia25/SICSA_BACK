@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CatRamo;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -28,7 +29,6 @@ class RamoController extends Controller
 
             if ($type == 1) {
                 $OBJ = new CatRamo();
-
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
                 $OBJ->Descripcion = $request->DESCRIPCION;
@@ -68,12 +68,15 @@ class RamoController extends Controller
                 $response = DB::select($query);
 
             }
+        } catch (QueryException $e) {
+            $SUCCESS = false;
+            $NUMCODE = 1;
+            $STRMESSAGE = $this->buscamsg($e->getCode(), $e->getMessage());
         } catch (\Exception $e) {
             $SUCCESS = false;
             $NUMCODE = 1;
             $STRMESSAGE = $e->getMessage();
         }
-
         return response()->json(
             [
                 'NUMCODE' => $NUMCODE,
