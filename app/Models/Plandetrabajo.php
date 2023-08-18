@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Plandetrabajo extends Model
 {
-    protected $_table = 'plandetrabajo';
+    public $table = 'plandetrabajo';
     public $incrementing = false;
     public $timestamps = false;
     protected $_keyType = 'string';
