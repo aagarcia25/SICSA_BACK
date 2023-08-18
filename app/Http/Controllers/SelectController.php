@@ -70,6 +70,10 @@ class SelectController extends Controller
                 $query = $query . " and caa.idCatUnidadAdmin='" . $request->P_ID . "'";
                 $query = $query . "  order by caa.FechaCreacion desc";
 
+            } elseif ($type == 14) {
+                $query = "SELECT id  value , Descripcion label FROM SICSA.cat_tipo WHERE DELETED=0";
+            } elseif ($type == 15) {
+                $query = "SELECT id  value , Descripcion label FROM SICSA.cat_ramo WHERE DELETED=0";
             }
 
             $response = DB::select($query);
