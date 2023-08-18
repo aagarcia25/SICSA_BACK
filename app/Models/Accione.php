@@ -34,7 +34,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Accione extends Model
 {
-    protected $_table = 'acciones';
+    public $table = 'acciones';
     public $incrementing = false;
     public $timestamps = false;
     protected $_keyType = 'string';

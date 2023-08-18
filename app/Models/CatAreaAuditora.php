@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CatAreaAuditora extends Model
 {
-    protected $_table = 'cat_area_auditoras';
+    public $table = 'cat_area_auditoras';
     public $incrementing = false;
     public $timestamps = false;
     protected $_primaryKey = 'id';

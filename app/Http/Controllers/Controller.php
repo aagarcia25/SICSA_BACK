@@ -10,15 +10,15 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    public function buscamsg(int $code, $mensaje)
+    public function buscamsg(string $code, $mensaje)
     {
         $valor = "";
         switch ($code) {
-            case 23000:
+            case "23000":
                 $valor = "Valor duplicado ya existe, por favor verifique";
                 break;
-            case 1:
-                $valor = "i es igual a 1";
+            case "42S02":
+                $valor = "Tabla no Existe, contacte a soporte código: 42S02";
                 break;
             default:
                 $valor = $mensaje;

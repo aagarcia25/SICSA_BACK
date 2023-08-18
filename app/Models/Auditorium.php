@@ -60,7 +60,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Auditorium extends Model
 {
-    protected $_table = 'auditoria';
+    public $table = 'auditoria';
     public $incrementing = false;
     public $timestamps = false;
     protected $_keyType = 'string';
