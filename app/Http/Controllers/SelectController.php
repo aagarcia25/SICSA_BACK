@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 
 class SelectController extends Controller
@@ -77,10 +78,14 @@ class SelectController extends Controller
             }
 
             $response = DB::select($query);
+        } catch (QueryException $e) {
+            $SUCCESS = false;
+            $NUMCODE = 1;
+            $STRMESSAGE = $this->buscamsg($e->getCode(), $e->getMessage());
         } catch (\Exception $e) {
+            $SUCCESS = false;
             $NUMCODE = 1;
             $STRMESSAGE = $e->getMessage();
-            $SUCCESS = false;
         }
 
         return response()->json(
