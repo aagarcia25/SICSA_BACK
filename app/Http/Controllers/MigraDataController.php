@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\AccioneImport;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel as ExcelExcel;
 use Maatwebsite\Excel\Facades\Excel;
@@ -48,10 +49,14 @@ class MigraDataController extends Controller
                 default:
                     $response = "No se Encuentra configurado para la migración";
             }
+        } catch (QueryException $e) {
+            $SUCCESS = false;
+            $NUMCODE = 1;
+            $STRMESSAGE = $this->buscamsg($e->getCode(), $e->getMessage());
         } catch (\Exception $e) {
+            $SUCCESS = false;
             $NUMCODE = 1;
             $STRMESSAGE = $e->getMessage();
-            $SUCCESS = false;
         }
 
         return response()->json(

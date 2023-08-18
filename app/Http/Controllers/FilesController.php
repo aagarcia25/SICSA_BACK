@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Accione;
+use Illuminate\Database\QueryException;
 use App\Models\Auditorium;
 use App\Models\CContestacionArea;
 use App\Models\CNotificacionArea;
@@ -147,6 +148,10 @@ class FilesController extends Controller
                 $response = DB::select($query);
 
             }
+        } catch (QueryException $e) {
+            $SUCCESS = false;
+            $NUMCODE = 1;
+            $STRMESSAGE = $this->buscamsg($e->getCode(), $e->getMessage());
         } catch (\Exception $e) {
             $SUCCESS = false;
             $NUMCODE = 1;

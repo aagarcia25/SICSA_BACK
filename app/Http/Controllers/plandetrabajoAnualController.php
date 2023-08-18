@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PlandetrabajoAnual;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -77,6 +78,10 @@ class plandetrabajoAnualController extends Controller
 
                 $response = DB::select($query);
             }
+        } catch (QueryException $e) {
+            $SUCCESS = false;
+            $NUMCODE = 1;
+            $STRMESSAGE = $this->buscamsg($e->getCode(), $e->getMessage());
         } catch (\Exception $e) {
             $SUCCESS = false;
             $NUMCODE = 1;
