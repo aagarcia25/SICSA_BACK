@@ -28,46 +28,56 @@ class AuditoriaController extends Controller
 
             if ($type == 1) {
                 $OBJ = new Auditorium();
-
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
-                $OBJ->Tipo = $request->CHUSER;
+                $OBJ->anio = $request->anio;
+                $OBJ->NAUDITORIA = $request->NAUDITORIA;
                 $OBJ->FolioSIGA = $request->FolioSIGA;
+                $OBJ->Modalidad = $request->Modalidad;
+                $OBJ->Consecutivo = $request->Consecutivo;
+                $OBJ->ActaInicio = $request->ActaInicio;
+                $OBJ->NombreAudoria = $request->NombreAudoria;
                 $OBJ->Encargado = $request->Encargado;
                 $OBJ->PersonalEncargado = $request->PersonalEncargado;
-                $OBJ->NAUDITORIA = $request->NAUDITORIA;
-                $OBJ->anio = $request->anio;
-                $OBJ->Modalidad = $request->Modalidad;
-                $OBJ->NombreAudoria = $request->NombreAudoria;
-                $OBJ->ActaInicio = $request->ActaInicio;
-                $OBJ->idCatInforme = $request->idCatInforme;
-                $OBJ->idTipoAuditoria = $request->idTipoAuditoria;
+                $OBJ->idClasificacion = $request->idClasificacion;
+                $OBJ->idcatorigenaud = $request->idcatorigenaud;
+                $OBJ->idCatGrupoFuncional = $request->idCatGrupoFuncional;
                 $OBJ->idCatSector = $request->idCatSector;
                 $OBJ->idCatEntidadFiscalizada = $request->idCatEntidadFiscalizada;
-                $OBJ->idCatGrupoFuncional = $request->idCatGrupoFuncional;
+                $OBJ->idTipoAuditoria = $request->idTipoAuditoria;
+                $OBJ->idCatInforme = $request->idCatInforme;
+                $OBJ->idUnidadAdm = $request->idUnidadAdm;
+                $OBJ->idAreaAdm = $request->idAreaAdm;
+                $OBJ->idRamo = $request->idRamo;
                 $OBJ->universopesos = $request->universopesos;
                 $OBJ->muestrapesos = $request->muestrapesos;
-                
+
                 $OBJ->save();
                 $response = $OBJ;
-                
+
             } elseif ($type == 2) {
 
                 $OBJ = Auditorium::find($request->CHID);
                 $OBJ->ModificadoPor = $request->CHUSER;
-                $OBJ->Tipo = $request->CHUSER;
+                $OBJ->anio = $request->anio;
+                $OBJ->NAUDITORIA = $request->NAUDITORIA;
                 $OBJ->FolioSIGA = $request->FolioSIGA;
+                $OBJ->Modalidad = $request->Modalidad;
+                $OBJ->Consecutivo = $request->Consecutivo;
+                $OBJ->ActaInicio = $request->ActaInicio;
+                $OBJ->NombreAudoria = $request->NombreAudoria;
                 $OBJ->Encargado = $request->Encargado;
                 $OBJ->PersonalEncargado = $request->PersonalEncargado;
-                $OBJ->NAUDITORIA = $request->NAUDITORIA;
-                $OBJ->anio = $request->anio;
-                $OBJ->NombreAudoria = $request->NombreAudoria;
-                $OBJ->ActaInicio = $request->ActaInicio;
-                $OBJ->idCatInforme = $request->idCatInforme;
-                $OBJ->idTipoAuditoria = $request->idTipoAuditoria;
+                $OBJ->idClasificacion = $request->idClasificacion;
+                $OBJ->idcatorigenaud = $request->idcatorigenaud;
+                $OBJ->idCatGrupoFuncional = $request->idCatGrupoFuncional;
                 $OBJ->idCatSector = $request->idCatSector;
                 $OBJ->idCatEntidadFiscalizada = $request->idCatEntidadFiscalizada;
-                $OBJ->idCatGrupoFuncional = $request->idCatGrupoFuncional;
+                $OBJ->idTipoAuditoria = $request->idTipoAuditoria;
+                $OBJ->idCatInforme = $request->idCatInforme;
+                $OBJ->idUnidadAdm = $request->idUnidadAdm;
+                $OBJ->idAreaAdm = $request->idAreaAdm;
+                $OBJ->idRamo = $request->idRamo;
                 $OBJ->universopesos = $request->universopesos;
                 $OBJ->muestrapesos = $request->muestrapesos;
                 $OBJ->save();
@@ -83,39 +93,55 @@ class AuditoriaController extends Controller
             } elseif ($type == 4) {
 
                 $query = "
-                    SELECT
+                      SELECT
                     aud.id,
                     aud.deleted,
                     aud.UltimaActualizacion,
                     aud.FechaCreacion,
                     getUserName(aud.ModificadoPor) modi,
                     getUserName(aud.CreadoPor) creado,
-                    aud.Consecutivo,
-                    aud.FolioSIGA,
-                    aud.Encargado,
-                    aud.PersonalEncargado,
+                    aud.anio,
                     aud.NAUDITORIA,
-                    aud.NombreAudoria,
-                    aud.ActaInicio,
-                    anio,
-                    ci.id ciid,
-                    ci.Descripcion ciDescripcion,
-                    cta.id ctaid,
-                    cta.Descripcion ctaDescripcion,
-                    cef.id cefid,
-                    cef.Descripcion cefDescripcion,
+                    aud.FolioSIGA,
+                    aud.Modalidad,
+                    aud.Consecutivo,
+					aud.ActaInicio,
+					aud.NombreAudoria,
+					aud.Encargado,
+                    aud.PersonalEncargado,
+                    ct.id ctid,
+					ct.Descripcion ctDescripcion,
+					coa.id coaid,
+					coa.Descripcion coaDescripcion,
                     cgf.id cgfid,
                     cgf.Descripcion cgfDescripcion,
-                    cs.id csid,
+					cs.id csid,
                     cs.Descripcion csDescripcion,
-                    cs.id csid,
-                    cs.Descripcion csDescripcion
+                    cef.id cefid,
+                    cef.Descripcion cefDescripcion,
+                    cta.id ctaid,
+                    cta.Descripcion ctaDescripcion,
+                    ci.id ciid,
+                    ci.Descripcion ciDescripcion,
+                    cuaa.id cuaaid,
+                    cuaa.Descripcion cuaaDescripcion,
+                    caa.id caaid,
+                    caa.Descripcion caaDescripcion,
+                    cr.id crid,
+                    cr.Descripcion crDescripcion,
+					aud.universopesos,
+					aud.muestrapesos
                     FROM SICSA.auditoria   aud
-                    LEFT JOIN SICSA.Cat_Informes ci ON aud.idCatInforme = ci.id
-                    LEFT JOIN SICSA.Cat_Tipos_Auditoria cta ON aud.idTipoAuditoria = cta.id
+                    LEFT JOIN SICSA.cat_tipo ct ON aud.idClasificacion = ct.id
+                    LEFT JOIN SICSA.Cat_Origen_Auditoria coa ON aud.idcatorigenaud = coa.id
+                    LEFT JOIN SICSA.Cat_Grupo_Funcional  cgf ON aud.idCatGrupoFuncional = cgf.id
                     LEFT JOIN SICSA.Cat_Sector cs ON aud.idCatSector = cs.id
                     LEFT JOIN SICSA.Cat_Entidad_Fiscalizada cef ON cef.id=aud.idCatEntidadFiscalizada
-                    LEFT JOIN SICSA.Cat_Grupo_Funcional  cgf ON aud.idCatGrupoFuncional = cgf.id
+                    LEFT JOIN SICSA.Cat_Tipos_Auditoria cta ON aud.idTipoAuditoria = cta.id
+                    LEFT JOIN SICSA.Cat_Informes ci ON aud.idCatInforme = ci.id
+                    LEFT JOIN SICSA.Cat_Unidad_Admin_Auditora cuaa ON aud.idUnidadAdm = cuaa.id
+                    LEFT JOIN SICSA.cat_area_auditoras caa ON aud.idAreaAdm = caa.id
+                    LEFT JOIN SICSA.cat_ramo cr ON aud.idRamo = cr.id
                     where aud.deleted =0
                     order by aud.Consecutivo asc
                     ";
