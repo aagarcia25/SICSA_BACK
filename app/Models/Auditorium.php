@@ -19,26 +19,42 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $FechaCreacion
  * @property string $ModificadoPor
  * @property string $CreadoPor
- * @property int $Consecutivo
+ * @property int|null $anio
+ * @property int|null $NAUDITORIA
  * @property string|null $FolioSIGA
+ * @property string|null $Modalidad
+ * @property string $TipoAuditoria
+ * @property int $Consecutivo
+ * @property string|null $ActaInicio
+ * @property string|null $NombreAudoria
  * @property string|null $Encargado
  * @property string|null $PersonalEncargado
- * @property int|null $NAUDITORIA
- * @property string|null $NombreAudoria
- * @property string|null $ActaInicio
- * @property string|null $OFinicio
- * @property Carbon|null $Fecha_Recibido
- * @property Carbon|null $Fecha_Vencimiento
- * @property string|null $idCatInforme
- * @property string|null $idTipoAuditoria
+ * @property string|null $idClasificacion
+ * @property string|null $idcatorigenaud
+ * @property string|null $idCatGrupoFuncional
  * @property string|null $idCatSector
  * @property string|null $idCatEntidadFiscalizada
+ * @property string|null $idTipoAuditoria
+ * @property string|null $idCatInforme
+ * @property string|null $idUnidadAdm
+ * @property string|null $idAreaAdm
+ * @property string|null $idRamo
+ * @property float|null $universopesos
+ * @property float|null $muestrapesos
  *
- * @property CatInforme|null $cat_informe
- * @property CatTiposAuditorium|null $cat_tipos_auditorium
+ * @property CatRamo|null $cat_ramo
+ * @property CatTipo|null $cat_tipo
+ * @property CatOrigenAuditorium|null $cat_origen_auditorium
+ * @property CatGrupoFuncional|null $cat_grupo_funcional
  * @property CatSector|null $cat_sector
  * @property CatEntidadFiscalizada|null $cat_entidad_fiscalizada
+ * @property CatTiposAuditorium|null $cat_tipos_auditorium
+ * @property CatInforme|null $cat_informe
+ * @property CatUnidadAdminAuditora|null $cat_unidad_admin_auditora
+ * @property CatAreaAuditora|null $cat_area_auditora
  * @property Collection|CNotificacionArea[] $c_notificacion_areas
+ * @property Collection|OficiosA[] $oficios_as
+ * @property Collection|Accione[] $acciones
  *
  * @package App\Models
  */
@@ -47,47 +63,66 @@ class Auditorium extends Model
     protected $_table = 'auditoria';
     public $incrementing = false;
     public $timestamps = false;
-    protected $_primaryKey = 'id';
     protected $_keyType = 'string';
+    protected $_primaryKey = 'id';
+
     protected $_casts = [
         'UltimaActualizacion' => 'datetime',
         'FechaCreacion' => 'datetime',
-        'Consecutivo' => 'int',
+        'anio' => 'int',
         'NAUDITORIA' => 'int',
-        'Fecha_Recibido' => 'datetime',
-        'Fecha_Vencimiento' => 'datetime',
+        'Consecutivo' => 'int',
+        'universopesos' => 'float',
+        'muestrapesos' => 'float',
     ];
 
     protected $_fillable = [
-        'id',
         'deleted',
         'UltimaActualizacion',
         'FechaCreacion',
         'ModificadoPor',
         'CreadoPor',
-        'Tipo',
-        'Consecutivo',
+        'anio',
+        'NAUDITORIA',
         'FolioSIGA',
+        'Modalidad',
+        'Consecutivo',
+        'ActaInicio',
+        'NombreAudoria',
         'Encargado',
         'PersonalEncargado',
-        'NAUDITORIA',
-        'NombreAudoria',
-        'ActaInicio',
-        'idCatInforme',
-        'idTipoAuditoria',
+        'idClasificacion',
+        'idcatorigenaud',
+        'idCatGrupoFuncional',
         'idCatSector',
         'idCatEntidadFiscalizada',
-        'idCatGrupoFuncional',
+        'idTipoAuditoria',
+        'idCatInforme',
+        'idUnidadAdm',
+        'idAreaAdm',
+        'idRamo',
+        'universopesos',
+        'muestrapesos',
     ];
 
-    public function cat_informe()
+    public function cat_ramo()
     {
-        return $this->belongsTo(CatInforme::class, 'idCatInforme');
+        return $this->belongsTo(CatRamo::class, 'idRamo');
     }
 
-    public function cat_tipos_auditorium()
+    public function cat_tipo()
     {
-        return $this->belongsTo(CatTiposAuditorium::class, 'idTipoAuditoria');
+        return $this->belongsTo(CatTipo::class, 'idClasificacion');
+    }
+
+    public function cat_origen_auditorium()
+    {
+        return $this->belongsTo(CatOrigenAuditorium::class, 'idcatorigenaud');
+    }
+
+    public function cat_grupo_funcional()
+    {
+        return $this->belongsTo(CatGrupoFuncional::class, 'idCatGrupoFuncional');
     }
 
     public function cat_sector()
@@ -100,8 +135,38 @@ class Auditorium extends Model
         return $this->belongsTo(CatEntidadFiscalizada::class, 'idCatEntidadFiscalizada');
     }
 
+    public function cat_tipos_auditorium()
+    {
+        return $this->belongsTo(CatTiposAuditorium::class, 'idTipoAuditoria');
+    }
+
+    public function cat_informe()
+    {
+        return $this->belongsTo(CatInforme::class, 'idCatInforme');
+    }
+
+    public function cat_unidad_admin_auditora()
+    {
+        return $this->belongsTo(CatUnidadAdminAuditora::class, 'idUnidadAdm');
+    }
+
+    public function cat_area_auditora()
+    {
+        return $this->belongsTo(CatAreaAuditora::class, 'idAreaAdm');
+    }
+
     public function c_notificacion_areas()
     {
         return $this->hasMany(CNotificacionArea::class, 'idAuditoria');
+    }
+
+    public function oficios_as()
+    {
+        return $this->hasMany(OficiosA::class, 'idAuditoria');
+    }
+
+    public function acciones()
+    {
+        return $this->hasMany(Accione::class, 'idAuditoria');
     }
 }
