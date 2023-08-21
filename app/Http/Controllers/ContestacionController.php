@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CContestacionArea;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -31,7 +32,12 @@ class ContestacionController extends Controller
 
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->CreadoPor = $request->CHUSER;
-                    $OBJ->anio = $request->NOMBRE;
+                    $OBJ->idNotificacion= $request->idNotificacion;
+                    $OBJ->Dependencia= $request->Dependencia;
+                    $OBJ->Prorroga= $request->Prorroga;
+                    $OBJ->Oficio= $request->Oficio;
+                    $OBJ->SIGAOficio= $request->SIGAOficio;     
+                    $OBJ->FOficio= $request->FOficio; 
                     $OBJ->save();
                     $response = $OBJ;
     
@@ -40,8 +46,13 @@ class ContestacionController extends Controller
     
                     $OBJ = CContestacionArea::find($request->CHID);
                     $OBJ->ModificadoPor = $request->CHUSER;
-                    $OBJ->Nombre = $request->NOMBRE;
-                    $OBJ->Descripcion = $request->DESCRIPCION;
+                    $OBJ->CreadoPor = $request->CHUSER;
+                    $OBJ->idNotificacion= $request->idNotificacion;
+                    $OBJ->Dependencia= $request->Dependencia;
+                    $OBJ->Prorroga= $request->Prorroga;
+                    $OBJ->Oficio= $request->Oficio;
+                    $OBJ->SIGAOficio= $request->SIGAOficio;     
+                    $OBJ->FOficio= $request->FOficio; 
                     $OBJ->save();
                     $response = $OBJ;
     
@@ -66,7 +77,8 @@ class ContestacionController extends Controller
                     Dependencia,
                     Prorroga,
                     Oficio,
-                    SIGAOficio
+                    SIGAOficio,
+                    FOficio
                     FROM SICSA.C_Contestacion_area
                     where deleted =0
                     ";
@@ -74,6 +86,10 @@ class ContestacionController extends Controller
                     $response = DB::select($query);
                    
                 }
+            } catch (QueryException $e) {
+                $SUCCESS = false;
+                $NUMCODE = 1;
+                $STRMESSAGE = $this->buscamsg($e->getCode(), $e->getMessage());
             } catch (\Exception $e) {
                 $SUCCESS = false;
                 $NUMCODE = 1;

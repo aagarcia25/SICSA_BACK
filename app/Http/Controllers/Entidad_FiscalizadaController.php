@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CatEntidadFiscalizada;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -31,7 +32,7 @@ class Entidad_FiscalizadaController extends Controller
 
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->CreadoPor = $request->CHUSER;
-                    $OBJ->anio = $request->NOMBRE;
+                    $OBJ->Descripcion = $request->DESCRIPCION;
                     $OBJ->save();
                     $response = $OBJ;
     
@@ -40,7 +41,7 @@ class Entidad_FiscalizadaController extends Controller
     
                     $OBJ = CatEntidadFiscalizada::find($request->CHID);
                     $OBJ->ModificadoPor = $request->CHUSER;
-                    $OBJ->Nombre = $request->NOMBRE;
+                    //$OBJ->Nombre = $request->NOMBRE;
                     $OBJ->Descripcion = $request->DESCRIPCION;
                     $OBJ->save();
                     $response = $OBJ;
@@ -55,11 +56,30 @@ class Entidad_FiscalizadaController extends Controller
     
     
                 } else if ($type == 4) {
-                    $response = DB::table('Cat_Entidad_Fiscalizada')
-                    ->where('deleted','=', 0)
-                    ->orderBy('FechaCreacion', 'desc')
-                    ->get();
+                    $query = "
+                    SELECT               
+                    id,
+                    deleted,
+                    UltimaActualizacion,
+                    FechaCreacion,
+                    getUserName(ModificadoPor) ModificadoPor,
+                    getUserName(CreadoPor) CreadoPor,
+                    Descripcion
+                    FROM SICSA.Cat_Entidad_Fiscalizada   
+                    where deleted =0 
+                    order by FechaCreacion desc
+                    ";
+                    $response = DB::select($query);
+
+                    // $response = DB::table('Cat_Entidad_Fiscalizada')
+                    // ->where('deleted','=', 0)
+                    // ->orderBy('FechaCreacion', 'desc')
+                    // ->get();
                 }
+            } catch (QueryException $e) {
+                $SUCCESS = false;
+                $NUMCODE = 1;
+                $STRMESSAGE = $this->buscamsg($e->getCode(), $e->getMessage());
             } catch (\Exception $e) {
                 $SUCCESS = false;
                 $NUMCODE = 1;

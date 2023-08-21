@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CatAnio;
+use App\Models\CatRamo;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class AniosController extends Controller
+class RamoController extends Controller
 {
-
     /* SE IDENTIFICA EL TIPO DE OPERACION A REALIZAR
     1._ INSERTAR UN REGISTRO
     2._ ACTUALIZAR UN REGISTRO
@@ -17,7 +16,7 @@ class AniosController extends Controller
     4._ CONSULTAR GENERAL DE REGISTROS, (SE INCLUYEN FILTROS)
      */
 
-    public function aniosindex(Request $request)
+    public function Ramo_index(Request $request)
     {
 
         $SUCCESS = true;
@@ -29,25 +28,23 @@ class AniosController extends Controller
             $type = $request->NUMOPERACION;
 
             if ($type == 1) {
-                $OBJ = new CatAnio();
-
+                $OBJ = new CatRamo();
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
-                $OBJ->anio = $request->ANIO;
+                $OBJ->Descripcion = $request->DESCRIPCION;
                 $OBJ->save();
                 $response = $OBJ;
 
             } elseif ($type == 2) {
 
-                $OBJ = CatAnio::find($request->CHID);
+                $OBJ = CatRamo::find($request->CHID);
                 $OBJ->ModificadoPor = $request->CHUSER;
-                $OBJ->anio = $request->ANIO;
-
+                $OBJ->Descripcion = $request->DESCRIPCION;
                 $OBJ->save();
                 $response = $OBJ;
 
             } elseif ($type == 3) {
-                $OBJ = CatAnio::find($request->CHID);
+                $OBJ = CatRamo::find($request->CHID);
                 $OBJ->deleted = 1;
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->save();
@@ -61,14 +58,15 @@ class AniosController extends Controller
                     deleted,
                     UltimaActualizacion,
                     FechaCreacion,
-                    getUserName(ModificadoPor) ModificadoPor,
-                    getUserName(CreadoPor) CreadoPor,
-                    anio
-                    FROM SICSA.Cat_Anios
+                    getUserName(ModificadoPor) modi,
+                    getUserName(CreadoPor) creado,
+                    Descripcion
+                    FROM SICSA.cat_ramo
                     where deleted =0
                     order by FechaCreacion desc
                     ";
                 $response = DB::select($query);
+
             }
         } catch (QueryException $e) {
             $SUCCESS = false;
@@ -79,7 +77,6 @@ class AniosController extends Controller
             $NUMCODE = 1;
             $STRMESSAGE = $e->getMessage();
         }
-
         return response()->json(
             [
                 'NUMCODE' => $NUMCODE,
@@ -89,4 +86,5 @@ class AniosController extends Controller
             ]);
 
     }
+
 }

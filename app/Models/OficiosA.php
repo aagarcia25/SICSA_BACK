@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class CContestacionArea
+ * Class OficiosA
  * 
  * @property string $id
  * @property string $deleted
@@ -18,29 +18,27 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $FechaCreacion
  * @property string $ModificadoPor
  * @property string $CreadoPor
- * @property string|null $Dependencia
- * @property Carbon|null $Prorroga
- * @property string|null $idNotificacion
- * @property string|null $Oficio
- * @property string|null $SIGAOficio
+ * @property string $idAuditoria
+ * @property Carbon|null $FechaRecibido
+ * @property Carbon|null $FechaVencimiento
  * 
- * @property CNotificacionArea|null $c_notificacion_area
+ * @property Auditorium $auditorium
  *
  * @package App\Models
  */
-class CContestacionArea extends Model
+class OficiosA extends Model
 {
-	protected $table = 'C_Contestacion_area';
-	protected $keyType ='string';
+	protected $table = 'OficiosA';
 	public $incrementing = false;
 	public $timestamps = false;
+	protected $keyType ='string';
+	protected $primaryKey = 'id';
 
 	protected $casts = [
-		
 		'UltimaActualizacion' => 'datetime',
 		'FechaCreacion' => 'datetime',
-		'Prorroga' => 'datetime',
-		'FOficio' => 'datetime'
+		'FechaRecibido' => 'datetime',
+		'FechaVencimiento' => 'datetime'
 	];
 
 	protected $fillable = [
@@ -49,16 +47,14 @@ class CContestacionArea extends Model
 		'FechaCreacion',
 		'ModificadoPor',
 		'CreadoPor',
-		'Dependencia', 
-		'Prorroga',
-		'idNotificacion',
+		'idAuditoria',
 		'Oficio',
-		'SIGAOficio',
-		'FOficio'
+		'FechaRecibido',
+		'FechaVencimiento'
 	];
 
-	public function c_notificacion_area()
+	public function auditorium()
 	{
-		return $this->belongsTo(CNotificacionArea::class, 'idNotificacion');
+		return $this->belongsTo(Auditorium::class, 'idAuditoria');
 	}
 }

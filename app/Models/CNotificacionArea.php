@@ -41,7 +41,8 @@ class CNotificacionArea extends Model
 		
 		'UltimaActualizacion' => 'datetime',
 		'FechaCreacion' => 'datetime',
-		'Prorroga' => 'datetime'
+		'Prorroga' => 'datetime',
+		'FOficio'=> 'datetime'
 	];
 
 	protected $fillable = [
@@ -54,7 +55,8 @@ class CNotificacionArea extends Model
 		'Dependencia',
 		'Prorroga',
 		'Oficio',
-		'SIGAOficio'
+		'SIGAOficio',
+		'FOficio'
 	];
 
 	public function auditorium()

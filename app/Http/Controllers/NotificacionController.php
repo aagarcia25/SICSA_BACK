@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CNotificacionArea;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -28,10 +29,14 @@ class NotificacionController extends Controller
     
                 if ($type == 1) {
                     $OBJ = new CNotificacionArea();
-
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->CreadoPor = $request->CHUSER;
-                    $OBJ->anio = $request->NOMBRE;
+                    $OBJ->idAuditoria= $request->idAuditoria;
+                    $OBJ->Dependencia= $request->Dependencia;
+                    $OBJ->Prorroga= $request->Prorroga;
+                    $OBJ->Oficio= $request->Oficio;
+                    $OBJ->SIGAOficio= $request->SIGAOficio;     
+                    $OBJ->FOficio= $request->FOficio; 
                     $OBJ->save();
                     $response = $OBJ;
     
@@ -40,8 +45,11 @@ class NotificacionController extends Controller
     
                     $OBJ = CNotificacionArea::find($request->CHID);
                     $OBJ->ModificadoPor = $request->CHUSER;
-                    $OBJ->Nombre = $request->NOMBRE;
-                    $OBJ->Descripcion = $request->DESCRIPCION;
+                    $OBJ->Dependencia= $request->Dependencia;
+                    $OBJ->Prorroga= $request->Prorroga;
+                    $OBJ->Oficio= $request->Oficio;
+                    $OBJ->SIGAOficio= $request->SIGAOficio;     
+                    $OBJ->FOficio= $request->FOficio;  
                     $OBJ->save();
                     $response = $OBJ;
     
@@ -66,7 +74,8 @@ class NotificacionController extends Controller
                     Dependencia,
                     Prorroga,
                     Oficio,
-                    SIGAOficio
+                    SIGAOficio,
+                    FOficio
                     FROM SICSA.C_Notificacion_area
                     where deleted =0
                     ";
@@ -74,6 +83,10 @@ class NotificacionController extends Controller
                     $response = DB::select($query);
                    
                 }
+            } catch (QueryException $e) {
+                $SUCCESS = false;
+                $NUMCODE = 1;
+                $STRMESSAGE = $this->buscamsg($e->getCode(), $e->getMessage());
             } catch (\Exception $e) {
                 $SUCCESS = false;
                 $NUMCODE = 1;

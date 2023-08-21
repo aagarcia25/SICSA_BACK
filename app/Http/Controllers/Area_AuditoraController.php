@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CatAnio;
+use App\Models\CatAreaAuditora;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class AniosController extends Controller
+class Area_AuditoraController extends Controller
 {
-
     /* SE IDENTIFICA EL TIPO DE OPERACION A REALIZAR
     1._ INSERTAR UN REGISTRO
     2._ ACTUALIZAR UN REGISTRO
@@ -17,7 +16,7 @@ class AniosController extends Controller
     4._ CONSULTAR GENERAL DE REGISTROS, (SE INCLUYEN FILTROS)
      */
 
-    public function aniosindex(Request $request)
+    public function areaindex(Request $request)
     {
 
         $SUCCESS = true;
@@ -29,25 +28,27 @@ class AniosController extends Controller
             $type = $request->NUMOPERACION;
 
             if ($type == 1) {
-                $OBJ = new CatAnio();
-
+                $OBJ = new CatAreaAuditora();
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
-                $OBJ->anio = $request->ANIO;
+                $OBJ->Clave = $request->Clave;
+                $OBJ->Descripcion = $request->Descripcion;
+                $OBJ->idCatUnidadAdmin = $request->idCatUnidadAdmin;
                 $OBJ->save();
                 $response = $OBJ;
 
             } elseif ($type == 2) {
 
-                $OBJ = CatAnio::find($request->CHID);
+                $OBJ = CatAreaAuditora::find($request->CHID);
                 $OBJ->ModificadoPor = $request->CHUSER;
-                $OBJ->anio = $request->ANIO;
-
+                $OBJ->Clave = $request->Clave;
+                $OBJ->Descripcion = $request->Descripcion;
+                $OBJ->idCatUnidadAdmin = $request->idCatUnidadAdmin;
                 $OBJ->save();
                 $response = $OBJ;
 
             } elseif ($type == 3) {
-                $OBJ = CatAnio::find($request->CHID);
+                $OBJ = CatAreaAuditora::find($request->CHID);
                 $OBJ->deleted = 1;
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->save();
@@ -56,17 +57,21 @@ class AniosController extends Controller
             } elseif ($type == 4) {
 
                 $query = "
-                    SELECT
-                    id,
-                    deleted,
-                    UltimaActualizacion,
-                    FechaCreacion,
-                    getUserName(ModificadoPor) ModificadoPor,
-                    getUserName(CreadoPor) CreadoPor,
-                    anio
-                    FROM SICSA.Cat_Anios
-                    where deleted =0
-                    order by FechaCreacion desc
+                      SELECT
+                    caa.id,
+                    caa.deleted,
+                    caa.UltimaActualizacion,
+                    caa.FechaCreacion,
+                    getUserName(caa.ModificadoPor) ModificadoPor,
+                    getUserName(caa.CreadoPor) CreadoPor,
+                    caa.Clave,
+                    caa.Descripcion,
+                    cuaa.id AS iduaa,
+                    cuaa.Descripcion cuaadesc
+                    FROM SICSA.cat_area_auditoras caa
+                    JOIN SICSA.Cat_Unidad_Admin_Auditora cuaa ON cuaa.id =caa.idCatUnidadAdmin
+                    where caa.deleted =0
+                    order by caa.FechaCreacion desc
                     ";
                 $response = DB::select($query);
             }

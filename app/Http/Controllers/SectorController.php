@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CatSector;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -31,7 +32,7 @@ class SectorController extends Controller
 
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->CreadoPor = $request->CHUSER;
-                    $OBJ->anio = $request->NOMBRE;
+                    $OBJ->Descripcion = $request->DESCRIPCION;
                     $OBJ->save();
                     $response = $OBJ;
     
@@ -40,7 +41,7 @@ class SectorController extends Controller
     
                     $OBJ = CatSector::find($request->CHID);
                     $OBJ->ModificadoPor = $request->CHUSER;
-                    $OBJ->Nombre = $request->NOMBRE;
+                    //$OBJ->Nombre = $request->NOMBRE;
                     $OBJ->Descripcion = $request->DESCRIPCION;
                     $OBJ->save();
                     $response = $OBJ;
@@ -55,11 +56,34 @@ class SectorController extends Controller
     
     
                 } else if ($type == 4) {
-                    $response = DB::table('Cat_Sector')
-                    ->where('deleted','=', 0)
-                    ->orderBy('FechaCreacion', 'desc')
-                    ->get();
+                    // $response = DB::table('Cat_Sector')
+                    // ->where('deleted','=', 0)
+                    // ->orderBy('FechaCreacion', 'desc')
+                    // ->get();
+
+                    $query = "
+                    SELECT               
+                    id,
+                    deleted,
+                    UltimaActualizacion,
+                    FechaCreacion,
+                    getUserName(ModificadoPor) CreadoPor,
+                    getUserName(CreadoPor) ModificadoPor,
+                    Descripcion
+                    FROM SICSA.Cat_Sector   
+                    where deleted =0 
+                    order by FechaCreacion desc
+                    ";
+                    $response = DB::select($query);
+
                 }
+
+
+
+            } catch (QueryException $e) {
+                $SUCCESS = false;
+                $NUMCODE = 1;
+                $STRMESSAGE = $this->buscamsg($e->getCode(), $e->getMessage());
             } catch (\Exception $e) {
                 $SUCCESS = false;
                 $NUMCODE = 1;

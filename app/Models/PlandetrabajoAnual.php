@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class File
+ * Class PlandetrabajoAnual
  *
  * @property string $id
  * @property string $deleted
@@ -18,22 +18,32 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $FechaCreacion
  * @property string $ModificadoPor
  * @property string $CreadoPor
- * @property string|null $idowner
- * @property string|null $Route
- * @property string|null $Nombre
+ * @property Carbon|null $start
+ * @property Carbon|null $end
+ * @property string|null $name
+ * @property string|null $type
+ * @property int|null $progress
+ * @property int|null $anio
+ * @property int|null $orden
  *
  * @package App\Models
  */
-class File extends Model
+class PlandetrabajoAnual extends Model
 {
-    public $table = 'files';
-    protected $_keyType = 'string';
+    public $table = 'plandetrabajoAnual';
     public $incrementing = false;
     public $timestamps = false;
+    protected $_keyType = 'string';
+    protected $_primaryKey = 'id';
 
     protected $_casts = [
         'UltimaActualizacion' => 'datetime',
         'FechaCreacion' => 'datetime',
+        'start' => 'datetime',
+        'end' => 'datetime',
+        'progress' => 'int',
+        'anio' => 'int',
+        'orden' => 'int',
     ];
 
     protected $_fillable = [
@@ -42,9 +52,12 @@ class File extends Model
         'FechaCreacion',
         'ModificadoPor',
         'CreadoPor',
-        'idowner',
-        'Route',
-        'Nombre',
-        'Estatus',
+        'start',
+        'end',
+        'name',
+        'type',
+        'progress',
+        'anio',
+        'orden',
     ];
 }

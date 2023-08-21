@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class File
+ * Class CatRamo
  *
  * @property string $id
  * @property string $deleted
@@ -18,20 +18,20 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $FechaCreacion
  * @property string $ModificadoPor
  * @property string $CreadoPor
- * @property string|null $idowner
- * @property string|null $Route
- * @property string|null $Nombre
+ * @property string|null $Descripcion
  *
  * @package App\Models
  */
-class File extends Model
+class CatRamo extends Model
 {
-    public $table = 'files';
-    protected $_keyType = 'string';
+    public $table = 'cat_ramo';
     public $incrementing = false;
     public $timestamps = false;
+    protected $_keyType = 'string';
+    protected $_primaryKey = 'id';
 
     protected $_casts = [
+
         'UltimaActualizacion' => 'datetime',
         'FechaCreacion' => 'datetime',
     ];
@@ -42,9 +42,6 @@ class File extends Model
         'FechaCreacion',
         'ModificadoPor',
         'CreadoPor',
-        'idowner',
-        'Route',
-        'Nombre',
-        'Estatus',
+        'Descripcion',
     ];
 }

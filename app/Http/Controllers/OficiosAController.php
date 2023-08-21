@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CatInforme;
+use App\Models\OficiosA;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class InformesController extends Controller
+class OficiosAController extends Controller
 {
      /* SE IDENTIFICA EL TIPO DE OPERACION A REALIZAR
          1._ INSERTAR UN REGISTRO
@@ -16,7 +16,7 @@ class InformesController extends Controller
          4._ CONSULTAR GENERAL DE REGISTROS, (SE INCLUYEN FILTROS)
         */
 
-        public function Informes_index(Request $request)  {
+        public function OficiosA_index(Request $request)  {
         
             $SUCCESS = true;
             $NUMCODE = 0;
@@ -28,27 +28,30 @@ class InformesController extends Controller
                 $type = $request->NUMOPERACION;
     
                 if ($type == 1) {
-                    $OBJ = new CatInforme();
-
-                    $OBJ->ModificadoPor = $request->CHUSER;
-                    $OBJ->CreadoPor = $request->CHUSER;
-                    $OBJ->Descripcion = $request->DESCRIPCION;
+                    $OBJ = new OficiosA();
+                    $OBJ->ModificadoPor    = $request->CHUSER;
+                    $OBJ->CreadoPor        = $request->CHUSER;
+                    $OBJ->idAuditoria      = $request->idAuditoria;
+                    $OBJ->Oficio           = $request->Oficio;
+                    $OBJ->FechaRecibido    = $request->FechaRecibido;
+                    $OBJ->FechaVencimiento = $request->FechaVencimiento;
                     $OBJ->save();
                     $response = $OBJ;
     
     
                 } else if ($type == 2) {
     
-                    $OBJ = CatInforme::find($request->CHID);
-                    $OBJ->ModificadoPor = $request->CHUSER;
-                    //$OBJ->Nombre = $request->NOMBRE;
-                    $OBJ->Descripcion = $request->DESCRIPCION;
+                    $OBJ = OficiosA::find($request->CHID);
+                    $OBJ->ModificadoPor    = $request->CHUSER;
+                    $OBJ->Oficio           = $request->Oficio;
+                    $OBJ->FechaRecibido    = $request->FechaRecibido;
+                    $OBJ->FechaVencimiento = $request->FechaVencimiento;
                     $OBJ->save();
                     $response = $OBJ;
     
     
                 } else if ($type == 3) {
-                    $OBJ = CatInforme::find($request->CHID);
+                    $OBJ = OficiosA::find($request->CHID);
                     $OBJ->deleted = 1;
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->save();
@@ -58,24 +61,23 @@ class InformesController extends Controller
                 } else if ($type == 4) {
 
                     $query = "
-                    SELECT 
-                    id, 
-                    deleted, 
-                    UltimaActualizacion, 
+                    SELECT               
+                    id,
+                    deleted,
+                    UltimaActualizacion,
                     FechaCreacion,
-                    getUserName(ModificadoPor) ModificadoPor,
-                    getUserName(CreadoPor) CreadoPor,
-                    Descripcion
-                    FROM SICSA.Cat_Informes   
-                    where deleted =0 
-                    order by FechaCreacion desc
+                    getUserName(ModificadoPor) modi,
+                    getUserName(CreadoPor) creado,
+                    Oficio,
+                    FechaRecibido,
+                    FechaVencimiento,
+                    idAuditoria
+                    FROM SICSA.OficiosA   
+                    where deleted =0
                     ";
+                    $query =  $query . " and    idAuditoria='" . $request->P_IDAUDITORIA. "'";
                     $response = DB::select($query);
 
-                    // $response = DB::table('Cat_Informes')
-                    // ->where('deleted','=', 0)
-                    // ->orderBy('FechaCreacion', 'desc')
-                    // ->get();
                 }
             } catch (QueryException $e) {
                 $SUCCESS = false;
