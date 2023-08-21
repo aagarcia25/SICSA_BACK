@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class File extends Model
 {
-    public $table = 'Files';
+    public $table = 'files';
     protected $_keyType = 'string';
     public $incrementing = false;
     public $timestamps = false;
