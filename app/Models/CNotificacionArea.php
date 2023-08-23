@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class CNotificacionArea
- * 
+ *
  * @property string $id
  * @property string $deleted
  * @property string $idAuditoria
@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $Prorroga
  * @property string|null $Oficio
  * @property string|null $SIGAOficio
- * 
+ *
  * @property Auditorium $auditorium
  * @property Collection|CContestacionArea[] $c_contestacion_areas
  *
@@ -32,40 +32,43 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CNotificacionArea extends Model
 {
-	protected $table = 'C_Notificacion_area';
-	protected $keyType ='string';
-	public $incrementing = false;
-	public $timestamps = false;
+    protected $_table = 'C_Notificacion_area';
+    protected $_keyType = 'string';
+    public $incrementing = false;
+    public $timestamps = false;
 
-	protected $casts = [
-		
-		'UltimaActualizacion' => 'datetime',
-		'FechaCreacion' => 'datetime',
-		'Prorroga' => 'datetime',
-		'FOficio'=> 'datetime'
-	];
+    protected $_casts = [
 
-	protected $fillable = [
-		'deleted',
-		'idAuditoria',
-		'UltimaActualizacion',
-		'FechaCreacion',
-		'ModificadoPor',
-		'CreadoPor',
-		'Dependencia',
-		'Prorroga',
-		'Oficio',
-		'SIGAOficio',
-		'FOficio'
-	];
+        'UltimaActualizacion' => 'datetime',
+        'FechaCreacion' => 'datetime',
+        'Prorroga' => 'datetime',
+        'FOficio' => 'datetime',
+    ];
 
-	public function auditorium()
-	{
-		return $this->belongsTo(Auditorium::class, 'idAuditoria');
-	}
+    protected $_fillable = [
+        'deleted',
+        'idAuditoria',
+        'UltimaActualizacion',
+        'FechaCreacion',
+        'ModificadoPor',
+        'CreadoPor',
+        'Prorroga',
+        'Oficio',
+        'SIGAOficio',
+        'FOficio',
+        'FRecibido',
+        'FVencimiento',
+        'idsecretaria',
+        'idunidad',
+    ];
 
-	public function c_contestacion_areas()
-	{
-		return $this->hasMany(CContestacionArea::class, 'idNotificacion');
-	}
+    public function auditorium()
+    {
+        return $this->belongsTo(Auditorium::class, 'idAuditoria');
+    }
+
+    public function c_contestacion_areas()
+    {
+        return $this->hasMany(CContestacionArea::class, 'idNotificacion');
+    }
 }

@@ -23,7 +23,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $NAUDITORIA
  * @property string|null $FolioSIGA
  * @property string|null $Modalidad
- * @property string $TipoAuditoria
  * @property int $Consecutivo
  * @property string|null $ActaInicio
  * @property string|null $NombreAudoria
@@ -41,8 +40,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $idRamo
  * @property float|null $universopesos
  * @property float|null $muestrapesos
+ * @property string|null $idInicioauditoria
+ * @property string|null $idmunicipio
+ * @property string|null $idEstatus
  *
  * @property CatRamo|null $cat_ramo
+ * @property CatInicioAuditorium|null $cat_inicio_auditorium
+ * @property Municipio|null $municipio
+ * @property CatEstatusAuditorium|null $cat_estatus_auditorium
  * @property CatTipo|null $cat_tipo
  * @property CatOrigenAuditorium|null $cat_origen_auditorium
  * @property CatGrupoFuncional|null $cat_grupo_funcional
@@ -103,11 +108,29 @@ class Auditorium extends Model
         'idRamo',
         'universopesos',
         'muestrapesos',
+        'idInicioauditoria',
+        'idmunicipio',
+        'idEstatus',
     ];
 
     public function cat_ramo()
     {
         return $this->belongsTo(CatRamo::class, 'idRamo');
+    }
+
+    public function cat_inicio_auditorium()
+    {
+        return $this->belongsTo(CatInicioAuditorium::class, 'idInicioauditoria');
+    }
+
+    public function municipio()
+    {
+        return $this->belongsTo(Municipio::class, 'idmunicipio');
+    }
+
+    public function cat_estatus_auditorium()
+    {
+        return $this->belongsTo(CatEstatusAuditorium::class, 'idEstatus');
     }
 
     public function cat_tipo()
