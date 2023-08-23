@@ -52,6 +52,9 @@ class AuditoriaController extends Controller
                 $OBJ->idRamo = $request->idRamo;
                 $OBJ->universopesos = $request->universopesos;
                 $OBJ->muestrapesos = $request->muestrapesos;
+                $OBJ->idInicioauditoria = $request->inicio;
+                $OBJ->idmunicipio = $request->municipio;
+                $OBJ->idEstatus = $request->idEstatus;
 
                 $OBJ->save();
                 $response = $OBJ;
@@ -81,6 +84,10 @@ class AuditoriaController extends Controller
                 $OBJ->idRamo = $request->idRamo;
                 $OBJ->universopesos = $request->universopesos;
                 $OBJ->muestrapesos = $request->muestrapesos;
+                $OBJ->idInicioauditoria = $request->inicio;
+                $OBJ->idmunicipio = $request->municipio;
+                $OBJ->idEstatus = $request->idEstatus;
+
                 $OBJ->save();
                 $response = $OBJ;
 

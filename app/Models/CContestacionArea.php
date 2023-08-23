@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class CContestacionArea
- * 
+ *
  * @property string $id
  * @property string $deleted
  * @property Carbon $UltimaActualizacion
@@ -23,42 +23,46 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $idNotificacion
  * @property string|null $Oficio
  * @property string|null $SIGAOficio
- * 
+ *
  * @property CNotificacionArea|null $c_notificacion_area
  *
  * @package App\Models
  */
 class CContestacionArea extends Model
 {
-	protected $table = 'C_Contestacion_area';
-	protected $keyType ='string';
-	public $incrementing = false;
-	public $timestamps = false;
+    protected $_table = 'C_Contestacion_area';
+    protected $_keyType = 'string';
+    public $incrementing = false;
+    public $timestamps = false;
 
-	protected $casts = [
-		
-		'UltimaActualizacion' => 'datetime',
-		'FechaCreacion' => 'datetime',
-		'Prorroga' => 'datetime',
-		'FOficio' => 'datetime'
-	];
+    protected $_casts = [
 
-	protected $fillable = [
-		'deleted',
-		'UltimaActualizacion',
-		'FechaCreacion',
-		'ModificadoPor',
-		'CreadoPor',
-		'Dependencia', 
-		'Prorroga',
-		'idNotificacion',
-		'Oficio',
-		'SIGAOficio',
-		'FOficio'
-	];
+        'UltimaActualizacion' => 'datetime',
+        'FechaCreacion' => 'datetime',
+        'Prorroga' => 'datetime',
+        'FOficio' => 'datetime',
+    ];
 
-	public function c_notificacion_area()
-	{
-		return $this->belongsTo(CNotificacionArea::class, 'idNotificacion');
-	}
+    protected $_fillable = [
+        'deleted',
+        'UltimaActualizacion',
+        'FechaCreacion',
+        'ModificadoPor',
+        'CreadoPor',
+        'Dependencia',
+        'Prorroga',
+        'idNotificacion',
+        'Oficio',
+        'SIGAOficio',
+        'FOficio',
+        'FRecibido',
+        'FVencimiento',
+        'idsecretaria',
+        'idunidad',
+    ];
+
+    public function c_notificacion_area()
+    {
+        return $this->belongsTo(CNotificacionArea::class, 'idNotificacion');
+    }
 }
