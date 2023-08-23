@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class SelectController extends Controller
@@ -75,6 +75,18 @@ class SelectController extends Controller
                 $query = "SELECT id  value , Descripcion label FROM SICSA.cat_tipo WHERE DELETED=0";
             } elseif ($type == 15) {
                 $query = "SELECT id  value , Descripcion label FROM SICSA.cat_ramo WHERE DELETED=0";
+            } elseif ($type == 16) {
+                $query = "SELECT id  value , Descripcion label FROM SICSA.cat_inicio_auditoria WHERE DELETED=0";
+            } elseif ($type == 17) {
+                $query = "SELECT id  value , Nombre label FROM SICSA.Municipios WHERE DELETED=0";
+            } elseif ($type == 18) {
+                $query = "SELECT id  value , descripcion label FROM SICSA.cat_estatus_auditoria WHERE DELETED=0";
+            } elseif ($type == 19) {
+                $query = "  SELECT id  value , descripcion label FROM SICSA.cat_secretarias WHERE DELETED=0";
+            } elseif ($type == 20) {
+                $query = "  SELECT id  value , descripcion label FROM SICSA.cat_unidades WHERE DELETED=0";
+                $query = $query . " and idSecretaria='" . $request->P_ID . "'";
+
             }
 
             $response = DB::select($query);
