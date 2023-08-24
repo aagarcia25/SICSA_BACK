@@ -66,8 +66,8 @@ class plandetrabajoAnualController extends Controller
                         pt.FechaCreacion,
                         getUserName(pt.ModificadoPor) ModificadoPor,
                         getUserName(pt.CreadoPor) CreadoPor,
-                        pt.start,
-                        pt.end,
+                        DATE_ADD(pt.start,INTERVAL 1 DAY) start,
+                        DATE_ADD(pt.end,INTERVAL 1 DAY) end,
                         pt.name,
                         pt.type,
                         pt.progress
