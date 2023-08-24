@@ -14,7 +14,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 class AccioneImport extends Accione implements ToModel, WithHeadingRow, WithChunkReading, WithBatchInserts
 {
 
-    protected $_userid;
+    public $userid;
 
     public function __construct($userid)
     {
