@@ -153,6 +153,7 @@ class AuditoriaController extends Controller
                     where aud.deleted =0
                     order by aud.Consecutivo asc
                     ";
+
                 $response = DB::select($query);
 
             }
