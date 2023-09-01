@@ -37,17 +37,16 @@ class Accione extends Model
     public $table = 'acciones';
     public $incrementing = false;
     public $timestamps = false;
-    protected $_keyType = 'string';
-    protected $_primaryKey = 'id';
+    public $keyType = 'string';
+    public $primaryKey = 'id';
 
-    protected $_casts = [
+    public $casts = [
         'UltimaActualizacion' => 'datetime',
         'FechaCreacion' => 'datetime',
-        'anio' => 'int',
         'Valor' => 'float',
     ];
 
-    protected $_fillable = [
+    public $fillable = [
         'deleted',
         'UltimaActualizacion',
         'FechaCreacion',

@@ -31,9 +31,10 @@ class plandetrabajoAnualController extends Controller
                 $OBJ = new PlandetrabajoAnual();
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
-                $OBJ->Clave = $request->Clave;
-                $OBJ->Descripcion = $request->Descripcion;
-                $OBJ->idCatUnidadAdmin = $request->idCatUnidadAdmin;
+                $OBJ->start = $request->start;
+                $OBJ->end = $request->end;
+                $OBJ->name = $request->name;
+                $OBJ->idauditoria = $request->idauditoria;
                 $OBJ->save();
                 $response = $OBJ;
 
@@ -41,9 +42,11 @@ class plandetrabajoAnualController extends Controller
 
                 $OBJ = PlandetrabajoAnual::find($request->CHID);
                 $OBJ->ModificadoPor = $request->CHUSER;
-                $OBJ->Clave = $request->Clave;
-                $OBJ->Descripcion = $request->Descripcion;
-                $OBJ->idCatUnidadAdmin = $request->idCatUnidadAdmin;
+                $OBJ->CreadoPor = $request->CHUSER;
+                $OBJ->start = $request->start;
+                $OBJ->end = $request->end;
+                $OBJ->name = $request->name;
+                $OBJ->idauditoria = $request->idauditoria;
                 $OBJ->save();
                 $response = $OBJ;
 
@@ -63,8 +66,8 @@ class plandetrabajoAnualController extends Controller
                         pt.FechaCreacion,
                         getUserName(pt.ModificadoPor) ModificadoPor,
                         getUserName(pt.CreadoPor) CreadoPor,
-                        pt.start,
-                        pt.end,
+                        DATE_ADD(pt.start,INTERVAL 1 DAY) start,
+                        DATE_ADD(pt.end,INTERVAL 1 DAY) end,
                         pt.name,
                         pt.type,
                         pt.progress

@@ -52,6 +52,9 @@ class AuditoriaController extends Controller
                 $OBJ->idRamo = $request->idRamo;
                 $OBJ->universopesos = $request->universopesos;
                 $OBJ->muestrapesos = $request->muestrapesos;
+                $OBJ->idInicioauditoria = $request->inicio;
+                $OBJ->idmunicipio = $request->municipio;
+                $OBJ->idEstatus = $request->idEstatus;
 
                 $OBJ->save();
                 $response = $OBJ;
@@ -81,6 +84,10 @@ class AuditoriaController extends Controller
                 $OBJ->idRamo = $request->idRamo;
                 $OBJ->universopesos = $request->universopesos;
                 $OBJ->muestrapesos = $request->muestrapesos;
+                $OBJ->idInicioauditoria = $request->inicio;
+                $OBJ->idmunicipio = $request->municipio;
+                $OBJ->idEstatus = $request->idEstatus;
+
                 $OBJ->save();
                 $response = $OBJ;
 
@@ -144,8 +151,22 @@ class AuditoriaController extends Controller
                     LEFT JOIN SICSA.cat_area_auditoras caa ON aud.idAreaAdm = caa.id
                     LEFT JOIN SICSA.cat_ramo cr ON aud.idRamo = cr.id
                     where aud.deleted =0
-                    order by aud.Consecutivo asc
+
                     ";
+
+                if ($request->FolioSIGA != "") {
+                    $query = $query . " and    aud.FolioSIGA='" . $request->FolioSIGA . "'";
+                }
+
+                if ($request->NAUDITORIA != "") {
+                    $query = $query . " and    aud.NAUDITORIA=" . $request->NAUDITORIA;
+                }
+                if ($request->anio != "") {
+                    $query = $query . " and    aud.anio='" . $request->anio . "'";
+                }
+
+                $query = $query . "   order by aud.Consecutivo asc";
+
                 $response = DB::select($query);
 
             }
