@@ -101,7 +101,7 @@ class AuditoriaController extends Controller
             } elseif ($type == 4) {
 
                 $query = "
-                      SELECT
+                SELECT
                     aud.id,
                     aud.deleted,
                     aud.UltimaActualizacion,
@@ -136,6 +136,9 @@ class AuditoriaController extends Controller
                     caa.id caaid,
                     caa.Descripcion caaDescripcion,
                     cr.id crid,
+                    cea.Descripcion ceaDescripcion,
+                    cia.Descripcion ciaDescripcion,
+                    mun.Nombre munNombre,
                     cr.Descripcion crDescripcion,
 					aud.universopesos,
 					aud.muestrapesos
@@ -150,6 +153,10 @@ class AuditoriaController extends Controller
                     LEFT JOIN SICSA.Cat_Unidad_Admin_Auditora cuaa ON aud.idUnidadAdm = cuaa.id
                     LEFT JOIN SICSA.cat_area_auditoras caa ON aud.idAreaAdm = caa.id
                     LEFT JOIN SICSA.cat_ramo cr ON aud.idRamo = cr.id
+                    LEFT JOIN SICSA.cat_estatus_auditoria cea ON aud.idEstatus = cea.id
+                    LEFT JOIN SICSA.cat_inicio_auditoria cia ON aud.idInicioauditoria = cia.id
+                    LEFT JOIN SICSA.Municipios mun ON aud.idmunicipio = mun.id
+                    
                     where aud.deleted =0
 
                     ";
