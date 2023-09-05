@@ -136,11 +136,15 @@ class AuditoriaController extends Controller
                     caa.id caaid,
                     caa.Descripcion caaDescripcion,
                     cr.id crid,
+                    cea.id ceaid,   
                     cea.Descripcion ceaDescripcion,
                     cia.Descripcion ciaDescripcion,
+                    cia.id ciaid,
+                    mun.id munid,
                     mun.Nombre munNombre,
                     cr.Descripcion crDescripcion,
 					aud.universopesos,
+                    mun.Nombre,
 					aud.muestrapesos
                     FROM SICSA.auditoria   aud
                     LEFT JOIN SICSA.cat_tipo ct ON aud.idClasificacion = ct.id
