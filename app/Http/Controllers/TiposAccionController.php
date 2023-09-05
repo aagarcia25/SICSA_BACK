@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CatTiposAccion;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -31,7 +32,8 @@ class TiposAccionController extends Controller
 
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->CreadoPor = $request->CHUSER;
-                    $OBJ->anio = $request->NOMBRE;
+                    $OBJ->Abreviatura = $request->ABREVIATURA;
+                    $OBJ->Descripcion = $request->DESCRIPCION;
                     $OBJ->save();
                     $response = $OBJ;
     
@@ -40,7 +42,7 @@ class TiposAccionController extends Controller
     
                     $OBJ = CatTiposAccion::find($request->CHID);
                     $OBJ->ModificadoPor = $request->CHUSER;
-                    $OBJ->Nombre = $request->NOMBRE;
+                    $OBJ->Abreviatura = $request->ABREVIATURA;
                     $OBJ->Descripcion = $request->DESCRIPCION;
                     $OBJ->save();
                     $response = $OBJ;
@@ -55,11 +57,32 @@ class TiposAccionController extends Controller
     
     
                 } else if ($type == 4) {
-                    $response = DB::table('Cat_Tipos_Accion')
-                    ->where('deleted','=', 0)
-                    ->orderBy('FechaCreacion', 'desc')
-                    ->get();
+
+                    $query = "
+                    SELECT 
+                    id, 
+                    deleted, 
+                    UltimaActualizacion, 
+                    FechaCreacion,
+                    getUserName(ModificadoPor) ModificadoPor,
+                    getUserName(CreadoPor) CreadoPor,
+                    Descripcion,
+                    Abreviatura
+                    FROM SICSA.Cat_Tipos_Accion   
+                    where deleted =0 
+                    order by FechaCreacion desc
+                    ";
+                    $response = DB::select($query);
+
+                    // $response = DB::table('Cat_Tipos_Accion')
+                    // ->where('deleted','=', 0)
+                    // ->orderBy('FechaCreacion', 'desc')
+                    // ->get();
                 }
+            } catch (QueryException $e) {
+                $SUCCESS = false;
+                $NUMCODE = 1;
+                $STRMESSAGE = $this->buscamsg($e->getCode(), $e->getMessage());
             } catch (\Exception $e) {
                 $SUCCESS = false;
                 $NUMCODE = 1;

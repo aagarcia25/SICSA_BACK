@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -20,26 +21,26 @@ class SelectController extends Controller
             $query = "";
 
             if ($type == 1) {
-                $query = "SELECT anio value , anio label FROM SICSA.Cat_Anios";
-            } else if ($type == 2) {
+                $query = "SELECT CONVERT(anio, CHAR) value , anio label FROM SICSA.Cat_Anios";
+            } elseif ($type == 2) {
                 $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Entidad_Fiscalizada WHERE DELETED=0";
-            } else if ($type == 3) {
+            } elseif ($type == 3) {
                 $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Estatus_Acciones WHERE DELETED=0";
-            } else if ($type == 4) {
+            } elseif ($type == 4) {
                 $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Grupo_Funcional WHERE DELETED=0";
-            } else if ($type == 5) {
+            } elseif ($type == 5) {
                 $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Informes WHERE DELETED=0";
-            } else if ($type == 6) {
+            } elseif ($type == 6) {
                 $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Origen_Auditoria WHERE DELETED=0";
-            } else if ($type == 7) {
+            } elseif ($type == 7) {
                 $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Sector WHERE DELETED=0";
-            } else if ($type == 8) {
+            } elseif ($type == 8) {
                 $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Tipos_Accion WHERE DELETED=0";
-            } else if ($type == 9) {
+            } elseif ($type == 9) {
                 $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Tipos_Auditoria WHERE DELETED=0";
-            } else if ($type == 10) {
+            } elseif ($type == 10) {
                 $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Unidad_Admin_Auditora WHERE DELETED=0";
-            } else if ($type == 11) {
+            } elseif ($type == 11) {
                 $query = "   SELECT 'DAF'       value ,'Dirección de Administración Financiera' label FROM DUAL
                              UNION ALL
                              SELECT 'DAMOP'     value ,'Dirección de Atención a Municipios y Organismos Paraestatales' label FROM DUAL
@@ -55,14 +56,48 @@ class SelectController extends Controller
                              SELECT 'DDPYPF' value ,'Dirección de Deuda Pública y Planeación Financiera' label FROM DUAL
                              UNION ALL
                              SELECT 'CGA'       value ,'Coordinación General Administrativa' label FROM DUAL";
+            } elseif ($type == 12) {
+                $query = "   SELECT 'Presencial'       value ,'Presencial' label FROM DUAL
+                             UNION ALL
+                             SELECT 'Por Medios Electrónicos'     value ,'Por Medios Electrónicos' label FROM DUAL";
+
+            } elseif ($type == 13) {
+                $query = "   SELECT
+                    caa.id value,
+                    CONCAT(caa.Clave,' ',caa.Descripcion) label
+                    FROM SICSA.cat_area_auditoras caa
+                    where caa.deleted =0
+                   ";
+                $query = $query . " and caa.idCatUnidadAdmin='" . $request->P_ID . "'";
+                $query = $query . "  order by caa.FechaCreacion desc";
+
+            } elseif ($type == 14) {
+                $query = "SELECT id  value , Descripcion label FROM SICSA.cat_tipo WHERE DELETED=0";
+            } elseif ($type == 15) {
+                $query = "SELECT id  value , Descripcion label FROM SICSA.cat_ramo WHERE DELETED=0";
+            } elseif ($type == 16) {
+                $query = "SELECT id  value , Descripcion label FROM SICSA.cat_inicio_auditoria WHERE DELETED=0";
+            } elseif ($type == 17) {
+                $query = "SELECT id  value , Nombre label FROM SICSA.Municipios WHERE DELETED=0";
+            } elseif ($type == 18) {
+                $query = "SELECT id  value , descripcion label FROM SICSA.cat_estatus_auditoria WHERE DELETED=0";
+            } elseif ($type == 19) {
+                $query = "  SELECT id  value , descripcion label FROM SICSA.cat_secretarias WHERE DELETED=0";
+            } elseif ($type == 20) {
+                $query = "  SELECT id  value , descripcion label FROM SICSA.cat_unidades WHERE DELETED=0";
+                $query = $query . " and idSecretaria='" . $request->P_ID . "'";
+
             }
 
-
             $response = DB::select($query);
+        } catch (QueryException $e) {
+            $SUCCESS = false;
+            $NUMCODE = 1;
+            $STRMESSAGE = $this->buscamsg($e->getCode(), $e->getMessage());
         } catch (\Exception $e) {
+            $SUCCESS = false;
             $NUMCODE = 1;
             $STRMESSAGE = $e->getMessage();
-            $SUCCESS = false;
         }
 
         return response()->json(
@@ -70,7 +105,7 @@ class SelectController extends Controller
                 'NUMCODE' => $NUMCODE,
                 'STRMESSAGE' => $STRMESSAGE,
                 'RESPONSE' => $response,
-                'SUCCESS' => $SUCCESS
+                'SUCCESS' => $SUCCESS,
             ]
         );
     }

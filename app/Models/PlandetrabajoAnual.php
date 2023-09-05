@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class CatRamo
+ * Class PlandetrabajoAnual
  *
  * @property string $id
  * @property string $deleted
@@ -18,22 +18,32 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $FechaCreacion
  * @property string $ModificadoPor
  * @property string $CreadoPor
- * @property string|null $Descripcion
+ * @property Carbon|null $start
+ * @property Carbon|null $end
+ * @property string|null $name
+ * @property string|null $type
+ * @property int|null $progress
+ * @property int|null $anio
+ * @property int|null $orden
  *
  * @package App\Models
  */
-class CatRamo extends Model
+class PlandetrabajoAnual extends Model
 {
-    public $table = 'cat_ramo';
+    public $table = 'plandetrabajoAnual';
     public $incrementing = false;
     public $timestamps = false;
     protected $_keyType = 'string';
     protected $_primaryKey = 'id';
 
     protected $_casts = [
-
         'UltimaActualizacion' => 'datetime',
         'FechaCreacion' => 'datetime',
+        'start' => 'datetime',
+        'end' => 'datetime',
+        'progress' => 'int',
+        'anio' => 'int',
+        'orden' => 'int',
     ];
 
     protected $_fillable = [
@@ -42,6 +52,12 @@ class CatRamo extends Model
         'FechaCreacion',
         'ModificadoPor',
         'CreadoPor',
-        'Descripcion',
+        'start',
+        'end',
+        'name',
+        'type',
+        'progress',
+        'anio',
+        'orden',
     ];
 }

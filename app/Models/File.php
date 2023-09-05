@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class File
- * 
+ *
  * @property string $id
  * @property string $deleted
  * @property Carbon $UltimaActualizacion
@@ -26,24 +26,25 @@ use Illuminate\Database\Eloquent\Model;
  */
 class File extends Model
 {
-	protected $table = 'Files';
-	protected $keyType ='string';
-	public $incrementing = false;
-	public $timestamps = false;
+    public $table = 'files';
+    protected $_keyType = 'string';
+    public $incrementing = false;
+    public $timestamps = false;
 
-	protected $casts = [
-		'UltimaActualizacion' => 'datetime',
-		'FechaCreacion' => 'datetime'
-	];
+    protected $_casts = [
+        'UltimaActualizacion' => 'datetime',
+        'FechaCreacion' => 'datetime',
+    ];
 
-	protected $fillable = [
-		'deleted',
-		'UltimaActualizacion',
-		'FechaCreacion',
-		'ModificadoPor',
-		'CreadoPor',
-		'idowner',
-		'Route',
-		'Nombre'
-	];
+    protected $_fillable = [
+        'deleted',
+        'UltimaActualizacion',
+        'FechaCreacion',
+        'ModificadoPor',
+        'CreadoPor',
+        'idowner',
+        'Route',
+        'Nombre',
+        'Estatus',
+    ];
 }

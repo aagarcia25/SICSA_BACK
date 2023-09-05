@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class CatRamo
+ * Class CatAreaAuditora
  *
  * @property string $id
  * @property string $deleted
@@ -18,20 +18,23 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $FechaCreacion
  * @property string $ModificadoPor
  * @property string $CreadoPor
- * @property string|null $Descripcion
+ * @property string $Clave
+ * @property string $Descripcion
+ * @property string $idCatUnidadAdmin
+ *
+ * @property CatUnidadAdminAuditora $cat_unidad_admin_auditora
  *
  * @package App\Models
  */
-class CatRamo extends Model
+class CatAreaAuditora extends Model
 {
-    public $table = 'cat_ramo';
+    public $table = 'cat_area_auditoras';
     public $incrementing = false;
     public $timestamps = false;
-    protected $_keyType = 'string';
     protected $_primaryKey = 'id';
+    protected $_keyType = 'string';
 
     protected $_casts = [
-
         'UltimaActualizacion' => 'datetime',
         'FechaCreacion' => 'datetime',
     ];
@@ -42,6 +45,13 @@ class CatRamo extends Model
         'FechaCreacion',
         'ModificadoPor',
         'CreadoPor',
+        'Clave',
         'Descripcion',
+        'idCatUnidadAdmin',
     ];
+
+    public function cat_unidad_admin_auditora()
+    {
+        return $this->belongsTo(CatUnidadAdminAuditora::class, 'idCatUnidadAdmin');
+    }
 }

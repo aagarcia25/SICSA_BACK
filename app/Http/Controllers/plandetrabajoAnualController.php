@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CatAnio;
+use App\Models\PlandetrabajoAnual;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class AniosController extends Controller
+class plandetrabajoAnualController extends Controller
 {
-
     /* SE IDENTIFICA EL TIPO DE OPERACION A REALIZAR
     1._ INSERTAR UN REGISTRO
     2._ ACTUALIZAR UN REGISTRO
@@ -17,7 +16,7 @@ class AniosController extends Controller
     4._ CONSULTAR GENERAL DE REGISTROS, (SE INCLUYEN FILTROS)
      */
 
-    public function aniosindex(Request $request)
+    public function planAnualindex(Request $request)
     {
 
         $SUCCESS = true;
@@ -29,25 +28,30 @@ class AniosController extends Controller
             $type = $request->NUMOPERACION;
 
             if ($type == 1) {
-                $OBJ = new CatAnio();
-
+                $OBJ = new PlandetrabajoAnual();
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
-                $OBJ->anio = $request->ANIO;
+                $OBJ->start = $request->start;
+                $OBJ->end = $request->end;
+                $OBJ->name = $request->name;
+                $OBJ->idauditoria = $request->idauditoria;
                 $OBJ->save();
                 $response = $OBJ;
 
             } elseif ($type == 2) {
 
-                $OBJ = CatAnio::find($request->CHID);
+                $OBJ = PlandetrabajoAnual::find($request->CHID);
                 $OBJ->ModificadoPor = $request->CHUSER;
-                $OBJ->anio = $request->ANIO;
-
+                $OBJ->CreadoPor = $request->CHUSER;
+                $OBJ->start = $request->start;
+                $OBJ->end = $request->end;
+                $OBJ->name = $request->name;
+                $OBJ->idauditoria = $request->idauditoria;
                 $OBJ->save();
                 $response = $OBJ;
 
             } elseif ($type == 3) {
-                $OBJ = CatAnio::find($request->CHID);
+                $OBJ = PlandetrabajoAnual::find($request->CHID);
                 $OBJ->deleted = 1;
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->save();
@@ -56,18 +60,25 @@ class AniosController extends Controller
             } elseif ($type == 4) {
 
                 $query = "
-                    SELECT
-                    id,
-                    deleted,
-                    UltimaActualizacion,
-                    FechaCreacion,
-                    getUserName(ModificadoPor) ModificadoPor,
-                    getUserName(CreadoPor) CreadoPor,
-                    anio
-                    FROM SICSA.Cat_Anios
-                    where deleted =0
-                    order by FechaCreacion desc
+                      SELECT
+                        pt.id,
+                        pt.UltimaActualizacion,
+                        pt.FechaCreacion,
+                        getUserName(pt.ModificadoPor) ModificadoPor,
+                        getUserName(pt.CreadoPor) CreadoPor,
+                        DATE_ADD(pt.start,INTERVAL 1 DAY) start,
+                        DATE_ADD(pt.end,INTERVAL 1 DAY) end,
+                        pt.name,
+                        pt.type,
+                        pt.progress
+                       FROM SICSA.plandetrabajoAnual pt
+                       WHERE pt.deleted =0
+
                     ";
+
+                // $query = $query . " and pt.idauditoria='" . $request->P_IDAUDITORIA . "'";
+                $query = $query . "  ORDER BY pt.orden ASC";
+
                 $response = DB::select($query);
             }
         } catch (QueryException $e) {

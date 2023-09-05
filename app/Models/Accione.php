@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Accione
- * 
+ *
  * @property string $id
  * @property string $deleted
  * @property Carbon $UltimaActualizacion
@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $ClaveAccion
  * @property string|null $TextoAccion
  * @property float|null $Valor
- * 
+ *
  * @property Auditorium|null $auditorium
  * @property CatTiposAccion|null $cat_tipos_accion
  * @property CatEstatusAccione|null $cat_estatus_accione
@@ -34,46 +34,45 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Accione extends Model
 {
-	protected $table = 'Acciones';
-	public $incrementing = false;
-	public $timestamps = false;
-	protected $keyType ='string';
-	protected $primaryKey = 'id';
-	
-	protected $casts = [
-		'UltimaActualizacion' => 'datetime',
-		'FechaCreacion' => 'datetime',
-		'anio' => 'int',
-		'Valor' => 'float'
-	];
+    public $table = 'acciones';
+    public $incrementing = false;
+    public $timestamps = false;
+    public $keyType = 'string';
+    public $primaryKey = 'id';
 
-	protected $fillable = [
-		'deleted',
-		'UltimaActualizacion',
-		'FechaCreacion',
-		'ModificadoPor',
-		'CreadoPor',
-		'anio',
-		'idTipoAccion',
-		'idAuditoria',
-		'idEstatusAccion',
-		'ClaveAccion',
-		'TextoAccion',
-		'Valor'
-	];
+    public $casts = [
+        'UltimaActualizacion' => 'datetime',
+        'FechaCreacion' => 'datetime',
+        'Valor' => 'float',
+    ];
 
-	public function auditorium()
-	{
-		return $this->belongsTo(Auditorium::class, 'idAuditoria');
-	}
+    public $fillable = [
+        'deleted',
+        'UltimaActualizacion',
+        'FechaCreacion',
+        'ModificadoPor',
+        'CreadoPor',
+        'idTipoAccion',
+        'idAuditoria',
+        'idEstatusAccion',
+        'ClaveAccion',
+        'TextoAccion',
+        'Valor',
+        'accionSuperviviente',
+    ];
 
-	public function cat_tipos_accion()
-	{
-		return $this->belongsTo(CatTiposAccion::class, 'idTipoAccion');
-	}
+    public function auditorium()
+    {
+        return $this->belongsTo(Auditorium::class, 'idAuditoria');
+    }
 
-	public function cat_estatus_accione()
-	{
-		return $this->belongsTo(CatEstatusAccione::class, 'idEstatusAccion');
-	}
+    public function cat_tipos_accion()
+    {
+        return $this->belongsTo(CatTiposAccion::class, 'idTipoAccion');
+    }
+
+    public function cat_estatus_accione()
+    {
+        return $this->belongsTo(CatEstatusAccione::class, 'idEstatusAccion');
+    }
 }
