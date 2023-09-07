@@ -55,6 +55,7 @@ class AuditoriaController extends Controller
                 $OBJ->idInicioauditoria = $request->inicio;
                 $OBJ->idmunicipio = $request->municipio;
                 $OBJ->idEstatus = $request->idEstatus;
+                //$OBJ->montoauditado = $request->montoauditado;
 
                 $OBJ->save();
                 $response = $OBJ;
@@ -87,6 +88,7 @@ class AuditoriaController extends Controller
                 $OBJ->idInicioauditoria = $request->inicio;
                 $OBJ->idmunicipio = $request->municipio;
                 $OBJ->idEstatus = $request->idEstatus;
+                //$OBJ->montoauditado = $request->montoauditado;
 
                 $OBJ->save();
                 $response = $OBJ;

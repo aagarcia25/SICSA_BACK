@@ -79,6 +79,7 @@ class Auditorium extends Model
         'Consecutivo' => 'int',
         'universopesos' => 'float',
         'muestrapesos' => 'float',
+        //'montoauditado' => 'float',
     ];
 
     protected $_fillable = [
@@ -111,6 +112,7 @@ class Auditorium extends Model
         'idInicioauditoria',
         'idmunicipio',
         'idEstatus',
+        //'montoauditado',
     ];
 
     public function cat_ramo()
