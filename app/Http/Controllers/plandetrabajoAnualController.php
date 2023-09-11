@@ -34,7 +34,9 @@ class plandetrabajoAnualController extends Controller
                 $OBJ->start = $request->start;
                 $OBJ->end = $request->end;
                 $OBJ->name = $request->name;
-                $OBJ->idauditoria = $request->idauditoria;
+                $OBJ->anio = $request->anio;
+                $OBJ->orden = $request->orden;
+                //$OBJ->idauditoria = $request->idauditoria;
                 $OBJ->save();
                 $response = $OBJ;
 
@@ -46,7 +48,9 @@ class plandetrabajoAnualController extends Controller
                 $OBJ->start = $request->start;
                 $OBJ->end = $request->end;
                 $OBJ->name = $request->name;
-                $OBJ->idauditoria = $request->idauditoria;
+                $OBJ->anio = $request->anio;
+                $OBJ->orden = $request->orden;
+                //$OBJ->idauditoria = $request->idauditoria;
                 $OBJ->save();
                 $response = $OBJ;
 
@@ -60,19 +64,21 @@ class plandetrabajoAnualController extends Controller
             } elseif ($type == 4) {
 
                 $query = "
-                      SELECT
-                        pt.id,
-                        pt.UltimaActualizacion,
-                        pt.FechaCreacion,
-                        getUserName(pt.ModificadoPor) ModificadoPor,
-                        getUserName(pt.CreadoPor) CreadoPor,
-                        DATE_ADD(pt.start,INTERVAL 1 DAY) start,
-                        DATE_ADD(pt.end,INTERVAL 1 DAY) end,
-                        pt.name,
-                        pt.type,
-                        pt.progress
-                       FROM SICSA.plandetrabajoAnual pt
-                       WHERE pt.deleted =0
+                SELECT
+                pt.id,
+                pt.UltimaActualizacion,
+                pt.FechaCreacion,
+                getUserName(pt.ModificadoPor) ModificadoPor,
+                getUserName(pt.CreadoPor) CreadoPor,
+                DATE_ADD(pt.start,INTERVAL 1 DAY) start,
+                DATE_ADD(pt.end,INTERVAL 1 DAY) end,
+                pt.name,
+                pt.type,
+                pt.progress,
+                pt.anio,
+                pt.orden
+               FROM SICSA.plandetrabajoAnual pt
+               WHERE pt.deleted =0
 
                     ";
 
