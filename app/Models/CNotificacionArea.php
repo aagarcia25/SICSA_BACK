@@ -32,17 +32,19 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CNotificacionArea extends Model
 {
-    protected $_table = 'C_Notificacion_area';
-    protected $_keyType = 'string';
+    protected $table = 'C_Notificacion_area';
+    protected $keyType = 'string';
     public $incrementing = false;
     public $timestamps = false;
 
-    protected $_casts = [
+    protected $casts = [
 
         'UltimaActualizacion' => 'datetime',
         'FechaCreacion' => 'datetime',
         'Prorroga' => 'datetime',
         'FOficio' => 'datetime',
+        'FRecibido' => 'datetime',
+        'FVencimiento' => 'datetime'
     ];
 
     protected $_fillable = [
@@ -59,7 +61,7 @@ class CNotificacionArea extends Model
         'FRecibido',
         'FVencimiento',
         'idsecretaria',
-        'idunidad',
+        'idunidad'
     ];
 
     public function auditorium()

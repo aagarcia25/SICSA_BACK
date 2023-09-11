@@ -40,6 +40,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $idRamo
  * @property float|null $universopesos
  * @property float|null $muestrapesos
+ * 
  * @property string|null $idInicioauditoria
  * @property string|null $idmunicipio
  * @property string|null $idEstatus
@@ -79,7 +80,7 @@ class Auditorium extends Model
         'Consecutivo' => 'int',
         'universopesos' => 'float',
         'muestrapesos' => 'float',
-        //'montoauditado' => 'float',
+        'montoauditado' => 'float',
     ];
 
     protected $_fillable = [
@@ -112,7 +113,7 @@ class Auditorium extends Model
         'idInicioauditoria',
         'idmunicipio',
         'idEstatus',
-        //'montoauditado',
+        'montoauditado',
     ];
 
     public function cat_ramo()

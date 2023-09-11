@@ -42,7 +42,7 @@ class MunicipiosController extends Controller
                 $OBJ = Municipio::find($request->CHID);
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
-                $OBJ->Nombre = $request->Nombre;
+                $OBJ->Nombre = $request->NOMBRE;
                 $OBJ->ClaveEstado = $request->ClaveEstado;
                 $OBJ->ClaveINEGI = $request->ClaveINEGI;
                 $OBJ->save();
