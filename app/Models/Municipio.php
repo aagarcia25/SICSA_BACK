@@ -30,6 +30,8 @@ class Municipio extends Model
     public $table = 'Municipios';
     public $incrementing = false;
     public $timestamps = false;
+    public $primaryKey = 'id';
+    public $keyType = 'string';
 
     protected $_casts = [
         'UltimaActualizacion' => 'datetime',

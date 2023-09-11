@@ -55,6 +55,7 @@ class AuditoriaController extends Controller
                 $OBJ->idInicioauditoria = $request->inicio;
                 $OBJ->idmunicipio = $request->municipio;
                 $OBJ->idEstatus = $request->idEstatus;
+                $OBJ->montoauditado = $request->montoauditado;
 
                 $OBJ->save();
                 $response = $OBJ;
@@ -87,6 +88,7 @@ class AuditoriaController extends Controller
                 $OBJ->idInicioauditoria = $request->inicio;
                 $OBJ->idmunicipio = $request->municipio;
                 $OBJ->idEstatus = $request->idEstatus;
+                $OBJ->montoauditado = $request->montoauditado;
 
                 $OBJ->save();
                 $response = $OBJ;
@@ -145,7 +147,8 @@ class AuditoriaController extends Controller
                     cr.Descripcion crDescripcion,
 					aud.universopesos,
                     mun.Nombre,
-					aud.muestrapesos
+					aud.muestrapesos,
+                    aud.montoauditado
                     FROM SICSA.auditoria   aud
                     LEFT JOIN SICSA.cat_tipo ct ON aud.idClasificacion = ct.id
                     LEFT JOIN SICSA.Cat_Origen_Auditoria coa ON aud.idcatorigenaud = coa.id

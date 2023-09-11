@@ -22,6 +22,8 @@ use App\Http\Controllers\SelectController;
 use App\Http\Controllers\TiposAccionController;
 use App\Http\Controllers\Tipos_AuditoriaController;
 use App\Http\Controllers\Unidad_Admin_AuditoraController;
+use App\Http\Controllers\MunicipiosController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,5 +64,6 @@ Route::group([
     Route::post('areaindex', [Area_AuditoraController::class, 'areaindex']);
     Route::post('planindex', [PlandetrabajoController::class, 'planindex']);
     Route::post('planAnualindex', [plandetrabajoAnualController::class, 'planAnualindex']);
+    Route::post('Municipios_index', [MunicipiosController::class, 'Municipios_index']);
 
 });
