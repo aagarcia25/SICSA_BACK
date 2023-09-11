@@ -32,7 +32,7 @@ class NotificacionController extends Controller
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
                 $OBJ->idAuditoria = $request->idAuditoria;
-                $OBJ->Dependencia = $request->Dependencia;
+                //$OBJ->Dependencia = $request->Dependencia;
                 $OBJ->Prorroga = $request->Prorroga;
                 $OBJ->Oficio = $request->Oficio;
                 $OBJ->SIGAOficio = $request->SIGAOficio;
@@ -49,7 +49,9 @@ class NotificacionController extends Controller
 
                 $OBJ = CNotificacionArea::find($request->CHID);
                 $OBJ->ModificadoPor = $request->CHUSER;
-                $OBJ->Dependencia = $request->Dependencia;
+                $OBJ->CreadoPor = $request->CHUSER;
+                $OBJ->idAuditoria = $request->idAuditoria;
+                //$OBJ->Dependencia = $request->Dependencia;
                 $OBJ->Prorroga = $request->Prorroga;
                 $OBJ->Oficio = $request->Oficio;
                 $OBJ->SIGAOficio = $request->SIGAOficio;
@@ -71,7 +73,8 @@ class NotificacionController extends Controller
 
             } elseif ($type == 4) {
 
-                $query = "SELECT
+                $query = "
+                SELECT
                     ca.id,
                     ca.deleted,
                     ca.UltimaActualizacion,
@@ -82,7 +85,11 @@ class NotificacionController extends Controller
                     ca.Oficio,
                     ca.SIGAOficio,
                     ca.FOficio,
+                    ca.FRecibido,
+                    ca.FVencimiento,
                     sec.Descripcion secretaria,
+                    sec.id secid,
+                    uni.id uniid,
                     uni.Descripcion unidad
                     FROM SICSA.C_Notificacion_area ca
                     INNER JOIN SICSA.cat_secretarias sec ON ca.idsecretaria = sec.id
@@ -93,6 +100,8 @@ class NotificacionController extends Controller
                 $response = DB::select($query);
 
             }
+      
+
         } catch (QueryException $e) {
             $SUCCESS = false;
             $NUMCODE = 1;

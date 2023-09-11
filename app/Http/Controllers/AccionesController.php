@@ -38,6 +38,8 @@ class AccionesController extends Controller
                 $OBJ->TextoAccion = $request->TextoAccion;
                 $OBJ->Valor = $request->Valor;
                 $OBJ->accionSuperviviente = $request->accionSuperviviente;
+                $OBJ->numeroResultado = $request->numeroResultado;
+                $OBJ->monto = $request->monto;
                 $OBJ->save();
                 $response = $OBJ;
 
@@ -52,6 +54,9 @@ class AccionesController extends Controller
                 $OBJ->TextoAccion = $request->TextoAccion;
                 $OBJ->Valor = $request->Valor;
                 $OBJ->accionSuperviviente = $request->accionSuperviviente;
+                $OBJ->numeroResultado = $request->numeroResultado;
+                $OBJ->monto = $request->monto;
+                
 
                 $OBJ->save();
                 $response = $OBJ;
@@ -78,7 +83,9 @@ class AccionesController extends Controller
                       accion.idEstatusAccion,
                       accion.ClaveAccion,
                       accion.TextoAccion,
-                      accion.Valor ,
+                      accion.Valor,
+                      accion.numeroResultado,
+                      accion.monto,
                       aud.NAUDITORIA,
                       cta.Descripcion AS DescripcionTipoDeAccion,
                       cea.Descripcion AS DescripcionEstatusAccion,

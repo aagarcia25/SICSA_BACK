@@ -44,6 +44,8 @@ class Accione extends Model
         'UltimaActualizacion' => 'datetime',
         'FechaCreacion' => 'datetime',
         'Valor' => 'float',
+        'numeroResultado' => 'int',
+        'monto' => 'float',
     ];
 
     public $fillable = [
@@ -59,6 +61,8 @@ class Accione extends Model
         'TextoAccion',
         'Valor',
         'accionSuperviviente',
+        'numeroResultado',
+        'monto',
     ];
 
     public function auditorium()
