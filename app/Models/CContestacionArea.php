@@ -43,6 +43,8 @@ class CContestacionArea extends Model
         'FechaCreacion' => 'datetime',
         'Prorroga' => 'datetime',
         'FOficio' => 'datetime',
+        'FRecibido' => 'datetime',
+        'FVencimiento' => 'datetime'
     ];
 
     protected $_fillable = [
