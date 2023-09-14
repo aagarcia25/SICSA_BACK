@@ -34,7 +34,7 @@ class AuditoriaController extends Controller
                 $OBJ->anio = $request->anio;
                 $OBJ->NAUDITORIA = $request->NAUDITORIA;
                 $OBJ->FolioSIGA = $request->FolioSIGA;
-                $OBJ->Modalidad = $request->Modalidad;
+                $OBJ->idModalidad = $request->idModalidad;
                 $OBJ->Consecutivo = $request->Consecutivo;
                 $OBJ->ActaInicio = $request->ActaInicio;
                 $OBJ->NombreAudoria = $request->NombreAudoria;
@@ -67,7 +67,7 @@ class AuditoriaController extends Controller
                 $OBJ->anio = $request->anio;
                 $OBJ->NAUDITORIA = $request->NAUDITORIA;
                 $OBJ->FolioSIGA = $request->FolioSIGA;
-                $OBJ->Modalidad = $request->Modalidad;
+                $OBJ->idModalidad = $request->idModalidad;
                 $OBJ->Consecutivo = $request->Consecutivo;
                 $OBJ->ActaInicio = $request->ActaInicio;
                 $OBJ->NombreAudoria = $request->NombreAudoria;
@@ -113,7 +113,6 @@ class AuditoriaController extends Controller
                     aud.anio,
                     aud.NAUDITORIA,
                     aud.FolioSIGA,
-                    aud.Modalidad,
                     aud.Consecutivo,
 					aud.ActaInicio,
 					aud.NombreAudoria,
@@ -148,7 +147,9 @@ class AuditoriaController extends Controller
 					aud.universopesos,
                     mun.Nombre,
 					aud.muestrapesos,
-                    aud.montoauditado
+                    aud.montoauditado,
+                    cmo.Descripcion cmoDescripcion,
+                    cmo.id cmoid
                     FROM SICSA.auditoria   aud
                     LEFT JOIN SICSA.cat_tipo ct ON aud.idClasificacion = ct.id
                     LEFT JOIN SICSA.Cat_Origen_Auditoria coa ON aud.idcatorigenaud = coa.id
@@ -163,6 +164,7 @@ class AuditoriaController extends Controller
                     LEFT JOIN SICSA.cat_estatus_auditoria cea ON aud.idEstatus = cea.id
                     LEFT JOIN SICSA.cat_inicio_auditoria cia ON aud.idInicioauditoria = cia.id
                     LEFT JOIN SICSA.Municipios mun ON aud.idmunicipio = mun.id
+                    LEFT JOIN SICSA.Cat_Modalidad cmo ON aud.idModalidad = cmo.id
                     
                     where aud.deleted =0
 
