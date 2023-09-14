@@ -24,8 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CatSector extends Model
 {
-	protected $table = 'Cat_Sector';
-	protected $keyType ='string';
+	public $table = 'Cat_Sector';
+	public $keyType ='string';
 	public $incrementing = false;
 	public $timestamps = false;
 

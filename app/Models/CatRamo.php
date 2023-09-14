@@ -27,8 +27,8 @@ class CatRamo extends Model
     public $table = 'cat_ramo';
     public $incrementing = false;
     public $timestamps = false;
-    protected $_keyType = 'string';
-    protected $_primaryKey = 'id';
+    public $_keyType = 'string';
+    public $_primaryKey = 'id';
 
     protected $_casts = [
 
