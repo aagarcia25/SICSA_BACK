@@ -28,11 +28,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class OficiosA extends Model
 {
-	protected $table = 'OficiosA';
+	public $table = 'OficiosA';
 	public $incrementing = false;
 	public $timestamps = false;
-	protected $keyType ='string';
-	protected $primaryKey = 'id';
+	public $keyType ='string';
+	public $primaryKey = 'id';
 
 	protected $casts = [
 		'UltimaActualizacion' => 'datetime',
