@@ -30,11 +30,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CContestacionArea extends Model
 {
-    protected $table = 'C_Contestacion_area';
-    protected $keyType = 'string';
+    public $table = 'C_Contestacion_area';
+    public $keyType = 'string';
     public $incrementing = false;
     public $timestamps = false;
-    protected $primaryKey = 'id';
+    public $primaryKey = 'id';
 
 
     protected $casts = [

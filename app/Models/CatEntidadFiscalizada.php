@@ -24,8 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CatEntidadFiscalizada extends Model
 {
-	protected $table = 'Cat_Entidad_Fiscalizada';
-	protected $keyType ='string';
+	public $table = 'Cat_Entidad_Fiscalizada';
+	public $keyType ='string';
 	public $incrementing = false;
 	public $timestamps = false;
 

@@ -24,8 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CatUnidadAdminAuditora extends Model
 {
-	protected $table = 'Cat_Unidad_Admin_Auditora';
-	protected $keyType ='string';
+	public $table = 'Cat_Unidad_Admin_Auditora';
+	public $keyType ='string';
 	public $incrementing = false;
 	public $timestamps = false;
 

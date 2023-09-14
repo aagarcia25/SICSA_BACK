@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CatModalidad extends Model
 {
-	protected $table = 'Cat_Modalidad';
+	public $table = 'Cat_Modalidad';
 	public $incrementing = false;
 	public $timestamps = false;
 	public $primaryKey = 'id';

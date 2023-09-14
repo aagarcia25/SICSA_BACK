@@ -69,8 +69,8 @@ class Auditorium extends Model
     public $table = 'auditoria';
     public $incrementing = false;
     public $timestamps = false;
-    protected $_keyType = 'string';
-    protected $_primaryKey = 'id';
+    public $_keyType = 'string';
+    public $_primaryKey = 'id';
 
     protected $_casts = [
         'UltimaActualizacion' => 'datetime',
