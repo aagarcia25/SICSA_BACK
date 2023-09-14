@@ -72,7 +72,6 @@ class ContestacionController extends Controller
 
                 $query = "SELECT
                            ca.id,
-                           ca.id,
                            ca.deleted,
                            ca.UltimaActualizacion,
                            ca.FechaCreacion,
@@ -82,9 +81,9 @@ class ContestacionController extends Controller
                            ca.Oficio,
                            ca.SIGAOficio,
                            ca.FOficio,
-                           ec.id secid,
+                           sec.id secid,
                            sec.Descripcion secretaria,
-                           uni.id uniid
+                           uni.id uniid,
                            uni.Descripcion unidad
                           FROM SICSA.C_Contestacion_area ca
                           INNER JOIN SICSA.cat_secretarias sec ON ca.idsecretaria = sec.id
