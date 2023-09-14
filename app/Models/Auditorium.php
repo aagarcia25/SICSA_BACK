@@ -131,6 +131,11 @@ class Auditorium extends Model
         return $this->belongsTo(Municipio::class, 'idmunicipio');
     }
 
+    public function Cat_Modalidad()
+    {
+        return $this->belongsTo(CatModalidad::class, 'idmodalidad');
+    }
+
     public function cat_estatus_auditorium()
     {
         return $this->belongsTo(CatEstatusAuditorium::class, 'idEstatus');
