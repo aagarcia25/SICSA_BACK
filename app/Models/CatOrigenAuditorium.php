@@ -24,8 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CatOrigenAuditorium extends Model
 {
-	protected $table = 'Cat_Origen_Auditoria';
-	protected $keyType ='string';
+	public $table = 'Cat_Origen_Auditoria';
+	public $keyType ='string';
 	public $incrementing = false;
 	public $timestamps = false;
 

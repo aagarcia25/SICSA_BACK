@@ -32,8 +32,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CNotificacionArea extends Model
 {
-    protected $table = 'C_Notificacion_area';
-    protected $keyType = 'string';
+    public $table = 'C_Notificacion_area';
+    public $keyType = 'string';
     public $incrementing = false;
     public $timestamps = false;
 

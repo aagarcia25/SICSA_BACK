@@ -23,7 +23,6 @@ class SectorController extends Controller
             $STRMESSAGE = 'Exito';
             $response = "";
 
-
             try {
                 $type = $request->NUMOPERACION;
     
@@ -77,9 +76,6 @@ class SectorController extends Controller
                     $response = DB::select($query);
 
                 }
-
-
-
             } catch (QueryException $e) {
                 $SUCCESS = false;
                 $NUMCODE = 1;
@@ -89,9 +85,6 @@ class SectorController extends Controller
                 $NUMCODE = 1;
                 $STRMESSAGE = $e->getMessage();
             }
-           
-    
-    
     
             return response()->json(
                 [

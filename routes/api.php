@@ -23,6 +23,8 @@ use App\Http\Controllers\TiposAccionController;
 use App\Http\Controllers\Tipos_AuditoriaController;
 use App\Http\Controllers\Unidad_Admin_AuditoraController;
 use App\Http\Controllers\MunicipiosController;
+use App\Http\Controllers\ModalidadController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -65,5 +67,6 @@ Route::group([
     Route::post('planindex', [PlandetrabajoController::class, 'planindex']);
     Route::post('planAnualindex', [plandetrabajoAnualController::class, 'planAnualindex']);
     Route::post('Municipios_index', [MunicipiosController::class, 'Municipios_index']);
+    Route::post('Modalidad_index', [ModalidadController::class, 'Modalidad_index']);
 
 });

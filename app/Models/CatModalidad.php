@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class CatTiposAccion
+ * Class CatModalidad
  * 
  * @property string $id
  * @property string $deleted
@@ -22,16 +22,14 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class CatTiposAccion extends Model
+class CatModalidad extends Model
 {
-	public $table = 'Cat_Tipos_Accion';
-	public $primaryKey = 'id';
-	public $keyType ='string';
+	public $table = 'Cat_Modalidad';
 	public $incrementing = false;
 	public $timestamps = false;
+	public $primaryKey = 'id';
 
 	protected $casts = [
-		
 		'UltimaActualizacion' => 'datetime',
 		'FechaCreacion' => 'datetime'
 	];
@@ -42,7 +40,6 @@ class CatTiposAccion extends Model
 		'FechaCreacion',
 		'ModificadoPor',
 		'CreadoPor',
-		'Descripcion',
-		'Abreviatura'
+		'Descripcion'
 	];
 }
