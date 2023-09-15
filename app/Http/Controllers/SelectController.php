@@ -62,8 +62,6 @@ class SelectController extends Controller
                 //              SELECT 'Por Medios Electrónicos'     value ,'Por Medios Electrónicos' label FROM DUAL";
                 $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Modalidad WHERE DELETED=0";
 
-
-
             } elseif ($type == 13) {
                 $query = "   SELECT
                     caa.id value,
@@ -90,6 +88,9 @@ class SelectController extends Controller
                 $query = "  SELECT id  value , descripcion label FROM SICSA.cat_unidades WHERE DELETED=0";
                 $query = $query . " and idSecretaria='" . $request->P_ID . "'";
 
+            } elseif ($type == 21) {
+                $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Origen_Auditoria WHERE DELETED=0";
+                $query = $query . " and idOrigenAuditoria='" . $request->P_ID . "'";
             }
 
             $response = DB::select($query);
