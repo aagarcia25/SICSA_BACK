@@ -180,6 +180,18 @@ class AuditoriaController extends Controller
                 if ($request->anio != "") {
                     $query = $query . " and    aud.anio='" . $request->anio . "'";
                 }
+                if ($request->idEstatus != "") {
+                    $query = $query . " and    cea.id='" . $request->idEstatus . "'";
+                }
+                if ($request->idInicioauditoria != "") {
+                    $query = $query . " and    cia.id='" . $request->idInicioauditoria . "'";
+                }
+                if ($request->idModalidad != "") {
+                    $query = $query . " and    cmo.id='" . $request->idModalidad . "'";
+                }
+                if ($request->idmunicipio != "") {
+                    $query = $query . " and    mun.id='" . $request->idmunicipio . "'";
+                }
 
                 $query = $query . "   order by aud.Consecutivo asc";
 
