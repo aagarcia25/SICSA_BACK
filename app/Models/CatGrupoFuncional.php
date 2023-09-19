@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class CatGrupoFuncional
- * 
+ *
  * @property string $id
  * @property string $deleted
  * @property Carbon $UltimaActualizacion
@@ -24,23 +24,23 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CatGrupoFuncional extends Model
 {
-	protected $table = 'Cat_Grupo_Funcional';
-	protected $keyType ='string';
-	public $incrementing = false;
-	public $timestamps = false;
+    public $table = 'Cat_Grupo_Funcional';
+    public $keyType = 'string';
+    public $incrementing = false;
+    public $timestamps = false;
 
-	protected $casts = [
-		
-		'UltimaActualizacion' => 'datetime',
-		'FechaCreacion' => 'datetime'
-	];
+    protected $_casts = [
 
-	protected $fillable = [
-		'deleted',
-		'UltimaActualizacion',
-		'FechaCreacion',
-		'ModificadoPor',
-		'CreadoPor',
-		'Descripcion'
-	];
+        'UltimaActualizacion' => 'datetime',
+        'FechaCreacion' => 'datetime',
+    ];
+
+    protected $_fillable = [
+        'deleted',
+        'UltimaActualizacion',
+        'FechaCreacion',
+        'ModificadoPor',
+        'CreadoPor',
+        'Descripcion',
+    ];
 }
