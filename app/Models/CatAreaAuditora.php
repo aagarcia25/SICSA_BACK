@@ -31,8 +31,8 @@ class CatAreaAuditora extends Model
     public $table = 'cat_area_auditoras';
     public $incrementing = false;
     public $timestamps = false;
-    public $_primaryKey = 'id';
-    public $_keyType = 'string';
+    public $primaryKey = 'id';
+    public $keyType = 'string';
 
     protected $_casts = [
         'UltimaActualizacion' => 'datetime',

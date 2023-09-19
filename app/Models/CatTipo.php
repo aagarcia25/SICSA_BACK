@@ -25,8 +25,8 @@ use Illuminate\Database\Eloquent\Model;
 class CatTipo extends Model
 {
     public $table = 'cat_tipo';
-    public $_primaryKey = 'id';
-    public $_keyType = 'string';
+    public $primaryKey = 'id';
+    public $keyType = 'string';
     public $incrementing = false;
     public $timestamps = false;
 

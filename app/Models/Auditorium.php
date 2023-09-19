@@ -40,7 +40,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $idRamo
  * @property float|null $universopesos
  * @property float|null $muestrapesos
- * 
+ *
  * @property string|null $idInicioauditoria
  * @property string|null $idmunicipio
  * @property string|null $idEstatus
@@ -69,8 +69,8 @@ class Auditorium extends Model
     public $table = 'auditoria';
     public $incrementing = false;
     public $timestamps = false;
-    public $_keyType = 'string';
-    public $_primaryKey = 'id';
+    public $keyType = 'string';
+    public $primaryKey = 'id';
 
     protected $_casts = [
         'UltimaActualizacion' => 'datetime',

@@ -33,8 +33,8 @@ class PlandetrabajoAnual extends Model
     public $table = 'plandetrabajoAnual';
     public $incrementing = false;
     public $timestamps = false;
-    public $_keyType = 'string';
-    public $_primaryKey = 'id';
+    public $keyType = 'string';
+    public $primaryKey = 'id';
 
     protected $_casts = [
         'UltimaActualizacion' => 'datetime',
