@@ -83,8 +83,8 @@ class PreguntasFrecuentesController extends Controller
 
                 if($request->CHID !=""){
                     $preguntas = DB::table('PreguntasFrecuentes')
-                   ->join('RMenus', 'PreguntasFrecuentes.idMenu', '=', 'RMenus.id')
-                   ->select('PreguntasFrecuentes.*','RMenus.Menu')
+                   ->join('Menus', 'PreguntasFrecuentes.idMenu', '=', 'Menus.id')
+                   ->select('PreguntasFrecuentes.*','Menus.Menu')
                    ->where('PreguntasFrecuentes.idMenu', $request->CHID)
                    ->where('PreguntasFrecuentes.deleted', '=', 0)
                    ->where('PreguntasFrecuentes.Texto', '!=', "")
@@ -94,8 +94,8 @@ class PreguntasFrecuentesController extends Controller
                    
                    else if ($request->CHID =="") {
                    $preguntas = DB::table('PreguntasFrecuentes')
-                   ->join('RMenus', 'PreguntasFrecuentes.idMenu', '=', 'RMenus.id')
-                   ->select('PreguntasFrecuentes.*','RMenus.Menu')
+                   ->join('Menus', 'PreguntasFrecuentes.idMenu', '=', 'Menus.id')
+                   ->select('PreguntasFrecuentes.*','Menus.Menu')
                    ->where('PreguntasFrecuentes.deleted', '=', 0)
                    ->where('PreguntasFrecuentes.Texto', '!=', "")
                    ->get(); 
@@ -107,7 +107,7 @@ class PreguntasFrecuentesController extends Controller
             if ($type == 5) {
                 $response = DB::select(DB::raw("
                  SELECT vt.RutaVideo, vt.NombreOriginalVideo
-                 FROM PDRMYE.PreguntasFrecuentes vt
+                 FROM SICSA.PreguntasFrecuentes vt
                  WHERE vt.deleted = 0 
                  AND vt.idMenu='".$request->CHID ."' AND vt.RutaVideo !=''
                  "));
@@ -116,7 +116,7 @@ class PreguntasFrecuentesController extends Controller
              if ($type == 6) {
                 $response = DB::select(DB::raw("
                  SELECT *
-                 FROM PDRMYE.PreguntasFrecuentes vt
+                 FROM SICSA.PreguntasFrecuentes vt
                  WHERE vt.deleted = 0 
                 "));
              }
@@ -168,8 +168,8 @@ class PreguntasFrecuentesController extends Controller
               if ($type == 11) {
                 if($request->CHID !=""){
                  $preguntas = DB::table('PreguntasFrecuentes')
-                ->join('RMenus', 'PreguntasFrecuentes.idMenu', '=', 'RMenus.id')
-                ->select('PreguntasFrecuentes.*','RMenus.Menu')
+                ->join('Menus', 'PreguntasFrecuentes.idMenu', '=', 'Menus.id')
+                ->select('PreguntasFrecuentes.*','Menus.Menu')
                 ->where('PreguntasFrecuentes.idMenu', $request->CHID)
                 ->where('PreguntasFrecuentes.deleted', '=', 0)
                 ->where('PreguntasFrecuentes.RutaGuia', '!=', "")
@@ -179,8 +179,8 @@ class PreguntasFrecuentesController extends Controller
                 
                 else if ($request->CHID =="") {
                 $preguntas = DB::table('PreguntasFrecuentes')
-                ->join('RMenus', 'PreguntasFrecuentes.idMenu', '=', 'RMenus.id')
-                ->select('PreguntasFrecuentes.*','RMenus.Menu')
+                ->join('Menus', 'PreguntasFrecuentes.idMenu', '=', 'Menus.id')
+                ->select('PreguntasFrecuentes.*','Menus.Menu')
                 ->where('PreguntasFrecuentes.deleted', '=', 0)
                 ->where('PreguntasFrecuentes.RutaGuia', '!=', "")
                 ->get(); 
@@ -193,8 +193,8 @@ class PreguntasFrecuentesController extends Controller
              if ($type == 12) {
                 if($request->CHID !=""){
                     $preguntas = DB::table('PreguntasFrecuentes')
-                   ->join('RMenus', 'PreguntasFrecuentes.idMenu', '=', 'RMenus.id')
-                   ->select('PreguntasFrecuentes.*','RMenus.Menu')
+                   ->join('Menus', 'PreguntasFrecuentes.idMenu', '=', 'Menus.id')
+                   ->select('PreguntasFrecuentes.*','Menus.Menu')
                    ->where('PreguntasFrecuentes.idMenu', $request->CHID)
                    ->where('PreguntasFrecuentes.deleted', '=', 0)
                    ->where('PreguntasFrecuentes.RutaVideo', '!=', "")
@@ -204,8 +204,8 @@ class PreguntasFrecuentesController extends Controller
                    
                    else if ($request->CHID =="") {
                    $preguntas = DB::table('PreguntasFrecuentes')
-                   ->join('RMenus', 'PreguntasFrecuentes.idMenu', '=', 'RMenus.id')
-                   ->select('PreguntasFrecuentes.*','RMenus.Menu')
+                   ->join('Menus', 'PreguntasFrecuentes.idMenu', '=', 'Menus.id')
+                   ->select('PreguntasFrecuentes.*','Menus.Menu')
                    ->where('PreguntasFrecuentes.deleted', '=', 0)
                    ->where('PreguntasFrecuentes.RutaVideo', '!=', "")
                    ->get(); 
@@ -302,11 +302,11 @@ class PreguntasFrecuentesController extends Controller
                          $data =$this->UploadFile($request->TOKEN,$ruta,$nombre,$file) ;
                          $response =  $data;
                          if($data->SUCCESS){
-                             $NuevoVideo-> nombreVideo =   $data->RESPONSE->NOMBREIDENTIFICADOR;
+                             $NuevoVideo-> RutaVideo =   $data->RESPONSE->NOMBREIDENTIFICADOR;
                              $NuevoVideo-> ModificadoPor  =  $request->CHUSER;
                              $NuevoVideo-> CreadoPor        = $request->CHUSER;
                              $NuevoVideo-> idMenu        = $request->CHID;
-                             $NuevoVideo-> nombreOriginal  = $request->NAME;
+                             $NuevoVideo-> NombreOriginalVideo  = $request->NAME;
                  
                            $response = $data;
                          }
@@ -322,7 +322,7 @@ class PreguntasFrecuentesController extends Controller
             if ($type == 4) {
                $response = DB::select(DB::raw("
                SELECT pf.id, pf.Pregunta, pf.Texto
-               FROM PDRMYE.PreguntasFrecuentes pf
+               FROM SICSA.PreguntasFrecuentes pf
                WHERE pf.deleted = 0
                AND pf.Texto !='' AND pf.idMenu='".$request->CHID ."'"));
             }
@@ -330,7 +330,7 @@ class PreguntasFrecuentesController extends Controller
             if ($type == 5) {
                 $response = DB::select(DB::raw("
                 SELECT pf.id, pf.Pregunta, pf.RutaGuia
-                FROM PDRMYE.PreguntasFrecuentes pf
+                FROM SICSA.PreguntasFrecuentes pf
                 WHERE pf.deleted = 0
                 AND pf.RutaGuia != '' AND pf.idMenu='".$request->CHID ."'"));
             }
@@ -365,19 +365,10 @@ class PreguntasFrecuentesController extends Controller
             if ($type == 4) {
                 $response = DB::select(DB::raw("
                 SELECT pf.id, pf.Pregunta, pf.RutaGuia
-                FROM PDRMYE.PreguntasFrecuentes pf
+                FROM SICSA.PreguntasFrecuentes pf
                 WHERE pf.deleted = 0
                 AND pf.RutaGuia != '' AND pf.idMenu='".$request->CHID ."'"));
             }
-
-            if ($type == 5) {
-               $response = DB::select(DB::raw("
-                SELECT *
-                FROM PDRMYE.VideoTutorial vt
-                WHERE vt.deleted = 0 
-               "));
-            }
- 
    
           }
 
