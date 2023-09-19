@@ -24,6 +24,9 @@ use App\Http\Controllers\Tipos_AuditoriaController;
 use App\Http\Controllers\Unidad_Admin_AuditoraController;
 use App\Http\Controllers\MunicipiosController;
 use App\Http\Controllers\ModalidadController;
+use App\Http\Controllers\PreguntasFrecuentesController;
+
+
 
 
 use Illuminate\Support\Facades\Route;
@@ -68,5 +71,9 @@ Route::group([
     Route::post('planAnualindex', [plandetrabajoAnualController::class, 'planAnualindex']);
     Route::post('Municipios_index', [MunicipiosController::class, 'Municipios_index']);
     Route::post('Modalidad_index', [ModalidadController::class, 'Modalidad_index']);
+    Route::post('AdminAyudas', [PreguntasFrecuentesController::class, 'AdminAyudas']);
+    Route::post('AdminVideoTutoriales', [PreguntasFrecuentesController::class, 'AdminVideoTutoriales']);
+    Route::post('AdminPreguntasFrecuentes', [PreguntasFrecuentesController::class, 'AdminPreguntasFrecuentes']);
+    Route::post('AdminGuiaRapida', [PreguntasFrecuentesController::class, 'AdminGuiaRapida']);
 
 });
