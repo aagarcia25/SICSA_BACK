@@ -12,6 +12,7 @@ class PreguntasFrecuentesController extends Controller
 
     use ApiDocTrait;
 
+    //
     public function AdminAyudas(Request $request)
     {
         $SUCCESS = true;
@@ -21,13 +22,11 @@ class PreguntasFrecuentesController extends Controller
 
         try {
             $type = $request->NUMOPERACION;
-
             if ($type == 1) {
-
                 $NuevoVideo = new PreguntasFrecuentes();
                 $file = request()->file('VIDEO');
-                $ruta = env('APP_DOC_ROUTE') . '/VIDEOS/TUTORIALES/';
 
+                $ruta = env('APP_DOC_ROUTE') . '/VIDEOS/TUTORIALES/';
                 if ($file != null) {
                     $nombre = $file->getClientOriginalName();
                     $data = $this->UploadFile($request->TOKEN, $ruta, $nombre, $file, false);
@@ -78,7 +77,7 @@ class PreguntasFrecuentesController extends Controller
             }
 
             if ($type == 4) {
-
+               
                 if ($request->CHID != "") {
                     $queryPreguntas = "
                     SELECT * FROM SICSA.PreguntasFrecuentes pf
@@ -86,20 +85,27 @@ class PreguntasFrecuentesController extends Controller
                     WHERE pf.deleted=0
                     AND pf.Texto <> ''
                     AND pf.Pregunta <> ''
-                    ";
 
+
+                    
+                    ";
+                   // $queryPreguntas=$queryPreguntas."AND pf.idMenu= ".$request->CHID."';"; 
+                    
                     $response = DB::select($queryPreguntas);
                 } elseif ($request->CHID == "") {
-
-                    $queryPreguntas = "
+                    
+                        $queryPreguntas = "
                         SELECT * FROM SICSA.PreguntasFrecuentes pf
                         LEFT JOIN TiCentral.Menus menus ON pf.idMenu = menus.id
                         WHERE pf.deleted=0
                         AND pf.Texto <> ''
                         AND pf.Pregunta <> ''
-                        ";
-                    $response = DB::select($queryPreguntas);
 
+                        ";
+                       // $queryPreguntas=$queryPreguntas."AND pf.idMenu= ".$request->CHID."';"; 
+                        
+                        $response = DB::select($queryPreguntas);
+                    
                 }
 
             }
@@ -148,7 +154,7 @@ class PreguntasFrecuentesController extends Controller
                     ->where('idMenu', $request->CHID)
                     ->where('deleted', '=', 0)
                     ->where('RutaVideo', '!=', "")
-                    ->where('Departamento', '=', $request->TIPO)
+                    //->where('Departamento', '=', $request->TIPO)
                     ->get();
                 $response = $preguntas;
             }
@@ -159,7 +165,7 @@ class PreguntasFrecuentesController extends Controller
                     ->where('idMenu', $request->CHID)
                     ->where('deleted', '=', 0)
                     ->where('Texto', '!=', "")
-                    ->get();
+                    ->get();     
 
                 $response = $preguntas;
             }
@@ -172,19 +178,21 @@ class PreguntasFrecuentesController extends Controller
                     WHERE pf.deleted=0
                     AND pf.RutaGuia <> ''
                     ";
-
+                    
                     $response = DB::select($queryPreguntas);
                 } elseif ($request->CHID == "") {
-
-                    $queryPreguntas = "
+                   
+                        $queryPreguntas = "
                         SELECT * FROM SICSA.PreguntasFrecuentes pf
                         LEFT JOIN TiCentral.Menus menus ON pf.idMenu = menus.id
                         WHERE pf.deleted=0
                         AND pf.RutaGuia <>''
+                       
                         ";
-
-                    $response = DB::select($queryPreguntas);
-
+                        // $queryPreguntas=$queryPreguntas."AND pf.idMenu= ".$request->CHID."';"; 
+                        
+                        $response = DB::select($queryPreguntas);
+                    
                 }
 
             }
@@ -198,7 +206,8 @@ class PreguntasFrecuentesController extends Controller
                     WHERE pf.deleted=0
                     AND pf.RutaVideo <> ''
                     ";
-
+                   // $queryPreguntas=$queryPreguntas."AND pf.idMenu= ".$request->CHID."';"; 
+                    
                     $response = DB::select($queryPreguntas);
                 } elseif ($request->CHID == "") {
                     $queryPreguntas = "
@@ -206,8 +215,10 @@ class PreguntasFrecuentesController extends Controller
                     LEFT JOIN TiCentral.Menus menus ON pf.idMenu = menus.id
                     WHERE pf.deleted=0
                     AND pf.RutaVideo <> ''
+                    
                     ";
-
+                    //$queryPreguntas=$queryPreguntas."AND pf.idMenu= ".$request->CHID."';"; 
+                    
                     $response = DB::select($queryPreguntas);
                 }
 
