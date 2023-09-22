@@ -92,9 +92,12 @@ class SelectController extends Controller
                 $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Origen_Auditoria WHERE DELETED=0";
                 $query = $query . " and idOrigenAuditoria='" . $request->P_ID . "'";
             }else if($type == 42){
-                //PROCESOS
+                // //PROCESOS
+                // $query="SELECT Id value, Menu label FROM TiCentral.Menus WHERE DELETED=0 AND IdApp ='8f515fb3-1f77-11ee-ac66-3cd92b4d9bf4'";
+                // $response = DB::select($query);
                 $query="SELECT Id value, Menu label FROM TiCentral.Menus WHERE DELETED=0 AND IdApp ='8f515fb3-1f77-11ee-ac66-3cd92b4d9bf4'";
-                $response = DB::select($query);
+
+
             }
 
             $response = DB::select($query);
