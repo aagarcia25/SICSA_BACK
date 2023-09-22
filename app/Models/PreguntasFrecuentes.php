@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class PreguntasFrecuentes
- * 
+ *
  * @property string $id
  * @property string $deleted
  * @property Carbon $UltimaActualizacion
@@ -30,28 +30,26 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PreguntasFrecuentes extends Model
 {
-	public $table = 'PreguntasFrecuentes';
-	public $incrementing = false;
-	public $timestamps = false;
+    public $table = 'PreguntasFrecuentes';
+    public $incrementing = false;
+    public $timestamps = false;
 
-	protected $casts = [
-		//'deleted' => 'binary',
-		'UltimaActualizacion' => 'datetime',
-		'FechaCreacion' => 'datetime'
-	];
+    protected $_casts = [
+        'UltimaActualizacion' => 'datetime',
+        'FechaCreacion' => 'datetime',
+    ];
 
-	protected $fillable = [
-		'deleted',
-		'UltimaActualizacion',
-		'FechaCreacion',
-		'ModificadoPor',
-		'CreadoPor',
-		'idMenu',
-		'Pregunta',
-		'Texto',
-		'RutaGuia',
-		'RutaVideo',
-		'NombreOriginalVideo',
-		'Departamento'
-	];
+    protected $_fillable = [
+        'deleted',
+        'UltimaActualizacion',
+        'FechaCreacion',
+        'ModificadoPor',
+        'CreadoPor',
+        'idMenu',
+        'Pregunta',
+        'Texto',
+        'RutaGuia',
+        'RutaVideo',
+        'NombreOriginalVideo',
+    ];
 }
