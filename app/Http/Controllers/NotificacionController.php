@@ -32,7 +32,6 @@ class NotificacionController extends Controller
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
                 $OBJ->idAuditoria = $request->idAuditoria;
-                //$OBJ->Dependencia = $request->Dependencia;
                 $OBJ->Prorroga = $request->Prorroga;
                 $OBJ->Oficio = $request->Oficio;
                 $OBJ->SIGAOficio = $request->SIGAOficio;
@@ -51,7 +50,6 @@ class NotificacionController extends Controller
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
                 $OBJ->idAuditoria = $request->idAuditoria;
-                //$OBJ->Dependencia = $request->Dependencia;
                 $OBJ->Prorroga = $request->Prorroga;
                 $OBJ->Oficio = $request->Oficio;
                 $OBJ->SIGAOficio = $request->SIGAOficio;
@@ -100,7 +98,6 @@ class NotificacionController extends Controller
                 $response = DB::select($query);
 
             }
-      
 
         } catch (QueryException $e) {
             $SUCCESS = false;

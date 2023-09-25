@@ -15,6 +15,7 @@ use App\Http\Controllers\ModalidadController;
 use App\Http\Controllers\MunicipiosController;
 use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\OficiosAController;
+use App\Http\Controllers\OrganoController;
 use App\Http\Controllers\Origen_AuditoriaController;
 use App\Http\Controllers\plandetrabajoAnualController;
 use App\Http\Controllers\PlandetrabajoController;
@@ -73,5 +74,7 @@ Route::group([
     Route::post('AdminGuiaRapida', [PreguntasFrecuentesController::class, 'AdminGuiaRapida']);
     Route::post('obtenerguias', [PreguntasFrecuentesController::class, 'obtenerguias']);
     Route::post('obtenerDoc', [PreguntasFrecuentesController::class, 'obtenerDoc']);
+    Route::post('OrganoRindex', [OrganoController::class, 'OrganoRindex']);
+    Route::post('OrganoCindex', [OrganoController::class, 'OrganoCindex']);
 
 });
