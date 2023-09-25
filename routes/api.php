@@ -11,21 +11,20 @@ use App\Http\Controllers\FilesController;
 use App\Http\Controllers\Grupo_FuncionalController;
 use App\Http\Controllers\InformesController;
 use App\Http\Controllers\MigraDataController;
+use App\Http\Controllers\ModalidadController;
+use App\Http\Controllers\MunicipiosController;
 use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\OficiosAController;
 use App\Http\Controllers\Origen_AuditoriaController;
 use App\Http\Controllers\plandetrabajoAnualController;
 use App\Http\Controllers\PlandetrabajoController;
+use App\Http\Controllers\PreguntasFrecuentesController;
 use App\Http\Controllers\RamoController;
 use App\Http\Controllers\SectorController;
 use App\Http\Controllers\SelectController;
 use App\Http\Controllers\TiposAccionController;
 use App\Http\Controllers\Tipos_AuditoriaController;
 use App\Http\Controllers\Unidad_Admin_AuditoraController;
-use App\Http\Controllers\MunicipiosController;
-use App\Http\Controllers\ModalidadController;
-
-
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,5 +67,11 @@ Route::group([
     Route::post('planAnualindex', [plandetrabajoAnualController::class, 'planAnualindex']);
     Route::post('Municipios_index', [MunicipiosController::class, 'Municipios_index']);
     Route::post('Modalidad_index', [ModalidadController::class, 'Modalidad_index']);
+    Route::post('AdminAyudas', [PreguntasFrecuentesController::class, 'AdminAyudas']);
+    Route::post('AdminVideoTutoriales', [PreguntasFrecuentesController::class, 'AdminVideoTutoriales']);
+    Route::post('AdminPreguntasFrecuentes', [PreguntasFrecuentesController::class, 'AdminPreguntasFrecuentes']);
+    Route::post('AdminGuiaRapida', [PreguntasFrecuentesController::class, 'AdminGuiaRapida']);
+    Route::post('obtenerguias', [PreguntasFrecuentesController::class, 'obtenerguias']);
+    Route::post('obtenerDoc', [PreguntasFrecuentesController::class, 'obtenerDoc']);
 
 });

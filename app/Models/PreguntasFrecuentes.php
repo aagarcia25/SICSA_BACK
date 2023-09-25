@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class File
+ * Class PreguntasFrecuentes
  *
  * @property string $id
  * @property string $deleted
@@ -18,16 +18,19 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $FechaCreacion
  * @property string $ModificadoPor
  * @property string $CreadoPor
- * @property string|null $idowner
- * @property string|null $Route
- * @property string|null $Nombre
+ * @property string|null $idMenu
+ * @property string|null $Pregunta
+ * @property string|null $Texto
+ * @property string|null $RutaGuia
+ * @property string|null $RutaVideo
+ * @property string|null $NombreOriginalVideo
+ * @property string $Departamento
  *
  * @package App\Models
  */
-class File extends Model
+class PreguntasFrecuentes extends Model
 {
-    public $table = 'files';
-    public $keyType = 'string';
+    public $table = 'PreguntasFrecuentes';
     public $incrementing = false;
     public $timestamps = false;
 
@@ -42,9 +45,11 @@ class File extends Model
         'FechaCreacion',
         'ModificadoPor',
         'CreadoPor',
-        'idowner',
-        'Route',
-        'Nombre',
-        'Estatus',
+        'idMenu',
+        'Pregunta',
+        'Texto',
+        'RutaGuia',
+        'RutaVideo',
+        'NombreOriginalVideo',
     ];
 }
