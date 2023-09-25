@@ -57,9 +57,6 @@ class SelectController extends Controller
                              UNION ALL
                              SELECT 'CGA'       value ,'Coordinación General Administrativa' label FROM DUAL";
             } elseif ($type == 12) {
-                // $query = "   SELECT 'Presencial'       value ,'Presencial' label FROM DUAL
-                //              UNION ALL
-                //              SELECT 'Por Medios Electrónicos'     value ,'Por Medios Electrónicos' label FROM DUAL";
                 $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Modalidad WHERE DELETED=0";
 
             } elseif ($type == 13) {

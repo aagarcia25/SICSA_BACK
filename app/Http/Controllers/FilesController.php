@@ -8,6 +8,8 @@ use App\Models\CContestacionArea;
 use App\Models\CNotificacionArea;
 use App\Models\File;
 use App\Models\OficiosA;
+use App\Models\OrganoC;
+use App\Models\OrganoR;
 use App\Traits\ApiDocTrait;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -55,6 +57,13 @@ class FilesController extends Controller
             } elseif ($request->TIPO == 5) {
                 $OBJ = Accione::find($request->ID);
                 $FOLIO = $OBJ->auditorium->NAUDITORIA . "/" . $OBJ->ClaveAccion;
+            } elseif ($request->TIPO == 6) {
+                $OBJ = OrganoC::find($request->ID);
+                $FOLIO = $OBJ->auditorium->NAUDITORIA . "/" . $OBJ->Oficio;
+            } elseif ($request->TIPO == 7) {
+                $OBJ = OrganoR::find($request->ID);
+                $FOLIO = $OBJ->auditorium->NAUDITORIA . "/" . $OBJ->Oficio;
+
             }
 
             if ($type == 1) {
