@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Accione;
-use Illuminate\Database\QueryException;
 use App\Models\Auditorium;
 use App\Models\CContestacionArea;
 use App\Models\CNotificacionArea;
@@ -11,6 +10,7 @@ use App\Models\File;
 use App\Models\OficiosA;
 use App\Traits\ApiDocTrait;
 use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -61,6 +61,7 @@ class FilesController extends Controller
 
                 $file = request()->file('FILE');
                 $nombre = $file->getClientOriginalName();
+
                 $data = $this->UploadFile($request->TOKEN, env('APP_DOC_ROUTE') . $FOLIO, $nombre, $file, 'TRUE');
                 if ($data->SUCCESS) {
                     $OBJ = new File();
