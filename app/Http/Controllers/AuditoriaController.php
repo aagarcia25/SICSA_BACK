@@ -137,7 +137,7 @@ class AuditoriaController extends Controller
                     caa.id caaid,
                     caa.Descripcion caaDescripcion,
                     cr.id crid,
-                    cea.id ceaid,   
+                    cea.id ceaid,
                     cea.Descripcion ceaDescripcion,
                     cia.Descripcion ciaDescripcion,
                     cia.id ciaid,
@@ -165,7 +165,7 @@ class AuditoriaController extends Controller
                     LEFT JOIN SICSA.cat_inicio_auditoria cia ON aud.idInicioauditoria = cia.id
                     LEFT JOIN SICSA.Municipios mun ON aud.idmunicipio = mun.id
                     LEFT JOIN SICSA.Cat_Modalidad cmo ON aud.idModalidad = cmo.id
-                    
+
                     where aud.deleted =0
 
                     ";
@@ -191,6 +191,14 @@ class AuditoriaController extends Controller
                 }
                 if ($request->idmunicipio != "") {
                     $query = $query . " and    mun.id='" . $request->idmunicipio . "'";
+                }
+
+                if ($request->tipo != "") {
+                    $query = $query . " and    ct.id='" . $request->tipo . "'";
+                }
+
+                if ($request->ente != "") {
+                    $query = $query . " and    coa.id='" . $request->ente . "'";
                 }
 
                 $query = $query . "   order by aud.Consecutivo asc";
