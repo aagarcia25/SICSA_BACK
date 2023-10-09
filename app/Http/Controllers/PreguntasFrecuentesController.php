@@ -142,9 +142,12 @@ class PreguntasFrecuentesController extends Controller
 
 
                     ";
-                    // $queryPreguntas=$queryPreguntas."AND pf.idMenu= ".$request->CHID."';";
+                    $queryPreguntas = $queryPreguntas . " and pf.idMenu='" . $request->CHID . "'";
+
 
                     $response = DB::select($queryPreguntas);
+
+                    
                 } elseif ($request->CHID == "") {
 
                     $queryPreguntas = "
@@ -271,7 +274,7 @@ class PreguntasFrecuentesController extends Controller
                     AND pf.RutaVideo <> ''
 
                     ";
-                    $queryPreguntas = $queryPreguntas . " and pf.idMenu='" . $request->CHID . "'";
+                   // $queryPreguntas = $queryPreguntas . " and pf.idMenu='" . $request->CHID . "'";
 
                     $response = DB::select($queryPreguntas);
                 }
