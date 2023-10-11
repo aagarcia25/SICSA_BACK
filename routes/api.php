@@ -8,6 +8,7 @@ use App\Http\Controllers\ContestacionController;
 use App\Http\Controllers\Entidad_FiscalizadaController;
 use App\Http\Controllers\Estatus_AccionesController;
 use App\Http\Controllers\FilesController;
+use App\Http\Controllers\GraficasController;
 use App\Http\Controllers\Grupo_FuncionalController;
 use App\Http\Controllers\InformesController;
 use App\Http\Controllers\MigraDataController;
@@ -76,5 +77,6 @@ Route::group([
     Route::post('obtenerDoc', [PreguntasFrecuentesController::class, 'obtenerDoc']);
     Route::post('OrganoRindex', [OrganoController::class, 'OrganoRindex']);
     Route::post('OrganoCindex', [OrganoController::class, 'OrganoCindex']);
+    Route::post('graficas', [GraficasController::class, 'graficas']);
 
 });
