@@ -114,6 +114,7 @@ class Auditorium extends Model
         'idmunicipio',
         'idEstatus',
         'montoauditado',
+        'entregado'
     ];
 
     public function cat_ramo()
