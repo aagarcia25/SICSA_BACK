@@ -90,9 +90,10 @@ class SelectController extends Controller
                 $query = $query . " and idOrigenAuditoria='" . $request->P_ID . "'";
             } elseif ($type == 42) {
                 // //PROCESOS
-                 $query="SELECT Id value, Menu label FROM TiCentral.Menus WHERE DELETED=0 AND IdApp ='8f515fb3-1f77-11ee-ac66-3cd92b4d9bf4'";
-                // $response = DB::select($query);
-                //$query = "SELECT Id value, Menu label FROM TiCentral.Menus WHERE DELETED=0 AND IdApp ='161206bc-405b-11ee-8002-d89d6776f970'";
+                //DESAROLLO
+                // $query="SELECT Id value, Menu label FROM TiCentral.Menus WHERE DELETED=0 AND IdApp ='8f515fb3-1f77-11ee-ac66-3cd92b4d9bf4'";
+                //PRODUCCION
+                $query = "SELECT Id value, Menu label FROM TiCentral.Menus WHERE DELETED=0 AND IdApp ='161206bc-405b-11ee-8002-d89d6776f970'";
 
             }
 
