@@ -27,6 +27,7 @@ use App\Http\Controllers\SelectController;
 use App\Http\Controllers\TiposAccionController;
 use App\Http\Controllers\Tipos_AuditoriaController;
 use App\Http\Controllers\Unidad_Admin_AuditoraController;
+use App\Http\Controllers\ReportesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -78,5 +79,6 @@ Route::group([
     Route::post('OrganoRindex', [OrganoController::class, 'OrganoRindex']);
     Route::post('OrganoCindex', [OrganoController::class, 'OrganoCindex']);
     Route::post('graficas', [GraficasController::class, 'graficas']);
+    Route::post('ReportesIndex', [ReportesController::class, 'ReportesIndex']);
 
 });
