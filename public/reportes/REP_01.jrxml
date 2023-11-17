@@ -452,7 +452,7 @@ Totales
 			<property name="com.jaspersoft.studio.layout"/>
 			<frame>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="800" height="30" uuid="b467eeb9-1018-4f71-9f2c-9b7e7d0e329a"/>
-				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<textField isBlankWhenNull="true">
 					<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="40" height="30" uuid="283ae6f7-236b-4b66-86ed-8d08dc4fccac"/>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -478,7 +478,7 @@ Totales
 					</textElement>
 					<textFieldExpression><![CDATA[$F{NAUDITORIA}]]></textFieldExpression>
 				</textField>
-				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<textField isBlankWhenNull="true">
 					<reportElement stretchType="RelativeToTallestObject" x="70" y="0" width="30" height="30" uuid="6c9f708a-77ac-4bb0-b56d-1ea26d15aa6d"/>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -491,7 +491,7 @@ Totales
 					</textElement>
 					<textFieldExpression><![CDATA[$F{NombreAudoria}]]></textFieldExpression>
 				</textField>
-				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<textField isBlankWhenNull="true">
 					<reportElement stretchType="RelativeToTallestObject" x="130" y="0" width="30" height="30" uuid="3ad5dc4d-f3a3-4a36-b54f-f5b553b8c986"/>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -504,7 +504,7 @@ Totales
 					</textElement>
 					<textFieldExpression><![CDATA[$F{ciDescripcion}]]></textFieldExpression>
 				</textField>
-				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<textField isBlankWhenNull="true">
 					<reportElement stretchType="RelativeToTallestObject" x="100" y="0" width="30" height="30" uuid="ee591df7-6299-4a2a-896d-36052901dcc3"/>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -517,7 +517,7 @@ Totales
 					</textElement>
 					<textFieldExpression><![CDATA[$F{ctaDescripcion}]]></textFieldExpression>
 				</textField>
-				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<textField isBlankWhenNull="true">
 					<reportElement stretchType="RelativeToTallestObject" x="190" y="0" width="50" height="30" uuid="12c7362b-57e4-462a-9809-16983023a50d"/>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -542,7 +542,7 @@ Totales
 						<font size="7"/>
 					</textElement>
 				</textField>
-				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<textField isBlankWhenNull="true">
 					<reportElement stretchType="RelativeToTallestObject" x="240" y="0" width="50" height="30" uuid="f6c1b22b-b8cd-4384-8f07-6f14ba040614"/>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
