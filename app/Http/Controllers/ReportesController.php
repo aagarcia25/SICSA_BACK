@@ -25,11 +25,10 @@ class ReportesController extends Controller
             ];
             $reporte = $request->REPORTE;
             $partes = explode(".", $reporte);
-
             $data = $this->ejecutaReporte($format, $params, $reporte)->getData();
             if ($data->SUCCESS) {
                 $salida = public_path() . '/reportes/' . $partes[0] . '.pdf';
-                $response = file_get_contents(base64_encode($salida));
+                $response = base64_encode(file_get_contents($salida));
 
             } else {
                 $SUCCESS = false;
