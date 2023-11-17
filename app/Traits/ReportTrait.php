@@ -16,7 +16,7 @@ trait ReportTrait
         try {
 
             $input = public_path() . '/reportes/' . $reporte;
-            $output = public_path() . '/reportes';
+            $output = public_path() . '/reportes/';
 
             if ($reporte === "") {
                 throw new Exception("El nombre del Reporte es Obligatorio");
