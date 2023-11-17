@@ -71,9 +71,6 @@
 		<property name="com.jaspersoft.studio.field.label" value="muestrapesos"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="auditoria"/>
 	</field>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
 	<title>
 		<band height="19" splitType="Stretch">
 			<staticText>
@@ -468,7 +465,7 @@ Totales
 					</textElement>
 					<textFieldExpression><![CDATA[$F{Descripcion}]]></textFieldExpression>
 				</textField>
-				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<textField isBlankWhenNull="true">
 					<reportElement stretchType="RelativeToTallestObject" x="40" y="0" width="30" height="30" uuid="857c9f58-6c8f-4487-a56e-7e65518279da"/>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
