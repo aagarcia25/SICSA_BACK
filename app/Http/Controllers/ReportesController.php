@@ -2,101 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\ReportTrait;
 use Illuminate\Http\Request;
-use Illuminate\Database\QueryException;
-use App\Models\Auditorium;
 use Illuminate\Support\Facades\DB;
 
 class ReportesController extends Controller
 {
-    //
-    public function ReportesIndex(Request $request)
+
+    use ReportTrait;
+
+    public function ReportesData(Request $request)
     {
         $SUCCESS = true;
         $NUMCODE = 0;
         $STRMESSAGE = 'Exito';
         $response = "";
 
-        try{
-            $type = $request->NUMOPERACION;
+        try {
 
-            if($type == 4){
-                $query = "
-                SELECT
-                aud.entregado,
-                    aud.id,
-                    aud.deleted,
-                    aud.UltimaActualizacion,
-                    aud.FechaCreacion,
-                    getUserName(aud.ModificadoPor) modi,
-                    getUserName(aud.CreadoPor) creado,
-                    aud.anio,
-                    aud.NAUDITORIA,
-                    aud.FolioSIGA,
-                    aud.Consecutivo,
-					aud.ActaInicio,
-					aud.NombreAudoria,
-					aud.Encargado,
-                    aud.PersonalEncargado,
-                    ct.id ctid,
-					ct.Descripcion ctDescripcion,
-					coa.id coaid,
-					coa.Descripcion coaDescripcion,
-                    cgf.id cgfid,
-                    cgf.Descripcion cgfDescripcion,
-					cs.id csid,
-                    cs.Descripcion csDescripcion,
-                    cef.id cefid,
-                    cef.Descripcion cefDescripcion,
-                    cta.id ctaid,
-                    cta.Descripcion ctaDescripcion,
-                    ci.id ciid,
-                    ci.Descripcion ciDescripcion,
-                    cuaa.id cuaaid,
-                    cuaa.Descripcion cuaaDescripcion,
-                    caa.id caaid,
-                    caa.Descripcion caaDescripcion,
-                    cr.id crid,
-                    cea.id ceaid,
-                    cea.Descripcion ceaDescripcion,
-                    cia.Descripcion ciaDescripcion,
-                    cia.id ciaid,
-                    mun.id munid,
-                    mun.Nombre munNombre,
-                    cr.Descripcion crDescripcion,
-					aud.universopesos,
-                    mun.Nombre,
-					aud.muestrapesos,
-                    aud.montoauditado,
-                    cmo.Descripcion cmoDescripcion,
-                    cmo.id cmoid
-                    FROM SICSA.auditoria   aud
-                    LEFT JOIN SICSA.cat_tipo ct ON aud.idClasificacion = ct.id
-                    LEFT JOIN SICSA.Cat_Origen_Auditoria coa ON aud.idcatorigenaud = coa.id
-                    LEFT JOIN SICSA.Cat_Grupo_Funcional  cgf ON aud.idCatGrupoFuncional = cgf.id
-                    LEFT JOIN SICSA.Cat_Sector cs ON aud.idCatSector = cs.id
-                    LEFT JOIN SICSA.Cat_Entidad_Fiscalizada cef ON cef.id=aud.idCatEntidadFiscalizada
-                    LEFT JOIN SICSA.Cat_Tipos_Auditoria cta ON aud.idTipoAuditoria = cta.id
-                    LEFT JOIN SICSA.Cat_Informes ci ON aud.idCatInforme = ci.id
-                    LEFT JOIN SICSA.Cat_Unidad_Admin_Auditora cuaa ON aud.idUnidadAdm = cuaa.id
-                    LEFT JOIN SICSA.cat_area_auditoras caa ON aud.idAreaAdm = caa.id
-                    LEFT JOIN SICSA.cat_ramo cr ON aud.idRamo = cr.id
-                    LEFT JOIN SICSA.cat_estatus_auditoria cea ON aud.idEstatus = cea.id
-                    LEFT JOIN SICSA.cat_inicio_auditoria cia ON aud.idInicioauditoria = cia.id
-                    LEFT JOIN SICSA.Municipios mun ON aud.idmunicipio = mun.id
-                    LEFT JOIN SICSA.Cat_Modalidad cmo ON aud.idModalidad = cmo.id
+            $query = "
+                    SELECT
+                   *
+                    FROM SICSA.Reportes
+                    where deleted =0
+                    order by Nombre desc
+                    ";
+            $response = DB::select($query);
 
-                    where aud.deleted =0
-
-                ";
-
-                $response = DB::select($query);
-            }
-
-        }catch (QueryException $e) {
-            $SUCCESS = false;
-            $NUMCODE = 1;
-            $STRMESSAGE = $this->buscamsg($e->getCode(), $e->getMessage());
         } catch (\Exception $e) {
             $SUCCESS = false;
             $NUMCODE = 1;
@@ -110,13 +42,48 @@ class ReportesController extends Controller
                 'RESPONSE' => $response,
                 'SUCCESS' => $SUCCESS,
             ]);
-        
 
-            
+    }
 
+    public function ReportesIndex(Request $request)
+    {
+        $SUCCESS = true;
+        $NUMCODE = 0;
+        $STRMESSAGE = 'Exito';
+        $response = "";
 
+        try {
+            $format = [$request->TIPO];
+            $params = [
+                //  "P_IMAGEN" => public_path() . '/img/TesoreriaLogo.png',
+                "P_ANIO" => trim($request->P_ANIO),
+            ];
+            $reporte = $request->REPORTE;
+            $partes = explode(".", $reporte);
+            $data = $this->ejecutaReporte($format, $params, $reporte)->getData();
+            if ($data->SUCCESS) {
+                $salida = public_path() . '/reportes/' . $partes[0] . '.pdf';
+                $response = base64_encode(file_get_contents($salida));
 
+            } else {
+                $SUCCESS = false;
+                $response = $data;
 
-       
+            }
+
+        } catch (\Exception $e) {
+            $SUCCESS = false;
+            $NUMCODE = 1;
+            $STRMESSAGE = $e->getMessage();
+        }
+
+        return response()->json(
+            [
+                'NUMCODE' => $NUMCODE,
+                'STRMESSAGE' => $STRMESSAGE,
+                'RESPONSE' => $response,
+                'SUCCESS' => $SUCCESS,
+            ]);
+
     }
 }
