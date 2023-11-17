@@ -22,12 +22,12 @@ use App\Http\Controllers\plandetrabajoAnualController;
 use App\Http\Controllers\PlandetrabajoController;
 use App\Http\Controllers\PreguntasFrecuentesController;
 use App\Http\Controllers\RamoController;
+use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\SectorController;
 use App\Http\Controllers\SelectController;
 use App\Http\Controllers\TiposAccionController;
 use App\Http\Controllers\Tipos_AuditoriaController;
 use App\Http\Controllers\Unidad_Admin_AuditoraController;
-use App\Http\Controllers\ReportesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -80,5 +80,6 @@ Route::group([
     Route::post('OrganoCindex', [OrganoController::class, 'OrganoCindex']);
     Route::post('graficas', [GraficasController::class, 'graficas']);
     Route::post('ReportesIndex', [ReportesController::class, 'ReportesIndex']);
+    Route::post('ReportesData', [ReportesController::class, 'ReportesData']);
 
 });
