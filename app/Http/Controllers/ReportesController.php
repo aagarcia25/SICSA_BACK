@@ -4,11 +4,46 @@ namespace App\Http\Controllers;
 
 use App\Traits\ReportTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReportesController extends Controller
 {
 
     use ReportTrait;
+
+    public function ReportesData(Request $request)
+    {
+        $SUCCESS = true;
+        $NUMCODE = 0;
+        $STRMESSAGE = 'Exito';
+        $response = "";
+
+        try {
+
+            $query = "
+                    SELECT
+                   *
+                    FROM SICSA.Reportes
+                    where deleted =0
+                    order by Nombre desc
+                    ";
+            $response = DB::select($query);
+
+        } catch (\Exception $e) {
+            $SUCCESS = false;
+            $NUMCODE = 1;
+            $STRMESSAGE = $e->getMessage();
+        }
+
+        return response()->json(
+            [
+                'NUMCODE' => $NUMCODE,
+                'STRMESSAGE' => $STRMESSAGE,
+                'RESPONSE' => $response,
+                'SUCCESS' => $SUCCESS,
+            ]);
+
+    }
 
     public function ReportesIndex(Request $request)
     {
