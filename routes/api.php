@@ -82,4 +82,5 @@ Route::group([
     Route::post('ReportesIndex', [ReportesController::class, 'ReportesIndex']);
     Route::post('ReportesData', [ReportesController::class, 'ReportesData']);
 
+
 });
