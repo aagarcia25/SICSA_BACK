@@ -95,7 +95,14 @@ class SelectController extends Controller
                 //PRODUCCION
                 $query = "SELECT Id value, Menu label FROM TiCentral.Menus WHERE DELETED=0 AND IdApp ='161206bc-405b-11ee-8002-d89d6776f970'";
 
+            }elseif ($type == 23) {
+                $query = "SELECT id  value , Nombre label FROM SICSA.Reportes";
+            }elseif ($type == 24) {
+                $id = $request->NUMOPERACION;
+
+                $query = "SELECT id, Nombre, Auxiliar, Reporte  FROM SICSA.Reportes";
             }
+
 
             $response = DB::select($query);
         } catch (QueryException $e) {
