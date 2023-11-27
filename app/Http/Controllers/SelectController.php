@@ -98,11 +98,11 @@ class SelectController extends Controller
             }elseif ($type == 23) {
                 $query = "SELECT id  value , Nombre label FROM SICSA.Reportes";
             }elseif ($type == 24) {
-                $id = $request->NUMOPERACION;
+                //$id = $request->NUMOPERACION;
 
                 $query = "SELECT id, Nombre, Auxiliar, Reporte  FROM SICSA.Reportes";
             }
-
+   
 
             $response = DB::select($query);
         } catch (QueryException $e) {
