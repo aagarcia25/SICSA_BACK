@@ -60,6 +60,7 @@ class ReportesController extends Controller
             ];
             $reporte = $request->REPORTE;
             $partes = explode(".", $reporte);
+            
             $data = $this->ejecutaReporte($format, $params, $reporte)->getData();
             if ($data->SUCCESS) {
                 $salida = public_path() . '/reportes/' . $partes[0] . '.pdf';
