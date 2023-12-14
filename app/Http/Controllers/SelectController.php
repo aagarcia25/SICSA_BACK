@@ -21,7 +21,7 @@ class SelectController extends Controller
             $query = "";
 
             if ($type == 1) {
-                $query = "SELECT CONVERT(anio, CHAR) value , anio label FROM SICSA.Cat_Anios";
+                $query = "SELECT CONVERT(anio, CHAR) value , anio label FROM SICSA.Cat_Anios WHERE DELETED=0 order by anio asc";
             } elseif ($type == 2) {
                 $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Entidad_Fiscalizada WHERE DELETED=0";
             } elseif ($type == 3) {
