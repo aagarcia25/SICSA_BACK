@@ -57,6 +57,8 @@ class ReportesController extends Controller
             $params = [
                 //  "P_IMAGEN" => public_path() . '/img/TesoreriaLogo.png',
                 "P_ANIO" => trim($request->P_ANIO),
+                "ResumenResultados" => trim($request->P_ANIO),
+                "Filtro" => trim($request->P_ANIO),
             ];
             $reporte = $request->REPORTE;
             $partes = explode(".", $reporte);
