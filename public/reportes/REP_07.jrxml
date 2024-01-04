@@ -39,11 +39,11 @@ LEFT JOIN SICSA.Cat_Modalidad cmo ON aud.idModalidad = cmo.id
 WHERE aud.deleted = 0
 AND aud.anio = $P{P_ANIO}
 AND (
-    ($P{ResumenResultados} = 'Gobierno Central' AND cef.Descripcion = $P{Filtro})
+    ($P{ResumenResultados} = 'Gobierno Central' AND cef.id = $P{Filtro})
     OR
-    ($P{ResumenResultados} = 'Municipios' AND mun.Nombre = $P{Filtro})
+    ($P{ResumenResultados} = 'Municipios' AND mun.id = $P{Filtro})
     OR
-    ($P{ResumenResultados} = 'Organismos Descentralizados' AND mun.Nombre = $P{Filtro})
+    ($P{ResumenResultados} = 'Organismos Descentralizados' AND mun.id = $P{Filtro})
 )]]>
 	</queryString>
 	<field name="Descripcion" class="java.lang.String">
