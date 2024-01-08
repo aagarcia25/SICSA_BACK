@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\AccioneImport;
+use App\Imports\AuditoriaImport;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel as ExcelExcel;
@@ -44,7 +45,10 @@ class MigraDataController extends Controller
 
                 case 'migraAcciones':
                     Excel::import(new AccioneImport($request->CHUSER), request()->file('inputfile'), ExcelExcel::XLS);
-                    break;
+                break;
+                case 'migraAuditorias':
+                    Excel::import(new AuditoriaImport($request->CHUSER), request()->file('inputfile'), ExcelExcel::XLS);
+                break;
 
                 default:
                     $response = "No se Encuentra configurado para la migración";
