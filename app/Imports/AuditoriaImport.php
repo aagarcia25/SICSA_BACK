@@ -19,7 +19,7 @@ use App\Models\CatInforme;
 use App\Models\CatUnidadAdminAuditora;
 use App\Models\CatAreaAuditora;
 use App\Models\CatRamo;
-
+use App\Models\Municipio;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
@@ -49,8 +49,9 @@ class AuditoriaImport extends Auditorium implements ToModel, WithHeadingRow, Wit
 
              $idModalidadFromExcel = $row['id_modalidad'];
              $id_origen_auditoriaFromExcel = $row['id_origen_auditoria'];
+             $id_anioFromExcel = $row['anio'];
+
              $id_estatusFromExcel = $row['id_estatus'];
-             //$anioFromExcel = $row['id_anio'];
              $id_tipoFromExcel = $row['id_tipo'];
              $id_inicio_auditoriaFromExcel = $row['id_inicio_auditoria'];
              $id_grupo_funcionalFromExcel = $row['id_grupo_funcional'];
@@ -61,15 +62,17 @@ class AuditoriaImport extends Auditorium implements ToModel, WithHeadingRow, Wit
              $id_unidad_administrativa_auditoraFromExcel = $row['id_unidad_administrativa_auditora'];
              $id_area_auditoraFromExcel = $row['id_area_auditora'];
              $id_ramosFromExcel = $row['id_ramos'];
+             $id_municipioFromExcel = $row['id_municipio'];
 
 
 
         $OBJ1 = CatModalidad::find($idModalidadFromExcel);
         $OBJ2 = CatOrigenAuditorium::find($id_origen_auditoriaFromExcel);
         $OBJ3 = CatEstatusAuditorium::find($id_estatusFromExcel);
-        //$OBJ4 = CatAnio::find($anioFromExcel);
         $OBJ3 = CatTipo::find($id_tipoFromExcel);
         $OBJ3 = CatInicioAuditorium::find($id_inicio_auditoriaFromExcel);
+        $OBJ3 = CatAnio::find($id_anioFromExcel);
+
         $OBJ3 = CatGrupoFuncional::find($id_inicio_auditoriaFromExcel);
         $OBJ3 = CatSector::find($id_sectorFromExcel);
         $OBJ3 = CatEntidadFiscalizada::find($id_entidad_fiscalizadaFromExcel);
@@ -78,6 +81,7 @@ class AuditoriaImport extends Auditorium implements ToModel, WithHeadingRow, Wit
         $OBJ3 = CatUnidadAdminAuditora::find($id_unidad_administrativa_auditoraFromExcel);
         $OBJ3 = CatAreaAuditora::find($id_area_auditoraFromExcel);
         $OBJ3 = CatRamo::find($id_ramosFromExcel);
+        $OBJ3 = Municipio::find($id_municipioFromExcel);
 
 
 
@@ -92,7 +96,6 @@ class AuditoriaImport extends Auditorium implements ToModel, WithHeadingRow, Wit
                 'NAUDITORIA' => $row['numero_auditoria'],
                 'Consecutivo' => $row['consecutivo'],
                 'ActaInicio' => $row['acta_inicio'],
-                'FolioSIGA' => $row['folio_SIGA'],
                 'NombreAudoria' => $row['nombre_auditoria'],
                 'Encargado' => $row['encargado'],
                 'PersonalEncargado' => $row['personal_encargado'],
@@ -101,8 +104,9 @@ class AuditoriaImport extends Auditorium implements ToModel, WithHeadingRow, Wit
                 'muestrapesos' => $row['muestra_pesos'],
                 'idModalidad' => $idModalidadFromExcel,
                 'idcatorigenaud' => $id_origen_auditoriaFromExcel,
+                'anio' => $id_anioFromExcel,
+
                 'idEstatus' => $id_estatusFromExcel,
-                //'anio' => $anioFromExcel,
                 'idClasificacion' => $id_tipoFromExcel,
                 'idInicioauditoria' => $id_inicio_auditoriaFromExcel,
                 'idCatGrupoFuncional' => $id_grupo_funcionalFromExcel,
@@ -113,6 +117,9 @@ class AuditoriaImport extends Auditorium implements ToModel, WithHeadingRow, Wit
                 'idUnidadAdm' => $id_unidad_administrativa_auditoraFromExcel,
                 'idAreaAdm' => $id_area_auditoraFromExcel,
                 'idRamo' => $id_ramosFromExcel,
+                'idmunicipio' => $id_municipioFromExcel,
+                'FolioSIGA' => $row['folio_siga'],
+
 
 
 
