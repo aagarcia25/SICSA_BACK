@@ -8,6 +8,7 @@ use App\Http\Controllers\ContestacionController;
 use App\Http\Controllers\Entidad_FiscalizadaController;
 use App\Http\Controllers\Estatus_AccionesController;
 use App\Http\Controllers\FilesController;
+use App\Http\Controllers\FilesSubController;
 use App\Http\Controllers\GraficasController;
 use App\Http\Controllers\Grupo_FuncionalController;
 use App\Http\Controllers\InformesController;
@@ -54,6 +55,7 @@ Route::group([
     Route::post('Notificacionindex', [NotificacionController::class, 'Notificacionindex']);
     Route::post('Contestacionindex', [ContestacionController::class, 'Contestacionindex']);
     Route::post('Filesindex', [FilesController::class, 'Filesindex']);
+    Route::post('FilesSubindex', [FilesSubController::class, 'FilesSubindex']);
     Route::post('Entidad_Fiscalizada_index', [Entidad_FiscalizadaController::class, 'Entidad_Fiscalizada_index']);
     Route::post('Estatus_Acciones_index', [Estatus_AccionesController::class, 'Estatus_Acciones_index']);
     Route::post('Grupo_Funcional_index', [Grupo_FuncionalController::class, 'Grupo_Funcional_index']);
