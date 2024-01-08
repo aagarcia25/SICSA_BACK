@@ -72,7 +72,7 @@ class Auditorium extends Model
     public $keyType = 'string';
     public $primaryKey = 'id';
 
-    protected $_casts = [
+    public $_casts = [
         'UltimaActualizacion' => 'datetime',
         'FechaCreacion' => 'datetime',
         'anio' => 'int',
@@ -83,21 +83,21 @@ class Auditorium extends Model
         'montoauditado' => 'float',
     ];
 
-    protected $_fillable = [
+    protected $fillable = [
+        //'ModificadoPor',
         'deleted',
         'UltimaActualizacion',
         'FechaCreacion',
         'ModificadoPor',
         'CreadoPor',
         'anio',
-        'NAUDITORIA',
         'FolioSIGA',
-        'Modalidad',
+        'idModalidad',
         'Consecutivo',
         'ActaInicio',
         'NombreAudoria',
         'Encargado',
-        'PersonalEncargado',
+        'PersonalEncargado','NAUDITORIA',
         'idClasificacion',
         'idcatorigenaud',
         'idCatGrupoFuncional',

@@ -57,9 +57,13 @@ class ReportesController extends Controller
             $params = [
                 //  "P_IMAGEN" => public_path() . '/img/TesoreriaLogo.png',
                 "P_ANIO" => trim($request->P_ANIO),
+                "Filtro" => $request->Filtro,
+                "ResumenResultados" =>$request->ResumenResultados,
+                
             ];
             $reporte = $request->REPORTE;
             $partes = explode(".", $reporte);
+            
             $data = $this->ejecutaReporte($format, $params, $reporte)->getData();
             if ($data->SUCCESS) {
                 $salida = public_path() . '/reportes/' . $partes[0] . '.pdf';
@@ -82,7 +86,8 @@ class ReportesController extends Controller
                 'NUMCODE' => $NUMCODE,
                 'STRMESSAGE' => $STRMESSAGE,
                 'RESPONSE' => $response,
-                'SUCCESS' => $SUCCESS,
+                'SUCCESS' => $SUCCESS,  
+                'PARAMS' => $params,  // Aquí se incluyen los parámetros
             ]);
 
     }
