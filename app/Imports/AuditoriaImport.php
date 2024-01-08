@@ -13,6 +13,13 @@ use App\Models\CatInicioAuditorium;
 use App\Models\CatGrupoFuncional;
 use App\Models\CatSector;
 use App\Models\CatTiposAccion;
+use App\Models\CatEntidadFiscalizada;
+use App\Models\CatTiposAuditorium;
+use App\Models\CatInforme;
+use App\Models\CatUnidadAdminAuditora;
+use App\Models\CatAreaAuditora;
+use App\Models\CatRamo;
+
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
@@ -48,6 +55,13 @@ class AuditoriaImport extends Auditorium implements ToModel, WithHeadingRow, Wit
              $id_inicio_auditoriaFromExcel = $row['id_inicio_auditoria'];
              $id_grupo_funcionalFromExcel = $row['id_grupo_funcional'];
              $id_sectorFromExcel = $row['id_sector'];
+             $id_entidad_fiscalizadaFromExcel = $row['id_entidad_fiscalizada'];
+             $id_tipo_auditoriaFromExcel = $row['id_tipo_auditoria'];
+             $id_entregaFromExcel = $row['id_entrega'];
+             $id_unidad_administrativa_auditoraFromExcel = $row['id_unidad_administrativa_auditora'];
+             $id_area_auditoraFromExcel = $row['id_area_auditora'];
+             $id_ramosFromExcel = $row['id_ramos'];
+
 
 
         $OBJ1 = CatModalidad::find($idModalidadFromExcel);
@@ -58,6 +72,13 @@ class AuditoriaImport extends Auditorium implements ToModel, WithHeadingRow, Wit
         $OBJ3 = CatInicioAuditorium::find($id_inicio_auditoriaFromExcel);
         $OBJ3 = CatGrupoFuncional::find($id_inicio_auditoriaFromExcel);
         $OBJ3 = CatSector::find($id_sectorFromExcel);
+        $OBJ3 = CatEntidadFiscalizada::find($id_entidad_fiscalizadaFromExcel);
+        $OBJ3 = CatTiposAuditorium::find($id_tipo_auditoriaFromExcel);
+        $OBJ3 = CatInforme::find($id_entregaFromExcel);
+        $OBJ3 = CatUnidadAdminAuditora::find($id_unidad_administrativa_auditoraFromExcel);
+        $OBJ3 = CatAreaAuditora::find($id_area_auditoraFromExcel);
+        $OBJ3 = CatRamo::find($id_ramosFromExcel);
+
 
 
 
@@ -71,6 +92,7 @@ class AuditoriaImport extends Auditorium implements ToModel, WithHeadingRow, Wit
                 'NAUDITORIA' => $row['numero_auditoria'],
                 'Consecutivo' => $row['consecutivo'],
                 'ActaInicio' => $row['acta_inicio'],
+                'FolioSIGA' => $row['folio_SIGA'],
                 'NombreAudoria' => $row['nombre_auditoria'],
                 'Encargado' => $row['encargado'],
                 'PersonalEncargado' => $row['personal_encargado'],
@@ -85,6 +107,13 @@ class AuditoriaImport extends Auditorium implements ToModel, WithHeadingRow, Wit
                 'idInicioauditoria' => $id_inicio_auditoriaFromExcel,
                 'idCatGrupoFuncional' => $id_grupo_funcionalFromExcel,
                 'idCatSector' => $id_sectorFromExcel,
+                'idCatEntidadFiscalizada' => $id_entidad_fiscalizadaFromExcel,
+                'idTipoAuditoria' => $id_tipo_auditoriaFromExcel,
+                'idCatInforme' => $id_entregaFromExcel,
+                'idUnidadAdm' => $id_unidad_administrativa_auditoraFromExcel,
+                'idAreaAdm' => $id_area_auditoraFromExcel,
+                'idRamo' => $id_ramosFromExcel,
+
 
 
 

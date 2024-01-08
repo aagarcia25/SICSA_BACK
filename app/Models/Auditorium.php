@@ -91,7 +91,6 @@ class Auditorium extends Model
         'ModificadoPor',
         'CreadoPor',
         'anio',
-        
         'FolioSIGA',
         'idModalidad',
         'Consecutivo',
