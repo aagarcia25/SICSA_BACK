@@ -78,13 +78,13 @@ class FoliosFilesController extends Controller
                     FechaCreacion,
                     getUserName(ModificadoPor) modi,
                     getUserName(CreadoPor) creado,
-                    idfile,
+                    idfolio,
                     Route,
                     Nombre
                     FROM cfoliosfiles
                     where deleted =0
                     ";
-                $query = $query . " and    idfile='" . $request->P_ID . "'";
+                $query = $query . " and    idfolio='" . $request->P_ID . "'";
                 $response = DB::select($query);
             } elseif ($type == 5) {
                 $data = $this->GetByRoute($request->TOKEN, $request->P_ROUTE, $request->P_NOMBRE);
