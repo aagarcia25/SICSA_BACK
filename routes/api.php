@@ -9,6 +9,8 @@ use App\Http\Controllers\Entidad_FiscalizadaController;
 use App\Http\Controllers\Estatus_AccionesController;
 use App\Http\Controllers\FilesController;
 use App\Http\Controllers\FilesSubController;
+use App\Http\Controllers\FoliosController;
+use App\Http\Controllers\FoliosFilesController;
 use App\Http\Controllers\GraficasController;
 use App\Http\Controllers\Grupo_FuncionalController;
 use App\Http\Controllers\InformesController;
@@ -83,6 +85,8 @@ Route::group([
     Route::post('graficas', [GraficasController::class, 'graficas']);
     Route::post('ReportesIndex', [ReportesController::class, 'ReportesIndex']);
     Route::post('ReportesData', [ReportesController::class, 'ReportesData']);
+    Route::post('Foliosindex', [FoliosController::class, 'Foliosindex']);
+    Route::post('FoliosFilesindex', [FoliosFilesController::class, 'FoliosFilesindex']);
 
 
 });
