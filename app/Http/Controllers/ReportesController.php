@@ -51,16 +51,27 @@ class ReportesController extends Controller
         $NUMCODE = 0;
         $STRMESSAGE = 'Exito';
         $response = "";
+        $params = [];
 
         try {
             $format = [$request->TIPO];
-            $params = [
+            if($request->REPORTE == "REP_07.jrxml"){
+                $params = [
                 //  "P_IMAGEN" => public_path() . '/img/TesoreriaLogo.png',
                 "P_ANIO" => trim($request->P_ANIO),
                 "Filtro" => $request->Filtro,
                 "ResumenResultados" =>$request->ResumenResultados,
                 
             ];
+            }else{
+                $params = [
+                "P_ANIO" => trim($request->P_ANIO),
+                
+                
+            ];
+            }
+            
+            
             $reporte = $request->REPORTE;
             $partes = explode(".", $reporte);
             
