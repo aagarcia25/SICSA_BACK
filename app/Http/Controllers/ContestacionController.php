@@ -84,7 +84,9 @@ class ContestacionController extends Controller
                            sec.id secid,
                            sec.Descripcion secretaria,
                            uni.id uniid,
-                           uni.Descripcion unidad
+                           uni.Descripcion unidad, 
+                           ca.FRecibido,
+                           ca.FVencimiento
                           FROM SICSA.C_Contestacion_area ca
                           INNER JOIN SICSA.cat_secretarias sec ON ca.idsecretaria = sec.id
                           INNER JOIN SICSA.cat_unidades uni ON ca.idunidad = uni.id
