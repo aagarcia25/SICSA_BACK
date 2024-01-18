@@ -158,6 +158,14 @@ class FilesController extends Controller
                 $response = DB::select($query);
 
             }
+            elseif ($type == 8) {
+                $OBJ = File::find($request->CHID);
+                $OBJ->ModificadoPor = $request->CHUSER;
+                $OBJ->Estatus = 0;
+                $OBJ->save();
+                $response = $OBJ;
+
+            }
         } catch (QueryException $e) {
             $SUCCESS = false;
             $NUMCODE = 1;
