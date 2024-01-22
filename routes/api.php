@@ -31,6 +31,8 @@ use App\Http\Controllers\SelectController;
 use App\Http\Controllers\TiposAccionController;
 use App\Http\Controllers\Tipos_AuditoriaController;
 use App\Http\Controllers\Unidad_Admin_AuditoraController;
+use App\Http\Controllers\PersonalController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -87,6 +89,8 @@ Route::group([
     Route::post('ReportesData', [ReportesController::class, 'ReportesData']);
     Route::post('Foliosindex', [FoliosController::class, 'Foliosindex']);
     Route::post('FoliosFilesindex', [FoliosFilesController::class, 'FoliosFilesindex']);
+    Route::post('Personal_index', [PersonalController::class, 'Personal_index']);
+
 
 
 });
