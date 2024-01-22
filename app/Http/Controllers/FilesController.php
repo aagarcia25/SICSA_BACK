@@ -144,7 +144,7 @@ class FilesController extends Controller
             } elseif ($type == 7) {
                 $query = "SELECT
                          fl.id,
-                         fl.FechaCreacion,
+                         fl.FechaCreacion,cd 
                          getUserName(fl.ModificadoPor) Nombre,
                         CASE
                           WHEN estatus =0 then 'Pendiente de Verificación'
