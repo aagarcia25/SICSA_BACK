@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CatModalidad;
 use App\Models\Cfolio;
+use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -99,15 +100,45 @@ class FoliosController extends Controller
                              AND (year(cf.Fecha) = (
                                 SELECT ca.anio 
                                 FROM SICSA.Cat_Anios ca 
-                                WHERE ca.anio ='" .$request->Anio."' 
+                                WHERE ca.anio ='" . $request->Anio . "' 
                                 )
-                                OR '".$request->Anio."'IS NULL 
-                                OR '".$request->Anio."'='')
+                                OR '" . $request->Anio . "'IS NULL 
+                                OR '" . $request->Anio . "'='')
                                 order by FechaCreacion desc";
-                    if ($request->FolioSIGA != "") {
-                        $query = $query . " and    aud.FolioSIGA='" . $request->FolioSIGA . "'";
-                    }
+                if ($request->FolioSIGA != "") {
+                    $query = $query . " and    aud.FolioSIGA='" . $request->FolioSIGA . "'";
+                }
                 $response = DB::select($query);
+            } else if ($type == 5) {
+                $OBJ = new Cfolio();
+
+                $meses = [
+                    'enero' => 1,
+                    'febrero' => 2,
+                    'marzo' => 3,
+                    'abril' => 4,
+                    'mayo' => 5,
+                    'junio' => 6,
+                    'julio' => 7,
+                    'agosto' => 8,
+                    'septiembre' => 9,
+                    'octubre' => 10,
+                    'noviembre' => 11,
+                    'diciembre' => 12,
+                ];
+                $mesNumero = $meses[strtolower($request->mes)];
+                $fecha = Carbon::create($request->anio, $mesNumero, $request->dia);
+
+                $fechaFormateada = $fecha->format('Y-m-d');
+                $OBJ->ModificadoPor = $request->CHUSER;
+                $OBJ->CreadoPor = $request->CHUSER;
+                $OBJ->Fecha = $fechaFormateada;
+                $OBJ->Oficio = $request->Oficio;
+                // $OBJ->Nauditoria = $request->Nauditoria;
+                $OBJ->Asunto = $request->Asunto;
+
+                $OBJ->save();
+                $response = $OBJ;
             }
         } catch (QueryException $e) {
             $SUCCESS = false;
