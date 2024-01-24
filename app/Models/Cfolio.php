@@ -50,7 +50,7 @@ class Cfolio extends Model
 		'FechaEntrega' => 'datetime',
 		'FechaRecibido' => 'datetime',
 		'Nauditoria' => 'int',
-		'Tipo' => 'int'
+		//'Tipo' => 'int'
 	];
 
 	protected $fillable = [
@@ -70,11 +70,22 @@ class Cfolio extends Model
 		'Tema',
 		'Observaciones',
 		'Nauditoria',
-		'Tipo'
+		'Tipo',
+		'Cargo'
 	];
 
 	public function cfoliosfiles()
 	{
 		return $this->hasMany(Cfoliosfile::class, 'idfolio');
 	}
+
+	public function Cat_Destinatarios_Oficios()
+    {
+        return $this->belongsTo(CatDestinatariosOficio::class, 'Destinatario');
+    }
+
+	public function Cat_Personal()
+    {
+        return $this->belongsTo(CatPersonal::class, 'Solicita');
+    }
 }
