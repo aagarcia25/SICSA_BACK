@@ -101,7 +101,14 @@ class SelectController extends Controller
                 //$id = $request->NUMOPERACION;
 
                 $query = "SELECT id, Nombre, Auxiliar, Reporte  FROM SICSA.Reportes";
+            }elseif ($type == 25) {
+                $query = "  SELECT id  value , Titular label FROM SICSA.Cat_Destinatarios_Oficios WHERE DELETED=0";
+            }elseif ($type == 26) {
+                $query = "  SELECT id  value , Cargo label FROM SICSA.Cat_Destinatarios_Oficios WHERE DELETED=0";
+            }elseif ($type == 27) {
+                $query = "  SELECT id  value , Nombre label FROM SICSA.Cat_Personal WHERE DELETED=0";
             }
+   
    
 
             $response = DB::select($query);
