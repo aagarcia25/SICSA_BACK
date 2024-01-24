@@ -33,7 +33,21 @@ class FoliosController extends Controller
                 $OBJ = new Cfolio();
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
-                $OBJ->Descripcion = $request->Descripcion;
+                $OBJ->Fecha = $request->Fecha;
+                $OBJ->Oficio = $request->Oficio;
+                $OBJ->Nauditoria = $request->Nauditoria;
+                $OBJ->Solicita = $request->Solicitante;
+                $OBJ->FechaEntrega = $request->FechaEntregado;
+                $OBJ->FechaRecibido = $request->FechaRecibido;
+                $OBJ->Asunto = $request->Asunto;
+                $OBJ->Tema = $request->Tema;
+                $OBJ->Tipo = $request->Tipo;
+                $OBJ->Observaciones = $request->Observaciones;
+                //$OBJ->Cargo = $request->Cargo;
+                $OBJ->Destinatario = $request->Destinatario;
+
+
+
                 $OBJ->save();
                 $response = $OBJ;
             } elseif ($type == 2) {
@@ -41,7 +55,19 @@ class FoliosController extends Controller
                 $OBJ = Cfolio::find($request->CHID);
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
-                $OBJ->Descripcion = $request->Descripcion;
+                $OBJ->Fecha = $request->Fecha;
+                $OBJ->Oficio = $request->Oficio;
+                $OBJ->Nauditoria = $request->Nauditoria;
+                $OBJ->Solicita = $request->Solicitante;
+                $OBJ->FechaEntrega = $request->FechaEntregado;
+                $OBJ->FechaRecibido = $request->FechaRecibido;
+                $OBJ->Asunto = $request->Asunto;
+                $OBJ->Tema = $request->Tema;
+                $OBJ->Tipo = $request->Tipo;
+                $OBJ->Observaciones = $request->Observaciones;
+                //$OBJ->Cargo = $request->Cargo;
+                $OBJ->Destinatario = $request->Destinatario;
+
                 $OBJ->save();
                 $response = $OBJ;
             } elseif ($type == 3) {
@@ -54,15 +80,33 @@ class FoliosController extends Controller
 
                 $query = "
                            SELECT
+                           cp.id cpid,
+                           cp.Nombre cpNombre,
+                           df.id dfid,
+                           df.Titular dfTitular,
+                           df.Cargo dfCargo,
                              cf.*,
                              Case 
                              when cf.Tipo ='CAF' then 'COORDINACION DE AUDITORIAS FEDERALES'
                              when cf.Tipo ='CAE' then 'COORDINACION DE AUDITORIAS ESTATALES'
                              END tipoau
                              FROM SICSA.cfolios cf
-                             where deleted =0
-                             order by FechaCreacion desc
-                    ";
+                             LEFT JOIN SICSA.Cat_Personal cp ON cf.Solicita = cp.id
+                             LEFT JOIN SICSA.Cat_Destinatarios_Oficios df ON cf.Destinatario = df.id
+
+                             
+                             where cf.deleted =0
+                             AND (year(cf.Fecha) = (
+                                SELECT ca.anio 
+                                FROM SICSA.Cat_Anios ca 
+                                WHERE ca.anio ='" .$request->Anio."' 
+                                )
+                                OR '".$request->Anio."'IS NULL 
+                                OR '".$request->Anio."'='')
+                                order by FechaCreacion desc";
+                    if ($request->FolioSIGA != "") {
+                        $query = $query . " and    aud.FolioSIGA='" . $request->FolioSIGA . "'";
+                    }
                 $response = DB::select($query);
             }
         } catch (QueryException $e) {
