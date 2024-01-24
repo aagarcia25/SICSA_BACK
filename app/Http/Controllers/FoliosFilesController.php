@@ -29,7 +29,7 @@ class FoliosFilesController extends Controller
 
         try {
             $type = $request->NUMOPERACION;
-            $FOLIO = "";
+            $FOLIO = $request->FOLIO;
 
             if ($type == 1) {
 
@@ -41,7 +41,7 @@ class FoliosFilesController extends Controller
                     $OBJ = new Cfoliosfile();
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->CreadoPor = $request->CHUSER;
-                    $OBJ->idfile = $request->ID;
+                    $OBJ->idfolio = $request->ID;
                     $OBJ->Route = strval($data->RESPONSE->RUTA);
                     $OBJ->Nombre = $nombre;
                     $OBJ->save();
