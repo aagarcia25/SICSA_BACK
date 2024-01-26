@@ -15,6 +15,11 @@ class ContestacionController extends Controller
     3._ ELIMINAR UN REGISTRO
     4._ CONSULTAR GENERAL DE REGISTROS, (SE INCLUYEN FILTROS)
      */
+    private function uuidretrun()
+    {
+        // Lógica para generar un nuevo UUID, por ejemplo:
+        return \Ramsey\Uuid\Uuid::uuid4()->toString();
+    }
 
     public function Contestacionindex(Request $request)
     {
@@ -23,6 +28,7 @@ class ContestacionController extends Controller
         $NUMCODE = 0;
         $STRMESSAGE = 'Exito';
         $response = "";
+        $id = $this->uuidretrun();
 
         try {
             $type = $request->NUMOPERACION;
@@ -41,8 +47,21 @@ class ContestacionController extends Controller
                 $OBJ->FVencimiento = $request->FVencimiento;
                 $OBJ->idsecretaria = $request->idsecretaria;
                 $OBJ->idunidad = $request->idunidad;
-                $OBJ->save();
-                $response = $OBJ;
+                if ($OBJ->save()) {
+                    //                 $result = DB::select("SELECT  ?, ?, ?, cff.Route, cff.Nombre FROM 
+                    // SICSA.cfolios cf 
+                    // JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
+                    // WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
+                
+                    "SELECT  {$id}, {$request->CHUSER}, {$request->CHUSER},cff.Route,cff.Nombre FROM 
+                                    SICSA.cfolios cf 
+                                    JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
+                                    WHERE cf.Oficio= '{$OBJ->Oficio}'";
+                
+                
+                                } else {
+                                    $response = $OBJ;
+                                }
 
             } elseif ($type == 2) {
 

@@ -15,28 +15,54 @@ class OficiosAController extends Controller
          3._ ELIMINAR UN REGISTRO
          4._ CONSULTAR GENERAL DE REGISTROS, (SE INCLUYEN FILTROS)
         */
+        private function uuidretrun()
+    {
+        // Lógica para generar un nuevo UUID, por ejemplo:
+        return \Ramsey\Uuid\Uuid::uuid4()->toString();
+    }
 
-        public function OficiosA_index(Request $request)  {
+        public function OficiosA_index(Request $request)  
+        {
         
             $SUCCESS = true;
-            $NUMCODE = 0;
-            $STRMESSAGE = 'Exito';
-            $response = "";
+        $NUMCODE = 0;
+        $STRMESSAGE = 'Exito';
+        $response = "";
+        $id = $this->uuidretrun();
 
+        try {
+            $type = $request->NUMOPERACION;
 
-            try {
-                $type = $request->NUMOPERACION;
+            if ($type == 1) {
+
+                $OBJ = new OficiosA();
+                $OBJ->id = $id;
+                $OBJ->ModificadoPor    = $request->CHUSER;
+                $OBJ->CreadoPor        = $request->CHUSER;
+                $OBJ->idAuditoria      = $request->idAuditoria;
+                $OBJ->Oficio           = $request->Oficio;
+                $OBJ->FechaRecibido    = $request->FechaRecibido;
+                $OBJ->FechaVencimiento = $request->FechaVencimiento;
+                if ($OBJ->save()) {
+                    $response = DB::select("SELECT  ?, ?, ?, cff.Route, cff.Nombre FROM 
+    SICSA.cfolios cf 
+    JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
+    WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
+
+    // $response ="
+    // SELECT  {$id}, {$request->CHUSER}, {$request->CHUSER},cff.Route,cff.Nombre FROM 
+    //                 SICSA.cfolios cf 
+    //                 JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
+    //                 WHERE cf.Oficio= '{$OBJ->Oficio}'";
+
     
-                if ($type == 1) {
-                    $OBJ = new OficiosA();
-                    $OBJ->ModificadoPor    = $request->CHUSER;
-                    $OBJ->CreadoPor        = $request->CHUSER;
-                    $OBJ->idAuditoria      = $request->idAuditoria;
-                    $OBJ->Oficio           = $request->Oficio;
-                    $OBJ->FechaRecibido    = $request->FechaRecibido;
-                    $OBJ->FechaVencimiento = $request->FechaVencimiento;
-                    $OBJ->save();
+
+
+
+                } else {
                     $response = $OBJ;
+                }
+                
     
     
                 } else if ($type == 2) {
@@ -59,7 +85,6 @@ class OficiosAController extends Controller
     
     
                 } else if ($type == 4) {
-
                     $query = "
                     SELECT               
                     id,
@@ -77,6 +102,33 @@ class OficiosAController extends Controller
                     ";
                     $query =  $query . " and    idAuditoria='" . $request->P_IDAUDITORIA. "'";
                     $response = DB::select($query);
+
+//                     $query = "
+//     SELECT               
+//         oa.id,
+//         oa.deleted,
+//         oa.UltimaActualizacion,
+//         oa.FechaCreacion,
+//         getUserName(oa.ModificadoPor) modi,
+//         getUserName(oa.CreadoPor) creado,
+//         oa.Oficio,
+//         oa.FechaRecibido,
+//         oa.FechaVencimiento,
+//         oa.idAuditoria,
+//         cff.id AS cff_id,
+//         cff.CHUSER AS cff_CHUSER,
+//         cff.CHUSER AS cff_CHUSER,
+//         cff.Route AS cff_Route,
+//         cff.Nombre AS cff_Nombre
+//     FROM SICSA.OficiosA oa
+//     LEFT JOIN SICSA.cfolios cf ON oa.Oficio = cf.Oficio
+//     LEFT JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
+//     WHERE oa.deleted = 0
+//     AND oa.idAuditoria = '" . $request->P_IDAUDITORIA . "'
+//     AND cf.Oficio = " . $OBJ->Oficio;
+
+// $response = DB::select($query);
+
 
                 }
             } catch (QueryException $e) {
