@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\DB;
 class OrganoController extends Controller
 {
 
+    private function uuidretrun()
+    {
+        // Lógica para generar un nuevo UUID, por ejemplo:
+        return \Ramsey\Uuid\Uuid::uuid4()->toString();
+    }
+
     public function OrganoCindex(Request $request)
     {
 
@@ -18,6 +24,7 @@ class OrganoController extends Controller
         $NUMCODE = 0;
         $STRMESSAGE = 'Exito';
         $response = "";
+        $id = $this->uuidretrun();
 
         try {
             $type = $request->NUMOPERACION;
@@ -33,8 +40,21 @@ class OrganoController extends Controller
                 $OBJ->FRecibido = $request->FRecibido;
                 $OBJ->FVencimiento = $request->FVencimiento;
                 $OBJ->idOrganoAuditorOrigen = $request->idOrganoAuditorOrigen;
-                $OBJ->save();
-                $response = $OBJ;
+                if ($OBJ->save()) {
+                    //                 $result = DB::select("SELECT  ?, ?, ?, cff.Route, cff.Nombre FROM 
+                    // SICSA.cfolios cf 
+                    // JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
+                    // WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
+                
+                    "SELECT  {$id}, {$request->CHUSER}, {$request->CHUSER},cff.Route,cff.Nombre FROM 
+                                    SICSA.cfolios cf 
+                                    JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
+                                    WHERE cf.Oficio= '{$OBJ->Oficio}'";
+                
+                
+                                } else {
+                                    $response = $OBJ;
+                                }
 
             } elseif ($type == 2) {
 
@@ -111,6 +131,7 @@ class OrganoController extends Controller
         $NUMCODE = 0;
         $STRMESSAGE = 'Exito';
         $response = "";
+        $id = $this->uuidretrun();
 
         try {
             $type = $request->NUMOPERACION;
@@ -129,8 +150,21 @@ class OrganoController extends Controller
                 $OBJ->idOrganoAuditorOrigen = $request->idOrganoAuditorOrigen;
                 $OBJ->idOrganoAuditorDestino = $request->idOrganoAuditorDestino;
 
-                $OBJ->save();
-                $response = $OBJ;
+                if ($OBJ->save()) {
+                    //                 $result = DB::select("SELECT  ?, ?, ?, cff.Route, cff.Nombre FROM 
+                    // SICSA.cfolios cf 
+                    // JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
+                    // WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
+                
+                    "SELECT  {$id}, {$request->CHUSER}, {$request->CHUSER},cff.Route,cff.Nombre FROM 
+                                    SICSA.cfolios cf 
+                                    JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
+                                    WHERE cf.Oficio= '{$OBJ->Oficio}'";
+                
+                
+                                } else {
+                                    $response = $OBJ;
+                                }
 
             } elseif ($type == 2) {
 
