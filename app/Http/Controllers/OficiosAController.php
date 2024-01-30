@@ -6,6 +6,9 @@ use App\Models\OficiosA;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\CNotificacionArea;
+use App\Models\File;
+
 
 class OficiosAController extends Controller
 {
@@ -43,19 +46,39 @@ class OficiosAController extends Controller
                 $OBJ->Oficio           = $request->Oficio;
                 $OBJ->FechaRecibido    = $request->FechaRecibido;
                 $OBJ->FechaVencimiento = $request->FechaVencimiento;
+                
                 if ($OBJ->save()) {
-                    $response = DB::select("SELECT  ?, ?, ?, cff.Route, cff.Nombre FROM 
+
+                    // $OBJNotificaciones = new CNotificacionArea();
+                    // //$OBJNotificaciones->id = $id;
+                    // $OBJNotificaciones->ModificadoPor    = $request->CHUSER;
+                    // $OBJNotificaciones->CreadoPor        = $request->CHUSER;
+                    // $OBJNotificaciones->idAuditoria      = $request->idAuditoria;
+                    // $OBJNotificaciones-> Oficio = $request->Oficio;
+                    // $OBJNotificaciones->save();
+  
+
+                    $response = DB::select("SELECT  ? as id, ? as ModificadoPor, ? as CreadoPor, cff.Route, cff.Nombre FROM 
     SICSA.cfolios cf 
     JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
     WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
 
-    // $response ="
+    // $response =DB::select("
     // SELECT  {$id}, {$request->CHUSER}, {$request->CHUSER},cff.Route,cff.Nombre FROM 
     //                 SICSA.cfolios cf 
     //                 JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
-    //                 WHERE cf.Oficio= '{$OBJ->Oficio}'";
+    //                 WHERE cf.Oficio= '{$OBJ->Oficio}'");
 
-    
+                    $OBJFile = new File();
+                    
+                    foreach ($response as $result){
+                        $OBJFile->idowner =  $id;
+                        $OBJFile->ModificadoPor = $result->ModificadoPor;
+                        $OBJFile->CreadoPor = $result->CreadoPor;
+                        $OBJFile->Route    = $result->Route;
+                        $OBJFile->Nombre    = $result->Nombre;
+                    }
+                    $OBJFile ->save();
 
 
 
