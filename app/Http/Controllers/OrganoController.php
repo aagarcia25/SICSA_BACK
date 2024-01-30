@@ -13,11 +13,7 @@ use App\Models\File;
 class OrganoController extends Controller
 {
 
-    private function uuidretrun()
-    {
-        // Lógica para generar un nuevo UUID, por ejemplo:
-        return \Ramsey\Uuid\Uuid::uuid4()->toString();
-    }
+
 
     public function OrganoCindex(Request $request)
     {
@@ -48,23 +44,21 @@ class OrganoController extends Controller
                     SICSA.cfolios cf 
                     JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
                     WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
-                
-                
-                                $OBJFile = new File();
-                                    
-                                    foreach ($response as $result){
-                                        $OBJFile->idowner =  $id;
-                                        $OBJFile->ModificadoPor = $result->ModificadoPor;
-                                        $OBJFile->CreadoPor = $result->CreadoPor;
-                                        $OBJFile->Route    = $result->Route;
-                                        $OBJFile->Nombre    = $result->Nombre;
-                                    }
-                                    $OBJFile ->save();
-                
-                                } else {
-                                    $response = $OBJ;
-                                }
 
+
+                    $OBJFile = new File();
+
+                    foreach ($response as $result) {
+                        $OBJFile->idowner =  $id;
+                        $OBJFile->ModificadoPor = $result->ModificadoPor;
+                        $OBJFile->CreadoPor = $result->CreadoPor;
+                        $OBJFile->Route    = $result->Route;
+                        $OBJFile->Nombre    = $result->Nombre;
+                    }
+                    $OBJFile->save();
+                } else {
+                    $response = $OBJ;
+                }
             } elseif ($type == 2) {
 
                 $OBJ = OrganoC::find($request->CHID);
@@ -79,14 +73,12 @@ class OrganoController extends Controller
                 $OBJ->idOrganoAuditorOrigen = $request->idOrganoAuditorOrigen;
                 $OBJ->save();
                 $response = $OBJ;
-
             } elseif ($type == 3) {
                 $OBJ = OrganoC::find($request->CHID);
                 $OBJ->deleted = 1;
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->save();
                 $response = $OBJ;
-
             } elseif ($type == 4) {
 
                 $query = "
@@ -110,9 +102,7 @@ class OrganoController extends Controller
                     ";
                 $query = $query . " and    ca.idAuditoria='" . $request->P_IDAUDITORIA . "'";
                 $response = DB::select($query);
-
             }
-
         } catch (QueryException $e) {
             $SUCCESS = false;
             $NUMCODE = 1;
@@ -129,8 +119,8 @@ class OrganoController extends Controller
                 'STRMESSAGE' => $STRMESSAGE,
                 'RESPONSE' => $response,
                 'SUCCESS' => $SUCCESS,
-            ]);
-
+            ]
+        );
     }
 
     public function OrganoRindex(Request $request)
@@ -165,23 +155,21 @@ class OrganoController extends Controller
                     SICSA.cfolios cf 
                     JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
                     WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
-                
-                
-                                $OBJFile = new File();
-                                    
-                                    foreach ($response as $result){
-                                        $OBJFile->idowner =  $id;
-                                        $OBJFile->ModificadoPor = $result->ModificadoPor;
-                                        $OBJFile->CreadoPor = $result->CreadoPor;
-                                        $OBJFile->Route    = $result->Route;
-                                        $OBJFile->Nombre    = $result->Nombre;
-                                    }
-                                    $OBJFile ->save();
-                
-                                } else {
-                                    $response = $OBJ;
-                                }
 
+
+                    $OBJFile = new File();
+
+                    foreach ($response as $result) {
+                        $OBJFile->idowner =  $id;
+                        $OBJFile->ModificadoPor = $result->ModificadoPor;
+                        $OBJFile->CreadoPor = $result->CreadoPor;
+                        $OBJFile->Route    = $result->Route;
+                        $OBJFile->Nombre    = $result->Nombre;
+                    }
+                    $OBJFile->save();
+                } else {
+                    $response = $OBJ;
+                }
             } elseif ($type == 2) {
 
                 $OBJ = OrganoR::find($request->CHID);
@@ -198,14 +186,12 @@ class OrganoController extends Controller
 
                 $OBJ->save();
                 $response = $OBJ;
-
             } elseif ($type == 3) {
                 $OBJ = OrganoR::find($request->CHID);
                 $OBJ->deleted = 1;
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->save();
                 $response = $OBJ;
-
             } elseif ($type == 4) {
 
                 $query = "
@@ -232,9 +218,7 @@ class OrganoController extends Controller
                     ";
                 $query = $query . " and    organo.idOrganoC='" . $request->P_IDNOTIFICACION . "'";
                 $response = DB::select($query);
-
             }
-
         } catch (QueryException $e) {
             $SUCCESS = false;
             $NUMCODE = 1;
@@ -251,8 +235,7 @@ class OrganoController extends Controller
                 'STRMESSAGE' => $STRMESSAGE,
                 'RESPONSE' => $response,
                 'SUCCESS' => $SUCCESS,
-            ]);
-
+            ]
+        );
     }
-
 }

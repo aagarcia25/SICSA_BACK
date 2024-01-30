@@ -54,6 +54,7 @@ class Cfolio extends Model
 	];
 
 	protected $fillable = [
+		'id',
 		'deleted',
 		'UltimaActualizacion',
 		'FechaCreacion',
@@ -80,12 +81,12 @@ class Cfolio extends Model
 	}
 
 	public function Cat_Destinatarios_Oficios()
-    {
-        return $this->belongsTo(CatDestinatariosOficio::class, 'Destinatario');
-    }
+	{
+		return $this->belongsTo(CatDestinatariosOficio::class, 'Destinatario');
+	}
 
 	public function Cat_Personal()
-    {
-        return $this->belongsTo(CatPersonal::class, 'Solicita');
-    }
+	{
+		return $this->belongsTo(CatPersonal::class, 'Solicita');
+	}
 }
