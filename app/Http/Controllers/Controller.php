@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Str;
 
 class Controller extends BaseController
 {
@@ -22,9 +23,13 @@ class Controller extends BaseController
                 break;
             default:
                 $valor = $mensaje;
-
         }
 
         return $valor;
+    }
+
+    public function uuidretrun()
+    {
+        return Str::uuid();
     }
 }

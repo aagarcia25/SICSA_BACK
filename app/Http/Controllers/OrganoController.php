@@ -7,6 +7,8 @@ use App\Models\OrganoR;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\File;
+
 
 class OrganoController extends Controller
 {
@@ -31,6 +33,7 @@ class OrganoController extends Controller
 
             if ($type == 1) {
                 $OBJ = new OrganoC();
+                $OBJ->id = $id;
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
                 $OBJ->idAuditoria = $request->idAuditoria;
@@ -41,16 +44,22 @@ class OrganoController extends Controller
                 $OBJ->FVencimiento = $request->FVencimiento;
                 $OBJ->idOrganoAuditorOrigen = $request->idOrganoAuditorOrigen;
                 if ($OBJ->save()) {
-                    //                 $result = DB::select("SELECT  ?, ?, ?, cff.Route, cff.Nombre FROM 
-                    // SICSA.cfolios cf 
-                    // JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
-                    // WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
+                    $response = DB::select("SELECT  ? as id, ? as ModificadoPor, ? as CreadoPor, cff.Route, cff.Nombre FROM 
+                    SICSA.cfolios cf 
+                    JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
+                    WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
                 
-                    "SELECT  {$id}, {$request->CHUSER}, {$request->CHUSER},cff.Route,cff.Nombre FROM 
-                                    SICSA.cfolios cf 
-                                    JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
-                                    WHERE cf.Oficio= '{$OBJ->Oficio}'";
                 
+                                $OBJFile = new File();
+                                    
+                                    foreach ($response as $result){
+                                        $OBJFile->idowner =  $id;
+                                        $OBJFile->ModificadoPor = $result->ModificadoPor;
+                                        $OBJFile->CreadoPor = $result->CreadoPor;
+                                        $OBJFile->Route    = $result->Route;
+                                        $OBJFile->Nombre    = $result->Nombre;
+                                    }
+                                    $OBJFile ->save();
                 
                                 } else {
                                     $response = $OBJ;
@@ -139,6 +148,7 @@ class OrganoController extends Controller
             if ($type == 1) {
 
                 $OBJ = new OrganoR();
+                $OBJ->id = $id;
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
                 $OBJ->idOrganoC = $request->idOrganoC;
@@ -151,16 +161,22 @@ class OrganoController extends Controller
                 $OBJ->idOrganoAuditorDestino = $request->idOrganoAuditorDestino;
 
                 if ($OBJ->save()) {
-                    //                 $result = DB::select("SELECT  ?, ?, ?, cff.Route, cff.Nombre FROM 
-                    // SICSA.cfolios cf 
-                    // JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
-                    // WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
+                    $response = DB::select("SELECT  ? as id, ? as ModificadoPor, ? as CreadoPor, cff.Route, cff.Nombre FROM 
+                    SICSA.cfolios cf 
+                    JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
+                    WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
                 
-                    "SELECT  {$id}, {$request->CHUSER}, {$request->CHUSER},cff.Route,cff.Nombre FROM 
-                                    SICSA.cfolios cf 
-                                    JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
-                                    WHERE cf.Oficio= '{$OBJ->Oficio}'";
                 
+                                $OBJFile = new File();
+                                    
+                                    foreach ($response as $result){
+                                        $OBJFile->idowner =  $id;
+                                        $OBJFile->ModificadoPor = $result->ModificadoPor;
+                                        $OBJFile->CreadoPor = $result->CreadoPor;
+                                        $OBJFile->Route    = $result->Route;
+                                        $OBJFile->Nombre    = $result->Nombre;
+                                    }
+                                    $OBJFile ->save();
                 
                                 } else {
                                     $response = $OBJ;

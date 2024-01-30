@@ -6,6 +6,8 @@ use App\Models\CNotificacionArea;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\File;
+
 
 class NotificacionController extends Controller
 {
@@ -35,10 +37,11 @@ class NotificacionController extends Controller
 
             if ($type == 1) {
                 $OBJ = new CNotificacionArea();
+                $OBJ->id = $id;
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
                 $OBJ->idAuditoria = $request->idAuditoria;
-                $OBJ->Prorroga = $request->Prorroga;
+                $OBJ->Prorroga = $request->Prorroga; 
                 $OBJ->Oficio = $request->Oficio;
                 $OBJ->SIGAOficio = $request->SIGAOficio;
                 $OBJ->FOficio = $request->FOficio;
@@ -48,20 +51,28 @@ class NotificacionController extends Controller
                 $OBJ->idunidad = $request->idunidad;
 
                 if ($OBJ->save()) {
-                    //                 $result = DB::select("SELECT  ?, ?, ?, cff.Route, cff.Nombre FROM 
-                    // SICSA.cfolios cf 
-                    // JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
-                    // WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
-                
-                    "SELECT  {$id}, {$request->CHUSER}, {$request->CHUSER},cff.Route,cff.Nombre FROM 
-                                    SICSA.cfolios cf 
-                                    JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
-                                    WHERE cf.Oficio= '{$OBJ->Oficio}'";
-                
-                
+                 
+                    $response = DB::select("SELECT  ? as id, ? as ModificadoPor, ? as CreadoPor, cff.Route, cff.Nombre FROM 
+    SICSA.cfolios cf 
+    JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
+    WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
+
+
+                $OBJFile = new File();
+                    
+                    foreach ($response as $result){
+                        $OBJFile->idowner =  $id;
+                        $OBJFile->ModificadoPor = $result->ModificadoPor;
+                        $OBJFile->CreadoPor = $result->CreadoPor;
+                        $OBJFile->Route    = $result->Route;
+                        $OBJFile->Nombre    = $result->Nombre;
+                    }
+                    $OBJFile ->save();
                                 } else {
                                     $response = $OBJ;
                                 }
+
+
 
             } elseif ($type == 2) {
 
@@ -115,6 +126,17 @@ class NotificacionController extends Controller
                     ";
                 $query = $query . " and    idAuditoria='" . $request->P_IDAUDITORIA . "'";
                 $response = DB::select($query);
+
+            }elseif ($type == 5) {
+
+                $query = "
+                SELECT cf.Fecha 
+                FROM SICSA.cfolios cf 
+                INNER JOIN SICSA.cfoliosfiles cff ON cff.idfolio=cf.id
+                WHERE cf.deleted=0 AND cf.Oficio='";
+                $query = $query . $request->Oficio."'";
+                 $response = DB::select($query);
+               // $response = $query;
 
             }
 

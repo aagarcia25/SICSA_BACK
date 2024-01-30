@@ -6,6 +6,8 @@ use App\Models\CContestacionArea;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\File;
+
 
 class ContestacionController extends Controller
 {
@@ -35,7 +37,7 @@ class ContestacionController extends Controller
 
             if ($type == 1) {
                 $OBJ = new CContestacionArea();
-
+                $OBJ->id = $id;
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
                 $OBJ->idNotificacion = $request->idNotificacion;
@@ -48,17 +50,24 @@ class ContestacionController extends Controller
                 $OBJ->idsecretaria = $request->idsecretaria;
                 $OBJ->idunidad = $request->idunidad;
                 if ($OBJ->save()) {
-                    //                 $result = DB::select("SELECT  ?, ?, ?, cff.Route, cff.Nombre FROM 
-                    // SICSA.cfolios cf 
-                    // JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
-                    // WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
-                
-                    "SELECT  {$id}, {$request->CHUSER}, {$request->CHUSER},cff.Route,cff.Nombre FROM 
-                                    SICSA.cfolios cf 
-                                    JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
-                                    WHERE cf.Oficio= '{$OBJ->Oficio}'";
+                   
+                    $response = DB::select("SELECT  ? as id, ? as ModificadoPor, ? as CreadoPor, cff.Route, cff.Nombre FROM 
+                    SICSA.cfolios cf 
+                    JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
+                    WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
                 
                 
+                                $OBJFile = new File();
+                                    
+                                    foreach ($response as $result){
+                                        $OBJFile->idowner =  $id;
+                                        $OBJFile->ModificadoPor = $result->ModificadoPor;
+                                        $OBJFile->CreadoPor = $result->CreadoPor;
+                                        $OBJFile->Route    = $result->Route;
+                                        $OBJFile->Nombre    = $result->Nombre;
+                                    }
+                                    $OBJFile ->save();
+
                                 } else {
                                     $response = $OBJ;
                                 }

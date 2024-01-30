@@ -134,102 +134,102 @@ class FilesController extends Controller
 
 
                 if($cat=="Folios"){
-                    $queryFolioFiles = " 
-                SELECT 
-                cff.id,
-                cff.deleted,
-                cff.UltimaActualizacion,
-                cff.FechaCreacion,
-                getUserName(cff.ModificadoPor) modi,
-                getUserName(cff.CreadoPor) creado,
-                oa.idAuditoria AS idowner,
-                cff.Route,
-                cff.Nombre,
-                'Buscando Estatus....'as estatus
-               FROM SICSA.cfoliosfiles cff
-               left JOIN SICSA.cfolios cf ON cff.idfolio=cf.id
-               left JOIN SICSA.OficiosA oa ON cf.Oficio=oa.Oficio
-               WHERE oa.id='". $request->P_IDAUDITORIA ."'";
+            //         $queryFolioFiles = " 
+            //     SELECT 
+            //     cff.id,
+            //     cff.deleted,
+            //     cff.UltimaActualizacion,
+            //     cff.FechaCreacion,
+            //     getUserName(cff.ModificadoPor) modi,
+            //     getUserName(cff.CreadoPor) creado,
+            //     oa.idAuditoria AS idowner,
+            //     cff.Route,
+            //     cff.Nombre,
+            //     'Buscando Estatus....'as estatus
+            //    FROM SICSA.cfoliosfiles cff
+            //    left JOIN SICSA.cfolios cf ON cff.idfolio=cf.id
+            //    left JOIN SICSA.OficiosA oa ON cf.Oficio=oa.Oficio
+            //    WHERE oa.id='". $request->P_IDAUDITORIA ."'";
 
-               $query = "(" . $query . ") UNION (" . $queryFolioFiles . ")";
+            //    $query = "(" . $query . ") UNION (" . $queryFolioFiles . ")";
                 }elseif($cat=="Notificacion"){
-                    $queryFolioFiles = " 
-                    SELECT 
-                    cff.id,
-                    cff.deleted,
-                    cff.UltimaActualizacion,
-                    cff.FechaCreacion,
-                    getUserName(cff.ModificadoPor) modi,
-                    getUserName(cff.CreadoPor) creado,
-                    na.idAuditoria AS idowner,
-                    cff.Route,
-                    cff.Nombre,
-                    'Buscando Estatus....'as estatus
-                   FROM SICSA.cfoliosfiles cff
-                   left JOIN SICSA.cfolios cf ON cff.idfolio=cf.id
-                   left JOIN SICSA.C_Notificacion_area na ON cf.Oficio=na.Oficio
-               WHERE na.id='". $request->P_IDAUDITORIA ."'";
+            //         $queryFolioFiles = " 
+            //         SELECT 
+            //         cff.id,
+            //         cff.deleted,
+            //         cff.UltimaActualizacion,
+            //         cff.FechaCreacion,
+            //         getUserName(cff.ModificadoPor) modi,
+            //         getUserName(cff.CreadoPor) creado,
+            //         na.idAuditoria AS idowner,
+            //         cff.Route,
+            //         cff.Nombre,
+            //         'Buscando Estatus....'as estatus
+            //        FROM SICSA.cfoliosfiles cff
+            //        left JOIN SICSA.cfolios cf ON cff.idfolio=cf.id
+            //        left JOIN SICSA.C_Notificacion_area na ON cf.Oficio=na.Oficio
+            //    WHERE na.id='". $request->P_IDAUDITORIA ."'";
 
-               $query = "(" . $query . ") UNION (" . $queryFolioFiles . ")";
+            //    $query = "(" . $query . ") UNION (" . $queryFolioFiles . ")";
                 }elseif($cat=="Contestacion"){
-                    $queryFolioFiles = " 
-                    SELECT 
-                    cff.id,
-                    cff.deleted,
-                    cff.UltimaActualizacion,
-                    cff.FechaCreacion,
-                    getUserName(cff.ModificadoPor) modi,
-                    getUserName(cff.CreadoPor) creado,
-                    na.idAuditoria AS idowner,
-                    cff.Route,
-                    cff.Nombre,
-                    'Buscando Estatus....'as estatus
-                   FROM SICSA.cfoliosfiles cff
-                   left JOIN SICSA.cfolios cf ON cff.idfolio=cf.id
-                   left JOIN SICSA.C_Notificacion_area na ON cf.Oficio=na.Oficio
-                   left JOIN SICSA.C_Contestacion_area ca ON cf.Oficio=ca.Oficio
-               WHERE ca.id='". $request->P_IDAUDITORIA ."'";
+            //         $queryFolioFiles = " 
+            //         SELECT 
+            //         cff.id,
+            //         cff.deleted,
+            //         cff.UltimaActualizacion,
+            //         cff.FechaCreacion,
+            //         getUserName(cff.ModificadoPor) modi,
+            //         getUserName(cff.CreadoPor) creado,
+            //         na.idAuditoria AS idowner,
+            //         cff.Route,
+            //         cff.Nombre,
+            //         'Buscando Estatus....'as estatus
+            //        FROM SICSA.cfoliosfiles cff
+            //        left JOIN SICSA.cfolios cf ON cff.idfolio=cf.id
+            //        left JOIN SICSA.C_Notificacion_area na ON cf.Oficio=na.Oficio
+            //        left JOIN SICSA.C_Contestacion_area ca ON cf.Oficio=ca.Oficio
+            //    WHERE ca.id='". $request->P_IDAUDITORIA ."'";
 
-               $query = "(" . $query . ") UNION (" . $queryFolioFiles . ")";
+            //    $query = "(" . $query . ") UNION (" . $queryFolioFiles . ")";
                 }elseif($cat=="OrganoC"){
-                    $queryFolioFiles = " 
-                    SELECT 
-                    cff.id,
-                    cff.deleted,
-                    cff.UltimaActualizacion,
-                    cff.FechaCreacion,
-                    getUserName(cff.ModificadoPor) modi,
-                    getUserName(cff.CreadoPor) creado,
-                    oc.idAuditoria AS idowner,
-                    cff.Route,
-                    cff.Nombre,
-                    'Buscando Estatus....'as estatus
-                   FROM SICSA.cfoliosfiles cff
-                   left JOIN SICSA.cfolios cf ON cff.idfolio=cf.id
-                   left JOIN SICSA.Organo_C oc ON cf.Oficio=oc.Oficio
-               WHERE oc.id='". $request->P_IDAUDITORIA ."'";
+            //         $queryFolioFiles = " 
+            //         SELECT 
+            //         cff.id,
+            //         cff.deleted,
+            //         cff.UltimaActualizacion,
+            //         cff.FechaCreacion,
+            //         getUserName(cff.ModificadoPor) modi,
+            //         getUserName(cff.CreadoPor) creado,
+            //         oc.idAuditoria AS idowner,
+            //         cff.Route,
+            //         cff.Nombre,
+            //         'Buscando Estatus....'as estatus
+            //        FROM SICSA.cfoliosfiles cff
+            //        left JOIN SICSA.cfolios cf ON cff.idfolio=cf.id
+            //        left JOIN SICSA.Organo_C oc ON cf.Oficio=oc.Oficio
+            //    WHERE oc.id='". $request->P_IDAUDITORIA ."'";
 
-               $query = "(" . $query . ") UNION (" . $queryFolioFiles . ")";
+            //    $query = "(" . $query . ") UNION (" . $queryFolioFiles . ")";
                 }elseif($cat=="OrganoR"){
-                    $queryFolioFiles = " 
-                    SELECT 
-                    cff.id,
-                    cff.deleted,
-                    cff.UltimaActualizacion,
-                    cff.FechaCreacion,
-                    getUserName(cff.ModificadoPor) modi,
-                    getUserName(cff.CreadoPor) creado, 
-                    oc.idAuditoria AS idowner,
-                    cff.Route,
-                    cff.Nombre,
-                    'Buscando Estatus....'as estatus
-                   FROM SICSA.cfoliosfiles cff
-                   left JOIN SICSA.cfolios cf ON cff.idfolio=cf.id
-                   left JOIN SICSA.Organo_C oc ON cf.Oficio=oc.Oficio
-                   left JOIN SICSA.Organo_R cor ON cf.Oficio=cor.Oficio
-               WHERE cor.id='". $request->P_IDAUDITORIA ."'";
+            //         $queryFolioFiles = " 
+            //         SELECT 
+            //         cff.id,
+            //         cff.deleted,
+            //         cff.UltimaActualizacion,
+            //         cff.FechaCreacion,
+            //         getUserName(cff.ModificadoPor) modi,
+            //         getUserName(cff.CreadoPor) creado, 
+            //         oc.idAuditoria AS idowner,
+            //         cff.Route,
+            //         cff.Nombre,
+            //         'Buscando Estatus....'as estatus
+            //        FROM SICSA.cfoliosfiles cff
+            //        left JOIN SICSA.cfolios cf ON cff.idfolio=cf.id
+            //        left JOIN SICSA.Organo_C oc ON cf.Oficio=oc.Oficio
+            //        left JOIN SICSA.Organo_R cor ON cf.Oficio=cor.Oficio
+            //    WHERE cor.id='". $request->P_IDAUDITORIA ."'";
 
-               $query = "(" . $query . ") UNION (" . $queryFolioFiles . ")";
+            //    $query = "(" . $query . ") UNION (" . $queryFolioFiles . ")";
                 }
                 
                 $response =DB::select($query);
@@ -248,7 +248,7 @@ class FilesController extends Controller
             } elseif ($type == 7) {
                 $query = "SELECT
                          fl.id,
-                         fl.FechaCreacion,cd 
+                         fl.FechaCreacion, 
                          getUserName(fl.ModificadoPor) Nombre,
                         CASE
                           WHEN estatus =0 then 'Pendiente de Verificación'
