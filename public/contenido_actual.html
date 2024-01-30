@@ -1,0 +1,1139 @@
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>ASF</title>
+
+    <link rel="icon" href="/view/favicon.ico">
+    <meta http-equiv="”Content-Type”" content="”text/html;" charset="UTF-8″" />
+    <meta http-equiv="Content-Type" content="width=device-width" />
+
+
+<meta name="viewport" content="maximum-scale=1">
+    <link href="/view/css/mdb.min.css" rel="stylesheet" type="text/css">
+    <link href="/view/css/e19/style.css" rel="stylesheet" type="text/css">
+
+
+
+
+
+    <link rel="stylesheet" href="/view/externos/font-awesome.min.css">
+     <link rel="stylesheet" href="/view/externos/jquery-ui.min.css"  />
+    
+    
+
+    <link rel="stylesheet" href="/view/js/e19/slick/slick.css">
+    <link rel="stylesheet" href="/view/js/e19/slick/slick-theme.css">
+    <link rel="stylesheet" href="/dist/open-accessibility.min.css">
+
+   <script src="/view/js/jquery-3.6.4.js" type="text/javascript"></script>
+<!--    <script 
+        src="/view/externos/1.13.2jquery-ui.js"
+        integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c="
+        crossorigin="anonymous"></script>-->
+    <script src="/dist/js/accessibility-buttons.js" type="text/javascript"></script>
+
+
+    <script src="/view/externos/3.1.1jquery.min.js"></script>
+    <script src="/dist/open-accessibility.min.js"></script>
+    <script src="/dist/locale.min.js"></script>
+
+
+    <script src="/view/js/e19/slick/slick.js"></script>
+
+
+ <script src="/view/externos/1.13.2jquery-ui.js"></script>
+    <link href="/view/css/e19extras.css" rel="stylesheet" type="text/css">
+  <!-- apb  <style>
+  .slick-center>div:nth-child(5n+1) {
+            /* background: rgb(255,165,0);
+            background: linear-gradient(90deg, rgba(255,165,0,0.6980042016806722) 100%, rgba(0,212,255,1) 100%);*/
+            border-bottom: 2px solid rgba(255,165,0,1);
+        }
+      
+    </style>
+-->
+<!-- apb
+    <script>
+        $(document).ready(function () {
+       /* if (location.protocol == 'http:') {  location.href = location.href.replace(/^http:/, 'https:')}*/
+            const slider = $(".slider-nav");
+
+            slider.on("wheel", function (e) {
+                e.preventDefault();
+
+                if (e.originalEvent.deltaY < 0) {
+                    $(this).slick("slickNext");
+                } else {
+                    $(this).slick("slickPrev");
+                }
+            });
+
+
+
+            if (window.location.href.includes('210_Directorio')
+            ) {
+                $("#menux").remove();
+
+            }
+
+            if (window.location.href.includes('208_eventos')
+            ) {
+                $("#menux").remove();
+
+            }
+
+            if (window.location.href.includes('363_TabCtrlGasto')
+            ) {
+                $("#menux").remove();
+
+            }
+
+
+
+            if (window.location.href.includes('332_Buzon_digital')
+            ) {
+                $("#menux").remove();
+
+            }
+
+            if (window.location.href.includes('84_Preguntas_Frecuentes')
+            ) {
+                $("#menux").remove();
+
+            }
+
+            if (window.location.href.includes('247_Memorama')
+            ) {
+                $("#menux").remove();
+			
+			
+   }
+            if (window.location.href.includes('Index')
+            ) {
+                $("#menux").remove();
+            }
+            if (window.location.href.includes('211_Busqueda')
+            ) {
+                $("#menux").remove();
+            }
+             if (window.location.href.includes('85_Mapa_del_sitio')
+            ) {
+                $("#menux").remove();
+            }
+             if (window.location.href.includes('236_Empleados#1781_Empleados')
+            ) {
+                $("#menux").remove();
+			
+            }
+
+            $(".slider-for").slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                fade: true,
+                asNavFor: ".slider-nav",
+            });
+
+            $(".slider-nav").slick({
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                asNavFor: '.slider-for',
+                dots: true,
+                centerMode: true,
+                focusOnSelect: true,
+                arrows: false,
+                vertical: true,
+                verticalSwiping: true,
+                autoplay: true
+
+            });
+
+            $('#bannerlinks').slick({
+                slidesToShow: 3,
+                slidesToScroll: 2,
+                autoplay: true,
+                autoplaySpeed: 3000,
+                responsive: [
+                    {
+                        breakpoint: 1850,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 2,
+                            infinite: true,
+                            dots: true
+                        }
+                    },
+                    {
+                        breakpoint: 1100,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 2
+                        }
+                    },
+                    {
+                        breakpoint: 700,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            autoplaySpeed: 1500,
+                        }
+                    }
+                ]
+
+            });
+
+
+     $('#bannerlinks2').slick({
+                slidesToShow: 3,
+                slidesToScroll: 2,
+                autoplay: true,
+                autoplaySpeed: 3000,
+                responsive: [
+                    {
+                        breakpoint: 1850,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 2,
+                            infinite: true,
+                            dots: true
+                        }
+                    },
+                    {
+                        breakpoint: 1100,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 2
+                        }
+                    },
+                    {
+                        breakpoint: 700,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            autoplaySpeed: 1500,
+                        }
+                    }
+                ]
+            });
+
+
+
+            var loc = window.location;
+            var ancho = $(window).width();
+            if (loc.pathname.lastIndexOf('Index') > 0) {      //Home sin menú
+
+                $("#contenido").css('top', '-63px');
+            }
+
+            if (loc.pathname.lastIndexOf('Index') > 0 && ancho > 500) {      //Home sin menú
+                $("#nav").css('display', 'none');
+
+            }
+
+            if (loc.pathname.lastIndexOf('Index') > 0 && ancho < 501) {      //Home sin menú
+                $("#nav").css('display', 'block');
+                $("#contenido").css('top', '-59px');
+
+            }
+
+            //// Add smooth scrolling to all links
+            //$(".back-to-top").on('click', function (event) {
+            //    var scr = $(window).scrollTop() * 1.1;
+            //    var tope = 2000;
+
+            //    if (scr > tope) { scr = tope; }
+
+            //    $("html, body").animate({ scrollTop: 0 }, scr);
+            //    return false;
+
+            //});
+
+        });
+
+    </script>
+-->
+
+<!-- apb
+    <script>
+
+        var mailMaxChars = 300;
+
+
+        $(function () {
+            $("#accordion").accordion({
+                heightStyle: "content",
+                active: false,
+                collapsible: true
+
+            });
+        });
+
+
+        $(function () {
+            $("#accordion2").accordion({
+                heightStyle: "content",
+                active: false,
+                collapsible: true
+            });
+        });
+
+        $(function () {
+           $(".AccCerrado").accordion({ heightStyle: "content", header: "h3", collapsible: true, active: false });
+        });
+
+        $(function () {
+           $(".AccAbierto").accordion({ heightStyle: "content"});
+        });
+
+  $(function () {
+           $(".Accordion").accordion({ heightStyle: "content", header: "h3", collapsible: true, active: true});
+        });
+
+        $(function () {
+            $("#tabs").tabs({
+                collapsible: true
+            });
+        });
+
+        $(function () {
+            $("#tabs2").tabs({
+                collapsible: true
+            });
+        });
+
+        $(function () {
+            $(".tabs").tabs({
+                collapsible: true
+            });
+        });
+
+
+
+
+
+        $(function () {
+            $(".Tabs").tabs({
+                collapsible: true
+            });
+        });
+
+        function showhide(id) {
+            var itm = null;
+            if (document.getElementById) {
+                itm = document.getElementById(id);
+            } else if (document.all) {
+                itm = document.all[id];
+            } else if (document.layers) {
+                itm = document.layers[id];
+            }
+            if (itm.style) {
+                if (itm.style.display == "none") { itm.style.display = ""; }
+                else { itm.style.display = "none"; }
+            }
+        }
+
+        function showhidec(id) {
+            var itm = null;
+            if (document.getElementById) {
+                itm = document.getElementById(id);
+            } else if (document.all) {
+                itm = document.all[id];
+            } else if (document.layers) {
+                itm = document.layers[id];
+            }
+            if (itm.style) {
+                if (itm.style.display == "none") {
+                    itm.style.display = "";
+                    $(".imgpregfrec").attr("src", "https://contador.asf.gob.mx/numero.aspx?id=" + id);
+                }
+                else { itm.style.display = "none"; }
+            }
+        }
+
+
+    </script>-->
+
+<!-- apb
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-29361180-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            //ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            ga.src = '/view/externos/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+-->
+
+<!-- apb
+    <script>
+document.addEventListener('focusin', function (e) {
+            if (e.target.closest(".tox-tinymce-aux, .moxman-window, .tam-assetmanager-root") !== null) {
+                e.stopImmediatePropagation();
+            }
+        });
+
+
+</script>
+-->
+
+
+    
+
+    
+
+
+    
+
+
+    
+
+<!-- apb
+    <style>
+        .ui-tabs-vertical {
+            width: 55em;
+        }
+
+        .ui-tabs-vertical .ui-tabs-nav {
+            padding: .2em .1em .2em .2em;
+            float: left;
+            width: 12em;
+        }
+
+        .ui-tabs-vertical .ui-tabs-nav li {
+            clear: left;
+            width: 100%;
+            border-bottom-width: 1px !important;
+            border-right-width: 0 !important;
+            margin: 0 -1px .2em 0;
+        }
+
+        .ui-tabs-vertical .ui-tabs-nav li a {
+            display: block;
+        }
+
+        .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active {
+            padding-bottom: 0;
+            padding-right: .1em;
+            border-right-width: 1px;
+        }
+
+        .ui-tabs-vertical .ui-tabs-panel {
+            padding: 1em;
+            float: right;
+            width: 40em;
+        }
+    </style> -->
+
+
+
+<link href="/view/css/master.css" rel="stylesheet" type="text/css">
+ <script src="/view/js/master.js"></script>
+</head>
+
+
+<body>
+    <!-- HEADER INICIA -->
+    <div id="head d-none">
+        <div id="header d-none">
+
+            <div id="logo d-none">
+                <table id="tabla1" >
+                    <tbody>
+                        <tr>
+                            <td >
+                                <a href="/Default/Index">
+                                    <img id="imglogo" src="/view/assets/imagenes/iconos/logo.png">
+                                </a>
+                            </td>
+                            <td class="asf">AUDITOR&Iacute;A SUPERIOR DE LA FEDERACI&Oacute;N
+                            </td>
+                            <td>
+                                <div id="links">
+                                    <a class="noli" href="/Default/Index" title="Inicio">
+                                        <img alt="" src="/view/assets/imagenes/iconos/home.png">
+                                    </a>
+                                    <a class="noli" href="/Section/50_Transparencia">
+                                        <img alt="" src="/view/assets/imagenes/iconos/inai.png" title="Transparencia">
+                                    </a>
+                                    <a class="noli" href="/Section/58_Informes_de_auditoria">
+                                        <img alt="" src="/view/assets/imagenes/iconos/informes.png" title="Informes">
+                                    </a>
+                                    <a class="noli msg" href="#">
+                                        <img alt="" src="/view/assets/imagenes/iconos/correo.png" title="Contacto">
+                                    </a>
+                                    <a class="noli" href="/Section/210_Directorio">
+                                        <img alt="" src="/view/assets/imagenes/iconos/telefono.png" title="Directorio">
+                                    </a>
+                                    <a class="noli" href="/Section/211_Busqueda">
+                                        <img alt="" src="/view/assets/imagenes/iconos/lupa.png" title="B&uacute;squeda">
+                                    </a>
+                                </div>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- HEADER TERMINA -->
+
+    <!-- HEADER NUEVO INICIA-->
+
+    <div id="topbar" class="fixed-top">
+        <!-- Responsive navbar-->
+        <div class="">
+            <nav class="border border-dark navbar bg-light">
+                <div class="container px-5">
+                    <div class="prueba" id="prueba">
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-light" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+                                    <img
+                                        src="\view\assets\nuevo\icons/TOPBAR/accesibilidad.png"
+                                        alt="accesibilidad1" />
+                                    Accesibilidad</button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                                    <a class="noli" href="mailto:asf@asf.gob.mx">
+                                        <img src="\view\assets\nuevo\icons/TOPBAR/Contacto.png" alt="contacto" />
+                                        Contacto
+                                    </a>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light row">
+
+                <div class="col-2 text-end">
+
+                    <a href="/Default/Index">
+                        <img src="\view\assets\nuevo/Logo_Color.png" style="height: 50px" />
+                    </a>
+
+                </div>
+                <div class="col-4 col-md-3 col-lg-1 border-start border-dark"
+                    style="font-size: 0.7rem">
+                    <a class="">Sitio Oficial de la
+                        Auditoría Superior de la
+                        Federación
+                   
+                   
+                   
+                    </a>
+                </div>
+                <div class="col-xl-8 text-center">
+                    <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"><i class="fas fa-bars" style="display:none"></i></span>
+                    </button>
+                    <div class="row collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav">
+
+                            <li class="nav-item dropdown col-xs-12">
+                                <a
+                                    class="nav-link dropdown-toggle"
+                                    href="#"
+                                    id="navbarDropdown"
+                                    role="button"
+                                    data-mdb-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <img src="/view/assets/nuevo/icons/MENU/transparencia.png" style="width: 20px" />
+                                    Transparencia
+                                </a>
+                                <!-- Dropdown menu -->
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                    <div class="links">
+
+                                        <li>
+                                            <a class="dropdown-item" href="/Section/50_Transparencia" title="Transparencia">Transparencia</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="/Section/77_Unidad_de_enlace">Unidad de Transparencia</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="/Section/129_Transparencia_70">Obligaciones de Ley</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="/Section/78_Obligaciones_de_la_Ley_Federal_de_Transparencia_y_Acceso_a_la_Informacion_Publica_Gubernamental">Histórico</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="/Section/127_Comite_de_Transparencia">Comité de Transparencia</a>
+                                        </li>
+
+
+                                    </div>
+
+                                </ul>
+                            </li>
+
+                            <li class="nav-item col-xs-12">
+                                <a class="nav-link" href="/Section/262_Proteccion_de_Datos">
+                                    <img src="/view/assets/nuevo/icons/MENU/protecciondedatos.png" style="width: 20px" />
+                                    Protección de datos</a>
+                            </li>
+
+                            <li class="nav-item col-xs-12 dropdown">
+                                <a
+                                    class="nav-link dropdown-toggle"
+                                    href="#"
+                                    id="navbarDropdown"
+                                    role="button"
+                                    data-mdb-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <img src="/view/assets/nuevo/icons/MENU/informes.png" style="width: 20px" />
+                                    Informes
+                                </a>
+                                <!-- Dropdown menu -->
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="/Section/58_Informes_de_auditoria">Informes de Auditoría</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/Section/59_Informes_especiales_de_auditoria">Otros Informes</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/Section/188_Programa_Anual_de_Actividades">Programa Anual de Actividades</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/Section/189_Informe_Anual_de_Actividades">Informe Anual de Actividades</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/Section/194_Auditorias_sobre_Ejercicios_Fiscales_en_curso_o_anteriores_derivadas_del_Titulo_IV_de_LFRCF">Título Cuarto de la LFRCF</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+
+                            <li class="nav-item col-xs-12">
+                                <a class="nav-link" href="/Section/210_Directorio">
+                                    <img src="/view/assets/nuevo/icons/MENU/directorio.png" style="width: 20px" />
+                                    Directorio</a>
+                            </li>
+
+                            <li class="nav-item col-xs-12 dropdown">
+                                <a
+                                    class="nav-link dropdown-toggle"
+                                    href="#"
+                                    id="navbarDropdown"
+                                    role="button"
+                                    data-mdb-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <img src="/view/assets/nuevo/icons/MENU/link2.png" style="width: 20px" />Accesos
+                                </a>
+                                <!-- Dropdown menu -->
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="/Section/48_Comunicacion_social">Difusión</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/Section/373_Unidad_de_Igualdad_de_Genero_y_Cultura_de_la_Fiscalizacion">Igualdad de Género y Cultura de la Fiscalización</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/Section/239_Inst_Comite_Editorial">Comité Editorial</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/Section/250_Derecho_a_ser_Asistido_Gratuitamente">Derecho a ser Asistido Gratuitamente</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/Section/334_Armonizacion_Contable">Armonización Contable</a>
+                                    </li>
+
+ 				    <li>
+                                        <a class="dropdown-item" href="/Section/378_ASFFirmaElectronica">Firma Electrónica Avanzada de la ASF</a>
+                                    </li>
+
+
+                                </ul>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+    </div>
+
+
+
+    <!-- HEADER NUEVO TERMINA-->
+
+    <div id="contenido" class="pt-5">
+		<div>
+
+        <input type="checkbox" id="nav-toggle" class="nav-toggle">
+        <nav class="fw-bold text-white p-5" id="nav" >
+                    <div id="menu" class="text-center">
+                <ul class="Men">
+                    <span class="pnoli d-none">
+                        <a class="noli" href="/Default/Index" title="Inicio">
+                            <img alt="" src="/view/assets/imagenes/iconos/home_d.png"></a>
+                        <a class="noli" href="/Section/50_Transparencia" title="Transparencia">
+                            <img alt="" src="/view/assets/imagenes/iconos/inai_D.png"></a>
+                        <a class="noli" href="/Section/58_Informes_de_auditoria" title="Informes">
+                            <img alt="" src="/view/assets/imagenes/iconos/informes_d.png"></a>
+                        <a class="noli msg" href="#" title="Contacto">
+                            <img alt="" src="/view/assets/imagenes/iconos/correo_d.png"></a>
+                        <a class="noli" href="/Section/210_Directorio" title="Directorio">
+                            <img alt="" src="/view/assets/imagenes/iconos/telefono_D.png"></a>
+                        <a class="noli" href="/Section/211_Busqueda" title="B&uacute;squeda">
+                            <img alt="" src="/view/assets/imagenes/iconos/lupa_d.png"></a>
+                    </span>
+
+
+                    
+    
+
+
+    <!--
+
+  <header>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <nav id="nav">
+      <ul>
+        <span class="pnoli">
+          <a class="noli" href="/Default/Index" title="Inicio">
+            <img alt="" src="/view/assets/imagenes/iconos/home_d.png"></a>
+          <a class="noli" href="/Section/50_Transparencia" title="Transparencia">
+            <img alt="" src="/view/assets/imagenes/iconos/inai_D.png"></a>
+          <a class="noli" href="/Section/58_Informes_de_auditoria" title="Informes">
+            <img alt="" src="/view/assets/imagenes/iconos/informes_d.png"></a>
+          <a class="noli msg" href="#" title="Contacto">
+            <img alt="" src="/view/assets/imagenes/iconos/correo_d.png"></a>
+          <a class="noli" href="/Section/210_Directorio" title="Directorio">
+            <img alt="" src="/view/assets/imagenes/iconos/telefono_D.png"></a>
+          <a class="noli" href="/Section/211_Busqueda" title="B&uacute;squeda">
+            <img alt="" src="/view/assets/imagenes/iconos/lupa_d.png"></a>
+        </span>
+      </ul>
+    </nav>
+    <label for="nav-toggle" class="nav-toggle-label">
+      <span></span>
+    </label>
+  </header>
+
+
+-->
+
+    <!--
+
+  <header>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <nav id="nav">
+<ul>
+             <span class="pnoli">
+          <a class="noli" href="/Default/Index" title="Inicio">
+            <img alt="" src="/view/assets/imagenes/iconos/home_d.png"></a>
+          <a class="noli" href="/Section/50_Transparencia" title="Transparencia">
+            <img alt="" src="/view/assets/imagenes/iconos/inai_D.png"></a>
+          <a class="noli" href="/Section/58_Informes_de_auditoria" title="Informes">
+            <img alt="" src="/view/assets/imagenes/iconos/informes_d.png"></a>
+          <a class="noli msg" href="#" title="Contacto">
+            <img alt="" src="/view/assets/imagenes/iconos/correo_d.png"></a>
+          <a class="noli" href="/Section/210_Directorio" title="Directorio">
+            <img alt="" src="/view/assets/imagenes/iconos/telefono_D.png"></a>
+          <a class="noli" href="/Section/211_Busqueda" title="B&uacute;squeda">
+            <img alt="" src="/view/assets/imagenes/iconos/lupa_d.png"></a>
+        </span>-->
+
+    
+    <li><a href="../Section/357_Programa_Anual_de_Auditorias" target="">Programa Anual de Auditorias para la Fiscalización Superior (PAAF)</a></li>
+    
+    <!--  </ul>
+      <ul>-->
+    
+
+    <!--  </ul>
+    </nav>
+    <label for="nav-toggle" class="nav-toggle-label">
+      <span></span>
+    </label>
+  </header>
+-->
+
+
+                </ul>
+            </div>
+
+        </nav>
+
+
+
+        
+
+    
+    <div
+        class="mw-100 bg-image container text-white px-5"
+        style="background-color: #051934">
+
+
+        <div class="row pb-4 text-center">
+            
+            
+
+            <div class="col-sm-12">
+                <h2 style="" class="">Programa Anual de Auditorías para la Fiscalización Superior (PAAF)</h2>
+            </div>
+        </div>
+    </div>
+    <div id="Con_5377_Programa_Anual_de_Auditorias" class="fondo2 ">
+        <div class="cMax">
+            <div id="5377_Programa_Anual_de_Auditorias">
+                <h4><a><strong>Programa Anual de Auditor&iacute;as para la Fiscalizaci&oacute;n Superior (PAAF)</strong></a></h4>
+<p>En esta secci&oacute;n podr&aacute;s conocer las auditor&iacute;as de la Cuenta P&uacute;blica en revisi&oacute;n, el hist&oacute;rico de los programas anuales (2012 a la fecha) y los detalles del proceso de planeaci&oacute;n y programaci&oacute;n de auditor&iacute;as.</p>
+<p>Programa Anual de Auditorias para la Fiscalizacion Superior de la Cuenta Publica.&nbsp;</p>
+<div id="tabs" class="Tabs">
+<ul>
+<li><a href="#tabs-2023">2023</a></li>
+<li><a href="#tabs-2022">2022</a></li>
+<li><a href="#tabs-2021">2021</a></li>
+<li><a href="#tabs-2020">2020</a></li>
+<li><a href="#tabs-2019">2019</a></li>
+<li><a href="#tabs-2018">2018</a></li>
+<li><a href="#tabs-2017">2017</a></li>
+<li><a href="#tabs-2016">2016</a></li>
+<li><a href="#tabs-2015">2015</a></li>
+<li><a href="#tabs-2014">2014</a></li>
+<li><a href="#tabs-2013">2013</a></li>
+<li><a href="#tabs-2012">2012</a></li>
+</ul>
+<div id="tabs-2023">
+<ul>
+<p><strong>Inicial</strong></p>
+<p><span>Por Entidad Fiscalizada&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2023_Por_Entidad_Fiscalizada.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a>&nbsp;</span>Por Objeto Fiscalizado&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2023_Por_Objeto_Fiscalizado.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a>&nbsp;Por Ramo&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2023_Por_Ramo0.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a>&nbsp;DOF 190124&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/19012024-MAT.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></p>
+<p><span>Listado de Auditorias por Medios Electronicos&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/Listado_de_Auditorias_por_Medios_Electronicos.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></span></p>
+<p>&nbsp;</p>
+</ul>
+</div>
+<div id="tabs-2022">
+<ul>
+<p>&nbsp;</p>
+<p><strong>Inicial&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br /></strong></p>
+Por Entidad Fiscalizada<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2022_por_Entidad_Fiscalizada.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a> Por Objeto Fiscalizado<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2022_por_Objeto_Fiscalizado.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a> Por Ramo<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2022_por_Ramo.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a> DOF 15-03-23<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2022_DOF_150323.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a>
+<p>&nbsp;</p>
+<p style="text-align: left;"><strong>Vigente</strong></p>
+<p>09-11-2023</p>
+Por Entidad Fiscalizada&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2022_por_Entidad_Fiscalizada_2.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a> Por Objeto Fiscalizado<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2022_por_Objeto_Fiscalizado_2.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a> Por Ramo<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2022_por_Ramo_2.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a><br /><strong>Listado de Auditor&iacute;as por Medios Electr&oacute;nicos (vigente) 15-03-2023</strong> <a href="../uploads/5377_Programa_Anual_de_Auditorias/Listado_de_Auditorias_por_Medios_Electronicos_CP_2022.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a>
+<p>&nbsp;</p>
+<p><strong style="font-size: 1.17em;">Modificaciones PAAF 2022</strong></p>
+<p>&nbsp;</p>
+<p><strong>Segunda Modificaci&oacute;n 09-11-23</strong></p>
+<p>DOF 09-11-23 <a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2022_DOF091123.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></p>
+Detalle de las Modificaciones del PAAF CP 2022, 09-11-23 <a href="../uploads/5377_Programa_Anual_de_Auditorias/Detalle_Modificaciones_PAAF_CP_2022_2.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a>
+<p>&nbsp;</p>
+<p><strong>Primera Modificaci&oacute;n 12-07-23</strong></p>
+<p>DOF 12-07-23 <a href="../uploads/5377_Programa_Anual_de_Auditorias/Publicacion_DOF_Modificaciones_al_PAAF_CP_20221.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></p>
+Detalle de las Modificaciones del PAAF CP 2022, 12-07-23 <a href="../uploads/5377_Programa_Anual_de_Auditorias/Detalle_Modificaciones_PAAF__CP_20221.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a>
+<p>&nbsp;</p>
+</ul>
+</div>
+<div id="tabs-2021">
+<ul>
+<p><strong>Inicial&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br /></strong></p>
+&nbsp; Por Entidad Fiscalizada<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2021_por_Entidad_Fiscalizada.pdf" target="_blank"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a> Por Objeto Fiscalizado<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2021_por_Objeto_Fiscalizado.pdf" target="_blank"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a> Por Ramo<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2021_por_Ramo2.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a> DOF 11-02-22<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2021_DOF.pdf" target="_blank"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a>
+<p style="text-align: left;"><strong>Vigente</strong></p>
+<p>21-09-2022</p>
+Por Entidad Fiscalizada&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2021_Por_Entidad_Fiscalizada_210922.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a> Por Objeto Fiscalizado<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2021_Por_Objeto_Fiscalizado_210922.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a> Por Ramo<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2021_Por_Ramo_210922.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a> <br />
+<p><strong>Listado de Auditor&iacute;as por Medios Electr&oacute;nicos (vigente) 01-08-2022</strong>&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/Listado_de_Auditorias_por_Medios_Electronicos_PAAF_CP_2021_vigente_01-08-2022.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></p>
+<p>&nbsp;</p>
+<p><strong style="font-size: 1.17em;">Modificaciones PAAF 2021</strong></p>
+<p><strong>Segunda Modificaci&oacute;n 21-09-22</strong>&nbsp;</p>
+<p>DOF 21-09-22&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/DOF_-_PAAF_2021_210922.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></p>
+<p>Detalle de las Modificaciones del PAAF CP 2021, 21-09-22<a href="../uploads/5377_Programa_Anual_de_Auditorias/Detalle_Modificaciones_PAAF__CP_2021_07_SEP.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></p>
+<p><strong>Primera Modificaci&oacute;n 01-08-22</strong>&nbsp;</p>
+<p>DOF 01-08-22&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/01082022-MAT.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></p>
+<p>Detalle de las Modificaciones del PAAF CP 2021, 01-08-22&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/Detalle_de_las_Modificaciones_al_PAAF__CP_2021.1.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></p>
+<p><strong>Inicial</strong> Por Entidad Fiscalizada&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2020_Por_Entidad_Fiscalizada_08-02-21.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a> Por Objeto Fiscalizado&nbsp;&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2020_Por_Objeto_Fiscalizado_08-02-21.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a> DOF 08-02-21&nbsp;&nbsp;<a href="https://www.dof.gob.mx/nota_detalle.php?codigo=5611045&amp;fecha=08/02/2021"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a> <strong>Vigente 11-02-2022</strong><strong>&nbsp;</strong> Por Entidad Fiscalizada&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2020_por_Entidad_Fiscalizada4.pdf" target="_blank"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a> Por Objeto Fiscalizado&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2020_por_Objeto_Fiscalizado4.pdf" target="_blank"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a>&nbsp;&nbsp;</p>
+</ul>
+</div>
+<div id="tabs-2020">
+<ul>
+<p><strong>Vigente 15-12-21</strong></p>
+<p>Por Entidad Fiscalizada&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2020_por_Entidad_Fiscalizada.pdf" target="_blank"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></p>
+<p>Por Objeto Fiscalizado<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2020_por_Objeto_Fiscalizado.pdf" target="_blank"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></p>
+<p>&nbsp;</p>
+<p><strong>Listado de Auditor&iacute;as por Medios Electr&oacute;nicos 16-08-21</strong><strong style="font-size: 10px;">&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/16_agosto_2021_030921.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></strong></p>
+<p>&nbsp;</p>
+<p><strong><span>Modificaciones PAAF 2020</span></strong></p>
+<p>&nbsp;</p>
+<p>PAAF 2020<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2020_DOF3.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a><strong> </strong></p>
+<p><strong>Tercera Modificaci&oacute;n 11-02-22</strong></p>
+<p>DOF 11-02-22<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_CP_2020_DOF3.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a><strong> </strong></p>
+<p>Detalle de las Modificaciones del PAAF 2020, 11-02-22<strong><a href="../uploads/5377_Programa_Anual_de_Auditorias/Detalle_de_las_Modificaciones_al_PAAF_CP_20203.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a><br /></strong></p>
+<p>&nbsp;</p>
+<p><strong>Segunda Modificaci&oacute;n 15-12-21</strong></p>
+<p>DOF 15-12-21&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF-151221.pdf" target="_blank"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></p>
+<p>Detalle de las Modificaciones del PAAF CP 2020, 15-12-21&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/Detalle_de_las_Modificaciones_al_PAAF_CP_2020dic.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></p>
+<p><strong><br /></strong></p>
+<p><strong>Primera Modificaci&oacute;n 08-07-21</strong>&nbsp;</p>
+<p>DOF 08-07-21&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_Version_DOF_08-07-21.doc"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></p>
+<p>Detalle de las Modificaciones del PAAF CP 2020, 16-08-21&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/Detalle_de_las_Modificaciones_al_PAAF_CP_2020_16-08-21.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></p>
+<p>&nbsp;</p>
+</ul>
+</div>
+<div id="tabs-2019">
+<ul>
+<p><span><strong>Programa Anual de Auditor&iacute;as para la Fiscalizaci&oacute;n Superior de la Cuenta P&uacute;blica 2019</strong><br />DOF 28-01-21&nbsp;<a href="https://www.dof.gob.mx/nota_detalle.php?codigo=5610485&amp;fecha=28/01/2021"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></span></p>
+<p><span>Por Entidad Fiscalizada&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_Por_Ente_Fiscalizado_280121.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></span></p>
+<p><span>Por Objeto Fiscalizado&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_Por_Objeto_Fiscalizado_280121.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></span></p>
+<p>&nbsp;</p>
+</ul>
+</div>
+<div id="tabs-2018">
+<ul>
+<p><span><strong>Programa Anual de Auditor&iacute;as para la Fiscalizaci&oacute;n Superior de la Cuenta P&uacute;blica 2018</strong><br />Por Entidad Fiscalizada&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_Por_Ente_Fiscalizado_14-01-20.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></span></p>
+<p><span>Por Objeto Fiscalizado&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_Por_Objeto_Fiscalizado_14-01-20.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></span></p>
+<p>&nbsp;</p>
+</ul>
+</div>
+<div id="tabs-2017">
+<ul>
+<p><span><strong>Programa Anual de Auditor&iacute;as para la Fiscalizaci&oacute;n Superior de la Cuenta P&uacute;blica 2017</strong><br />Por Entidad Fiscalizada&nbsp;&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_Por_Ente_Fiscalizado_20-11-18.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></span></p>
+<p><span>Por Objeto Fiscalizado&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_Por_Objeto_Fiscalizado_20-11-18.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></span></p>
+<p>&nbsp;</p>
+</ul>
+</div>
+<div id="tabs-2016">
+<ul>
+<p><span><strong>Programa Anual de Auditor&iacute;as para la Fiscalizaci&oacute;n Superior de la Cuenta P&uacute;blica 2016</strong><br />Por Entidad Fiscalizada&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_Por_Ente_Fiscalizado_-_14122017.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></span></p>
+<p><span>Por Objeto Fiscalizado&nbsp;&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_Por_Objeto_de_Fiscalizacion_-_14122017.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></span></p>
+<p>&nbsp;</p>
+</ul>
+</div>
+<div id="tabs-2015">
+<ul>
+<p><span><strong>Programa Anual de Auditor&iacute;as para la Fiscalizaci&oacute;n Superior de la Cuenta P&uacute;blica 2015</strong><br />Por Entidad Fiscalizada&nbsp;&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_por_Sujeto_2015.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></span></p>
+<p><span>Por Objeto Fiscalizado&nbsp;&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF_por_Objeto_2015.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></span></p>
+<p><span>.</span></p>
+</ul>
+</div>
+<div id="tabs-2014">
+<ul>
+<p><span><strong>Programa Anual de Auditor&iacute;as para la Fiscalizaci&oacute;n Superior de la Cuenta P&uacute;blica 2014</strong><br />Por Entidad Fiscalizada&nbsp;&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/Por_Entidad_Fiscalizada_04-01-16.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></span></p>
+<p><span>Por Objeto Fiscalizado&nbsp;&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/Por_Objeto_de_Fiscalizacion_04-01-16.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></span></p>
+<p>&nbsp;</p>
+</ul>
+</div>
+<div id="tabs-2013">
+<ul>
+<p><span><strong>Programa Anual de Auditor&iacute;as para la Fiscalizaci&oacute;n Superior de la Cuenta P&uacute;blica 2013</strong><br />Por Entidad Fiscalizada&nbsp;&nbsp;<a href="../uploads/5377_Programa_Anual_de_Auditorias/Por_Entidad_Fiscalizada_06_Ene_2015.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></span></p>
+<p><span>Por Objeto Fiscalizado <a href="../uploads/5377_Programa_Anual_de_Auditorias/Por_Objeto_de_Fiscalizacion_06_Ene_2015.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></span></p>
+</ul>
+</div>
+<div id="tabs-2012">
+<ul>
+<p><strong><span>Programa Anual de Auditor&iacute;as para la Fiscalizaci&oacute;n Superior de la Cuenta P&uacute;blica 2012 </span></strong><a style="white-space: pre;" href="../uploads/5377_Programa_Anual_de_Auditorias/PAAF2012_listado-cierre.pdf"><img src="../view/assets/imagenes/iconos/icon_pdf.png" alt="" /></a></p>
+<p>&nbsp;</p>
+</ul>
+</div>
+</div>
+<p>&nbsp;</p>
+<h4><strong>Planeaci&oacute;n y programaci&oacute;n de auditor&iacute;as&nbsp;</strong></h4>
+<p style="text-align: justify;">Derivado de la reforma que dio origen al Sistema Nacional Anticorrupci&oacute;n, se increment&oacute;, cuantitativa y cualitativamente, el universo auditable. Por ello, los trabajos de planeaci&oacute;n y programaci&oacute;n son fundamentales para obtener una selecci&oacute;n adecuada de entes, programas, fondos y procesos que aseguren la inclusi&oacute;n de temas relevantes en t&eacute;rminos financieros, de impacto social, de inter&eacute;s cameral e, inclusive, de trascendencia para la opini&oacute;n p&uacute;blica. En este contexto, la metodolog&iacute;a de planeaci&oacute;n y programaci&oacute;n de auditor&iacute;as de la ASF materializa, entre otros, los principios de imparcialidad y confiabilidad.</p>
+<p style="text-align: justify;">&nbsp;</p>
+<h4 style="text-align: justify;"><strong>Planeaci&oacute;n</strong></h4>
+<p style="text-align: justify;">Tiene como objetivo y resultado principal la integraci&oacute;n del Programa Anual de Auditor&iacute;as para la Fiscalizaci&oacute;n Superior (PAAF). Se refiere al conjunto de directrices, reglas generales y actividades para coordinar la integraci&oacute;n de dicho Programa. Las directrices son las definiciones estrat&eacute;gicas que permiten orientar las caracter&iacute;sticas que tendr&aacute; el PAAF.<br />Por su parte, las reglas generales de planeaci&oacute;n indican la necesidad de un marco metodol&oacute;gico con procedimientos definidos. Por ello, en la ASF se tienen implantados criterios en la materia. Asimismo, se estableci&oacute;, como parte de dichas reglas, que todas las propuestas de auditor&iacute;a deben ser analizadas y discutidas en una instancia colegiada denominada Grupo de Programaci&oacute;n, el cual permite valorar su pertinencia, importancia y factibilidad.</p>
+<p style="text-align: justify;">Dicho marco general de planeaci&oacute;n establece cuatro componentes:</p>
+<p style="text-align: justify;"><br />1) An&aacute;lisis de la capacidad operativa: se refiere al examen de los recursos disponibles; el perfil y experiencia del personal, as&iacute; como dem&aacute;s circunstancias que influyan en la capacidad institucional para ejecutar auditor&iacute;as o estudios.<br />2) Fuentes de informaci&oacute;n: son los insumos documentales y de datos requeridos para conformar un proceso de planeaci&oacute;n y programaci&oacute;n t&eacute;cnico y objetivo.<br />3) Criterios de an&aacute;lisis de informaci&oacute;n: son el conjunto de variables o componentes cuantitativos y cualitativos, que permiten desarrollar un diagn&oacute;stico de los sujetos y objetos de fiscalizaci&oacute;n.</p>
+<p style="text-align: justify;">4) Criterios de selecci&oacute;n: constan de las reglas de decisi&oacute;n o par&aacute;metros a partir de los cuales se orientar&aacute; la identificaci&oacute;n de los sujetos y objetos de auditor&iacute;a de mayor importancia o riesgo. Destaca particularmente, entre estos criterios, el juicio profesional del auditor que reune experiencias y antecedentes de dichos objetos auditables.</p>
+<p style="text-align: justify;">&nbsp;</p>
+<h4 style="text-align: justify;"><strong>Programaci&oacute;n</strong></h4>
+<p style="text-align: justify;">El proceso de programaci&oacute;n tiene como objetivo principal identificar a los sujetos y objetos a fiscalizar. Dada la gran cantidad de combinaciones sujeto-objeto que son susceptibles de ser revisadas, la ASF ha desarrollado una metodolog&iacute;a de programaci&oacute;n basada en factores de riesgo que cuenta con criterios y subcriterios de an&aacute;lisis, priorizaci&oacute;n y selecci&oacute;n de propuestas de auditor&iacute;a. Su ejecuci&oacute;n implica el desarrollo de un trabajo minucioso de identificaci&oacute;n, procesamiento, an&aacute;lisis y valoraci&oacute;n de diversas fuentes de informaci&oacute;n, para la asignaci&oacute;n de los niveles de riesgo.</p>
+<p style="text-align: justify;">En la siguiente figura se presentan algunos ejemplos de los criterios y subcriterios utilizados en el proceso de programaci&oacute;n..</p>
+<p style="text-align: justify;">&nbsp;</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="../uploads/5377_Programa_Anual_de_Auditorias/Informe_aspectos_a_evaluar.jpg" alt="" width="526" height="330" /></p>
+<p>&nbsp;</p>
+<p style="text-align: justify;">Una vez identificados los objetos, sujetos y conceptos a fiscalizar que presenten mayor riesgo, se realiza un an&aacute;lisis cualitativo para verificar la correcta determinaci&oacute;n del nivel de riesgo asignado, as&iacute; como definir la elaboraci&oacute;n formal de las propuestas de auditor&iacute;a. Cabe reiterar que una instancia colegiada -el Grupo de Programaci&oacute;n- analiza, discute todas las propuestas de auditor&iacute;as que integran el PAAF y verifica que se d&eacute; cumplimiento al marco metodol&oacute;gico.</p>
+<p style="text-align: justify;">&nbsp;</p>
+<h4 style="text-align: justify;"><strong>Integraci&oacute;n del Programa Anual de Auditor&iacute;as para la Fiscalizaci&oacute;n Superior</strong></h4>
+<p style="text-align: justify;">Este proceso abarca la agrupaci&oacute;n y clasificaci&oacute;n de las propuestas de auditor&iacute;a para ser presentadas en diferentes vistas, en un documento denominado PAAF, el cual se hace p&uacute;blico en la p&aacute;gina web de la instituci&oacute;n y en el Diario Oficial de la Federaci&oacute;n. Dado que el proceso de fiscalizaci&oacute;n es din&aacute;mico, la ley permite que dicho Programa, una vez aprobado, pueda modificarse. Esto significa que, durante el desarrollo de la fiscalizaci&oacute;n de la Cuenta P&uacute;blica respectiva, se podr&aacute;n incorporar, dar de baja o realizar cambios a cualquier auditor&iacute;a programada, para ampliar o reducir su alcance. Cabe resaltar que los ajustes deber&aacute;n cumplir con las reglas generales para la planeaci&oacute;n y programaci&oacute;n descritas con anterioridad, as&iacute; como con el marco normativo para la fiscalizaci&oacute;n superior.</p>
+<p style="text-align: justify;">&nbsp;</p>
+<h4 style="text-align: justify;"><strong>Muestra fiscalizada</strong></h4>
+<p style="text-align: justify;">En t&eacute;rminos de la muestra de fiscalizaci&oacute;n, a nivel agregado, el universo auditable se ha dividido en cuatro grandes grupos: (1) el Sector P&uacute;blico Presupuestario (SPP), (2) Gasto Federalizado -abarca las transferencias condicionadas y las participaciones-, (3) otros conceptos fiscalizados -que incluyen cuentas de balance, deuda p&uacute;blica, fideicomisos, entre otros- y (4) los ingresos ordinarios del SPP.</p>
+<p style="text-align: justify;">&nbsp;</p>
+<h4 style="text-align: justify;"><strong>Universo Sujeto a Fiscalizaci&oacute;n</strong></h4>
+<p>La ASF se encarga de fiscalizar, de manera externa, el uso de los recursos p&uacute;blicos federales en los tres Poderes de la Uni&oacute;n; los &oacute;rganos constitucionales aut&oacute;nomos; los estados y municipios; y en general cualquier entidad, persona f&iacute;sica o moral, p&uacute;blica o privada que haya captado, recaudado, administrado, manejado o ejercido recursos p&uacute;blicos federales.</p>
+<p>La funci&oacute;n de fiscalizaci&oacute;n ser&aacute; ejercida conforme a los principios de legalidad, definitividad, imparcialidad y confiabilidad.</p>
+            </div>
+        </div>
+        
+
+
+        
+
+
+        <div
+            class="px-5 py-5 text-white text-center"
+            style="background-color: #051934">
+            <div class="row">
+                <div class="col">
+                    <ul class="nav flex-column">
+                        <li class="nav-item pb-5">
+                            <img
+                                src="\view\assets\nuevo\Recurso 1.png"
+                                alt=""
+                                style="height: 90px" />
+                        </li>
+                        <li>
+                            <p>
+                                Carretera Picacho Ajusco No.167, Col. Ampliación Fuentes del
+              Pedregal, Alcaldia Tlalpan, C.P. 14110, Ciudad de México.
+                           
+                           
+                           
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <img
+                    class="d-none d-sm-block"
+                    src="\view\assets\nuevo/icons/FOOTER/Line 13.png"
+                    alt=""
+                    style="height: 200px; width: 25px" />
+
+                <div class="col">
+                    <h5>Menú</h5>
+                    <ul class="nav flex-column">
+
+                        <li class="nav-item mb-2">
+                            <a href="/Section/84_Preguntas_Frecuentes" class="nav-link p-0 text-muted">Preguntas Frecuentes</a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a href="/Section/379_Difusion_Eventos#9196_Eventos_ASF" class="nav-link p-0 text-muted">Eventos</a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a href="/Section/58_Informes_de_auditoria" class="nav-link p-0 text-muted">Informes</a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a href="/Section/50_Transparencia" class="nav-link p-0 text-muted">Transparencia</a>
+                        </li>
+<!--
+                        <li class="nav-item mb-2">
+                            <a href="/Section/247_Memorama">Memorama</a>
+                        </li>
+-->
+                        <li class="nav-item mb-2">
+                            <a href="/Section/85_Mapa_del_sitio">Mapa de Sitio</a>
+                        </li>
+<!--                        <li class="nav-item mb-2">
+                            <a href="/Section/236_Empleados#1781_Empleados">Empleados</a>
+                        </li>
+-->
+                    </ul>
+                </div>
+
+                <img
+                    class="d-none d-sm-block"
+                    src="\view\assets\nuevo/icons/FOOTER/Line 13.png"
+                    alt=""
+                    style="height: 200px; width: 25px" />
+
+                <div class="col">
+                    <h5>Contacto</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2">
+                            <a href="/Section/210_Directorio" class="nav-link p-0 text-muted">Directorio</a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a href="mailto:asf@asf.gob.mx" class="nav-link p-0 text-muted">Correo Electrónico</a>
+
+                        </li>
+                        <li>
+                            9970039
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="padding: 20%;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <a class="content"></a>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+        $(function () {
+            $('.content').openAccessibility({
+                textSelector: 'span,p,td,table,tr',
+                maxZoomLevel: 1.3,
+                minZoomLevel: 0.5,
+                isMenuOpened: true,
+                iconSize: 'm',
+                localization: ['es'],
+            });
+        })
+
+
+
+    </script>
+
+
+    <script src="/view/js/mdb.min.js" type="text/javascript"></script>
+
+	<script src="/view/js/mdb.min.js.map" type="text/javascript"></script>
+
+</body>
+
+
+</html>
+</script>
+
+</body>
+
+
+</html>
+</script>
+
+</body>
+
+
+</html>
