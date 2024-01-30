@@ -7,9 +7,17 @@ use App\Models\OrganoR;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\File;
+
 
 class OrganoController extends Controller
 {
+
+    private function uuidretrun()
+    {
+        // Lógica para generar un nuevo UUID, por ejemplo:
+        return \Ramsey\Uuid\Uuid::uuid4()->toString();
+    }
 
     public function OrganoCindex(Request $request)
     {
@@ -18,12 +26,14 @@ class OrganoController extends Controller
         $NUMCODE = 0;
         $STRMESSAGE = 'Exito';
         $response = "";
+        $id = $this->uuidretrun();
 
         try {
             $type = $request->NUMOPERACION;
 
             if ($type == 1) {
                 $OBJ = new OrganoC();
+                $OBJ->id = $id;
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
                 $OBJ->idAuditoria = $request->idAuditoria;
@@ -33,8 +43,27 @@ class OrganoController extends Controller
                 $OBJ->FRecibido = $request->FRecibido;
                 $OBJ->FVencimiento = $request->FVencimiento;
                 $OBJ->idOrganoAuditorOrigen = $request->idOrganoAuditorOrigen;
-                $OBJ->save();
-                $response = $OBJ;
+                if ($OBJ->save()) {
+                    $response = DB::select("SELECT  ? as id, ? as ModificadoPor, ? as CreadoPor, cff.Route, cff.Nombre FROM 
+                    SICSA.cfolios cf 
+                    JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
+                    WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
+                
+                
+                                $OBJFile = new File();
+                                    
+                                    foreach ($response as $result){
+                                        $OBJFile->idowner =  $id;
+                                        $OBJFile->ModificadoPor = $result->ModificadoPor;
+                                        $OBJFile->CreadoPor = $result->CreadoPor;
+                                        $OBJFile->Route    = $result->Route;
+                                        $OBJFile->Nombre    = $result->Nombre;
+                                    }
+                                    $OBJFile ->save();
+                
+                                } else {
+                                    $response = $OBJ;
+                                }
 
             } elseif ($type == 2) {
 
@@ -111,6 +140,7 @@ class OrganoController extends Controller
         $NUMCODE = 0;
         $STRMESSAGE = 'Exito';
         $response = "";
+        $id = $this->uuidretrun();
 
         try {
             $type = $request->NUMOPERACION;
@@ -118,6 +148,7 @@ class OrganoController extends Controller
             if ($type == 1) {
 
                 $OBJ = new OrganoR();
+                $OBJ->id = $id;
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
                 $OBJ->idOrganoC = $request->idOrganoC;
@@ -129,8 +160,27 @@ class OrganoController extends Controller
                 $OBJ->idOrganoAuditorOrigen = $request->idOrganoAuditorOrigen;
                 $OBJ->idOrganoAuditorDestino = $request->idOrganoAuditorDestino;
 
-                $OBJ->save();
-                $response = $OBJ;
+                if ($OBJ->save()) {
+                    $response = DB::select("SELECT  ? as id, ? as ModificadoPor, ? as CreadoPor, cff.Route, cff.Nombre FROM 
+                    SICSA.cfolios cf 
+                    JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
+                    WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
+                
+                
+                                $OBJFile = new File();
+                                    
+                                    foreach ($response as $result){
+                                        $OBJFile->idowner =  $id;
+                                        $OBJFile->ModificadoPor = $result->ModificadoPor;
+                                        $OBJFile->CreadoPor = $result->CreadoPor;
+                                        $OBJFile->Route    = $result->Route;
+                                        $OBJFile->Nombre    = $result->Nombre;
+                                    }
+                                    $OBJFile ->save();
+                
+                                } else {
+                                    $response = $OBJ;
+                                }
 
             } elseif ($type == 2) {
 

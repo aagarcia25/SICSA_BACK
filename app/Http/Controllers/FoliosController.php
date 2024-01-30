@@ -52,7 +52,6 @@ class FoliosController extends Controller
                 $OBJ->save();
                 $response = $OBJ;
             } elseif ($type == 2) {
-
                 $OBJ = Cfolio::find($request->CHID);
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
@@ -90,7 +89,11 @@ class FoliosController extends Controller
                              Case 
                              when cf.Tipo ='CAF' then 'COORDINACION DE AUDITORIAS FEDERALES'
                              when cf.Tipo ='CAE' then 'COORDINACION DE AUDITORIAS ESTATALES'
-                             END tipoau
+                             END tipoau, 
+                             Case 
+                             when cf.Cancelado ='1' then 'CANCELADO'
+                             else ''
+                             END Cancelado
                              FROM SICSA.cfolios cf
                              LEFT JOIN SICSA.Cat_Personal cp ON cf.Solicita = cp.id
                              LEFT JOIN SICSA.Cat_Destinatarios_Oficios df ON cf.Destinatario = df.id
@@ -139,6 +142,26 @@ class FoliosController extends Controller
 
                 $OBJ->save();
                 $response = $OBJ;
+            }elseif ($type == 6) {
+                $OBJ = Cfolio::find($request->CHID);
+                $OBJ->ModificadoPor = $request->CHUSER;
+                if( $OBJ->Cancelado == 1){
+                    $OBJ->Cancelado = 0;
+                }else{
+                    $OBJ->Cancelado = 1;
+                }
+                
+                $OBJ->save();
+                $response = $OBJ;
+
+            }elseif ($type == 7){
+                $OBJ = new Cfolio();
+                $OBJ->ModificadoPor = $request->CHUSER;
+                $OBJ->CreadoPor = $request->CHUSER;
+                $OBJ->Oficio = $request->Oficio;
+                $OBJ->save();
+                $response = $OBJ;
+
             }
         } catch (QueryException $e) {
             $SUCCESS = false;

@@ -6,6 +6,8 @@ use App\Models\CContestacionArea;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\File;
+
 
 class ContestacionController extends Controller
 {
@@ -15,6 +17,11 @@ class ContestacionController extends Controller
     3._ ELIMINAR UN REGISTRO
     4._ CONSULTAR GENERAL DE REGISTROS, (SE INCLUYEN FILTROS)
      */
+    private function uuidretrun()
+    {
+        // Lógica para generar un nuevo UUID, por ejemplo:
+        return \Ramsey\Uuid\Uuid::uuid4()->toString();
+    }
 
     public function Contestacionindex(Request $request)
     {
@@ -23,13 +30,14 @@ class ContestacionController extends Controller
         $NUMCODE = 0;
         $STRMESSAGE = 'Exito';
         $response = "";
+        $id = $this->uuidretrun();
 
         try {
             $type = $request->NUMOPERACION;
 
             if ($type == 1) {
                 $OBJ = new CContestacionArea();
-
+                $OBJ->id = $id;
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
                 $OBJ->idNotificacion = $request->idNotificacion;
@@ -41,8 +49,28 @@ class ContestacionController extends Controller
                 $OBJ->FVencimiento = $request->FVencimiento;
                 $OBJ->idsecretaria = $request->idsecretaria;
                 $OBJ->idunidad = $request->idunidad;
-                $OBJ->save();
-                $response = $OBJ;
+                if ($OBJ->save()) {
+                   
+                    $response = DB::select("SELECT  ? as id, ? as ModificadoPor, ? as CreadoPor, cff.Route, cff.Nombre FROM 
+                    SICSA.cfolios cf 
+                    JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
+                    WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
+                
+                
+                                $OBJFile = new File();
+                                    
+                                    foreach ($response as $result){
+                                        $OBJFile->idowner =  $id;
+                                        $OBJFile->ModificadoPor = $result->ModificadoPor;
+                                        $OBJFile->CreadoPor = $result->CreadoPor;
+                                        $OBJFile->Route    = $result->Route;
+                                        $OBJFile->Nombre    = $result->Nombre;
+                                    }
+                                    $OBJFile ->save();
+
+                                } else {
+                                    $response = $OBJ;
+                                }
 
             } elseif ($type == 2) {
 
