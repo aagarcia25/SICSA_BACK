@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CatModalidad;
+
 use App\Models\Cfolio;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
@@ -26,12 +26,14 @@ class FoliosController extends Controller
         $NUMCODE = 0;
         $STRMESSAGE = 'Exito';
         $response = "";
+        $id = $this->uuidretrun();
 
         try {
             $type = $request->NUMOPERACION;
 
             if ($type == 1) {
                 $OBJ = new Cfolio();
+                $OBJ->id = $id;
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
                 $OBJ->Fecha = $request->Fecha;
@@ -44,11 +46,7 @@ class FoliosController extends Controller
                 $OBJ->Tema = $request->Tema;
                 $OBJ->Tipo = $request->Tipo;
                 $OBJ->Observaciones = $request->Observaciones;
-                //$OBJ->Cargo = $request->Cargo;
                 $OBJ->Destinatario = $request->Destinatario;
-
-
-
                 $OBJ->save();
                 $response = $OBJ;
             } elseif ($type == 2) {
@@ -133,6 +131,7 @@ class FoliosController extends Controller
                 $fecha = Carbon::create($request->anio, $mesNumero, $request->dia);
 
                 $fechaFormateada = $fecha->format('Y-m-d');
+                $OBJ->id = $id;
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
                 $OBJ->Fecha = $fechaFormateada;
@@ -142,26 +141,24 @@ class FoliosController extends Controller
 
                 $OBJ->save();
                 $response = $OBJ;
-            }elseif ($type == 6) {
+            } elseif ($type == 6) {
                 $OBJ = Cfolio::find($request->CHID);
                 $OBJ->ModificadoPor = $request->CHUSER;
-                if( $OBJ->Cancelado == 1){
+                if ($OBJ->Cancelado == 1) {
                     $OBJ->Cancelado = 0;
-                }else{
+                } else {
                     $OBJ->Cancelado = 1;
                 }
-                
+
                 $OBJ->save();
                 $response = $OBJ;
-
-            }elseif ($type == 7){
+            } elseif ($type == 7) {
                 $OBJ = new Cfolio();
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
                 $OBJ->Oficio = $request->Oficio;
                 $OBJ->save();
                 $response = $OBJ;
-
             }
         } catch (QueryException $e) {
             $SUCCESS = false;

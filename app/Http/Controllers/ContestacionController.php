@@ -17,11 +17,7 @@ class ContestacionController extends Controller
     3._ ELIMINAR UN REGISTRO
     4._ CONSULTAR GENERAL DE REGISTROS, (SE INCLUYEN FILTROS)
      */
-    private function uuidretrun()
-    {
-        // Lógica para generar un nuevo UUID, por ejemplo:
-        return \Ramsey\Uuid\Uuid::uuid4()->toString();
-    }
+
 
     public function Contestacionindex(Request $request)
     {
@@ -50,28 +46,26 @@ class ContestacionController extends Controller
                 $OBJ->idsecretaria = $request->idsecretaria;
                 $OBJ->idunidad = $request->idunidad;
                 if ($OBJ->save()) {
-                   
+
                     $response = DB::select("SELECT  ? as id, ? as ModificadoPor, ? as CreadoPor, cff.Route, cff.Nombre FROM 
                     SICSA.cfolios cf 
                     JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
                     WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
-                
-                
-                                $OBJFile = new File();
-                                    
-                                    foreach ($response as $result){
-                                        $OBJFile->idowner =  $id;
-                                        $OBJFile->ModificadoPor = $result->ModificadoPor;
-                                        $OBJFile->CreadoPor = $result->CreadoPor;
-                                        $OBJFile->Route    = $result->Route;
-                                        $OBJFile->Nombre    = $result->Nombre;
-                                    }
-                                    $OBJFile ->save();
 
-                                } else {
-                                    $response = $OBJ;
-                                }
 
+                    $OBJFile = new File();
+
+                    foreach ($response as $result) {
+                        $OBJFile->idowner =  $id;
+                        $OBJFile->ModificadoPor = $result->ModificadoPor;
+                        $OBJFile->CreadoPor = $result->CreadoPor;
+                        $OBJFile->Route    = $result->Route;
+                        $OBJFile->Nombre    = $result->Nombre;
+                    }
+                    $OBJFile->save();
+                } else {
+                    $response = $OBJ;
+                }
             } elseif ($type == 2) {
 
                 $OBJ = CContestacionArea::find($request->CHID);
@@ -88,14 +82,12 @@ class ContestacionController extends Controller
                 $OBJ->idunidad = $request->idunidad;
                 $OBJ->save();
                 $response = $OBJ;
-
             } elseif ($type == 3) {
                 $OBJ = CContestacionArea::find($request->CHID);
                 $OBJ->deleted = 1;
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->save();
                 $response = $OBJ;
-
             } elseif ($type == 4) {
 
                 $query = "SELECT
@@ -122,7 +114,6 @@ class ContestacionController extends Controller
                     ";
                 $query = $query . " and    idNotificacion='" . $request->P_IDNOTIFICACION . "'";
                 $response = DB::select($query);
-
             }
         } catch (QueryException $e) {
             $SUCCESS = false;
@@ -140,7 +131,7 @@ class ContestacionController extends Controller
                 'STRMESSAGE' => $STRMESSAGE,
                 'RESPONSE' => $response,
                 'SUCCESS' => $SUCCESS,
-            ]);
-
+            ]
+        );
     }
 }
