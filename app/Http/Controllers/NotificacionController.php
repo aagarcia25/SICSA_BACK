@@ -17,11 +17,7 @@ class NotificacionController extends Controller
     3._ ELIMINAR UN REGISTRO
     4._ CONSULTAR GENERAL DE REGISTROS, (SE INCLUYEN FILTROS)
      */
-    private function uuidretrun()
-    {
-        // Lógica para generar un nuevo UUID, por ejemplo:
-        return \Ramsey\Uuid\Uuid::uuid4()->toString();
-    }
+
     public function Notificacionindex(Request $request)
     {
 
@@ -41,7 +37,7 @@ class NotificacionController extends Controller
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
                 $OBJ->idAuditoria = $request->idAuditoria;
-                $OBJ->Prorroga = $request->Prorroga; 
+                $OBJ->Prorroga = $request->Prorroga;
                 $OBJ->Oficio = $request->Oficio;
                 $OBJ->SIGAOficio = $request->SIGAOficio;
                 $OBJ->FOficio = $request->FOficio;
@@ -51,29 +47,26 @@ class NotificacionController extends Controller
                 $OBJ->idunidad = $request->idunidad;
 
                 if ($OBJ->save()) {
-                 
+
                     $response = DB::select("SELECT  ? as id, ? as ModificadoPor, ? as CreadoPor, cff.Route, cff.Nombre FROM 
     SICSA.cfolios cf 
     JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
     WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
 
 
-                $OBJFile = new File();
-                    
-                    foreach ($response as $result){
+                    $OBJFile = new File();
+
+                    foreach ($response as $result) {
                         $OBJFile->idowner =  $id;
                         $OBJFile->ModificadoPor = $result->ModificadoPor;
                         $OBJFile->CreadoPor = $result->CreadoPor;
                         $OBJFile->Route    = $result->Route;
                         $OBJFile->Nombre    = $result->Nombre;
                     }
-                    $OBJFile ->save();
-                                } else {
-                                    $response = $OBJ;
-                                }
-
-
-
+                    $OBJFile->save();
+                } else {
+                    $response = $OBJ;
+                }
             } elseif ($type == 2) {
 
                 $OBJ = CNotificacionArea::find($request->CHID);
@@ -91,14 +84,12 @@ class NotificacionController extends Controller
 
                 $OBJ->save();
                 $response = $OBJ;
-
             } elseif ($type == 3) {
                 $OBJ = CNotificacionArea::find($request->CHID);
                 $OBJ->deleted = 1;
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->save();
                 $response = $OBJ;
-
             } elseif ($type == 4) {
 
                 $query = "
@@ -126,20 +117,18 @@ class NotificacionController extends Controller
                     ";
                 $query = $query . " and    idAuditoria='" . $request->P_IDAUDITORIA . "'";
                 $response = DB::select($query);
-
-            }elseif ($type == 5) {
+            } elseif ($type == 5) {
 
                 $query = "
                 SELECT cf.Fecha 
                 FROM SICSA.cfolios cf 
                 INNER JOIN SICSA.cfoliosfiles cff ON cff.idfolio=cf.id
                 WHERE cf.deleted=0 AND cf.Oficio='";
-                $query = $query . $request->Oficio."'";
-                 $response = DB::select($query);
-               // $response = $query;
+                $query = $query . $request->Oficio . "'";
+                $response = DB::select($query);
+                // $response = $query;
 
             }
-
         } catch (QueryException $e) {
             $SUCCESS = false;
             $NUMCODE = 1;
@@ -156,8 +145,7 @@ class NotificacionController extends Controller
                 'STRMESSAGE' => $STRMESSAGE,
                 'RESPONSE' => $response,
                 'SUCCESS' => $SUCCESS,
-            ]);
-
+            ]
+        );
     }
-
 }
