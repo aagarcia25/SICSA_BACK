@@ -41,7 +41,7 @@ class NotificacionController extends Controller
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
                 $OBJ->idAuditoria = $request->idAuditoria;
-                $OBJ->Prorroga = $request->Prorroga;
+                $OBJ->Prorroga = $request->Prorroga; 
                 $OBJ->Oficio = $request->Oficio;
                 $OBJ->SIGAOficio = $request->SIGAOficio;
                 $OBJ->FOficio = $request->FOficio;
@@ -126,6 +126,17 @@ class NotificacionController extends Controller
                     ";
                 $query = $query . " and    idAuditoria='" . $request->P_IDAUDITORIA . "'";
                 $response = DB::select($query);
+
+            }elseif ($type == 5) {
+
+                $query = "
+                SELECT cf.Fecha 
+                FROM SICSA.cfolios cf 
+                INNER JOIN SICSA.cfoliosfiles cff ON cff.idfolio=cf.id
+                WHERE cf.deleted=0 AND cf.Oficio='";
+                $query = $query . $request->Oficio."'";
+                 $response = DB::select($query);
+               // $response = $query;
 
             }
 
