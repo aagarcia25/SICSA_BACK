@@ -156,7 +156,7 @@ class FoliosController extends Controller
                 $OBJ = new Cfolio();
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->CreadoPor = $request->CHUSER;
-                $OBJ->Oficio = $request->Oficio;
+                $OBJ->Oficio = $request->Oficio . '-BS';
                 $OBJ->save();
                 $response = $OBJ;
             }
