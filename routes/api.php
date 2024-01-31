@@ -33,8 +33,7 @@ use App\Http\Controllers\Tipos_AuditoriaController;
 use App\Http\Controllers\Unidad_Admin_AuditoraController;
 use App\Http\Controllers\PersonalController;
 use App\Http\Controllers\DestinatariosOficios;
-
-
+use App\Http\Controllers\MonitorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -93,7 +92,5 @@ Route::group([
     Route::post('FoliosFilesindex', [FoliosFilesController::class, 'FoliosFilesindex']);
     Route::post('Personal_index', [PersonalController::class, 'Personal_index']);
     Route::post('Destinatarios_index', [DestinatariosOficios::class, 'Destinatarios_index']);
-
-
-
+    Route::post('monitorWeb', [MonitorController::class, 'monitorWeb']);
 });
