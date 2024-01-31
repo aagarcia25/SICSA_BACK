@@ -111,15 +111,8 @@ class MonitorController extends Controller
                             foreach ($correos as $correo) {
                                 // Limpiar espacios alrededor del correo electrónico
                                 $correo = trim($correo);
-
-                                // Verificar si el correo tiene un formato válido antes de enviar la notificación
-                                if (filter_var($correo, FILTER_VALIDATE_EMAIL)) {
-                                    // Enviar notificación a cada dirección de correo electrónico
-                                    $this->sendMailNotificacion($correo, $body);
-                                } else {
-                                    // Manejar el caso en que el correo electrónico no sea válido
-                                    Log::error("Correo electrónico no válido: $correo");
-                                }
+                                // Enviar notificación a cada dirección de correo electrónico
+                                $this->sendMailNotificacion($correo, $body);
                             }
 
 
