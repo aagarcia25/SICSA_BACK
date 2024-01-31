@@ -66,70 +66,77 @@ class MonitorController extends Controller
 
         foreach ($monitoreos as $monitoreo) {
             // Obtener la hora actual
-            $horaActual = Carbon::now();
+
+            Carbon::setLocale('es');
+            $horaActual = Carbon::now('America/Monterrey');
             $url = $monitoreo->Url;
             $alias = $monitoreo->Alias;
             $email = $monitoreo->Correos;
             $tiempo = $monitoreo->Tiempo;
             $ultimaves = $monitoreo->UltimaEjecucion;
-
+            Log::info('Hora de Ejecucion' . $horaActual);
+            Log::info('Datos' . $monitoreo);
             $diferenciaEnMinutos = $horaActual->diffInMinutes($ultimaves);
 
-            if ($diferenciaEnMinutos === $tiempo) {
+            if ($diferenciaEnMinutos >= $tiempo) {
 
+                try {
+                    // Establecer el nombre del archivo para almacenar el contenido
+                    $filename = $alias . '.html';
+                    // Realizar una solicitud HTTP para obtener el contenido actual
+                    $client = new Client();
+                    $response = $client->get($url);
+                    $newContent = $response->getBody()->getContents();
+                    $rutaArchivo = storage_path("archivos/{$alias}.html");
+                    Log::info('Ruta de Archivo' . $rutaArchivo);
+                    // Verificar si el archivo existe y comparar el contenido
+                    if (File::exists($rutaArchivo)) {
+                        $currentContent = File::get($rutaArchivo);
 
-                // Establecer el nombre del archivo para almacenar el contenido
-                $filename = $alias . '.html';
-                // Realizar una solicitud HTTP para obtener el contenido actual
-                $client = new Client();
-                $response = $client->get($url);
-                $newContent = $response->getBody()->getContents();
+                        // Comparar el contenido actual con el anterior
+                        if ($currentContent !== $newContent) {
+                            $differ = new Differ(new DiffOnlyOutputBuilder("\n"));
+                            $differences = $differ->diff($currentContent, $newContent);
+                            $body = "<p>Favor de revisar la siguiente ruta: <strong>{$url}</strong></p>";
+                            $body .= "<br>";
+                            $body .= "<p>Se ha detectado la siguiente diferencia:</p>";
+                            $body .= "<br>";
+                            $body .= "<p>{$differences}</p>";
 
-                // Verificar si el archivo existe y comparar el contenido
-                if (File::exists($filename)) {
-                    $currentContent = File::get($filename);
+                            $correos = explode(
+                                ';',
+                                $email
+                            );
 
-                    // Comparar el contenido actual con el anterior
-                    if ($currentContent !== $newContent) {
-                        $differ = new Differ(new DiffOnlyOutputBuilder("\n"));
-                        $differences = $differ->diff($currentContent, $newContent);
-                        $body = "<p>Favor de revisar la siguiente ruta: <strong>{$url}</strong></p>";
-                        $body .= "<br>";
-                        $body .= "<p>Se ha detectado la siguiente diferencia:</p>";
-                        $body .= "<br>";
-                        $body .= "<p>{$differences}</p>";
+                            foreach ($correos as $correo) {
+                                // Limpiar espacios alrededor del correo electrónico
+                                $correo = trim($correo);
 
-                        $correos = explode(
-                            ';',
-                            $email
-                        );
-
-                        foreach ($correos as $correo) {
-                            // Limpiar espacios alrededor del correo electrónico
-                            $correo = trim($correo);
-
-                            // Verificar si el correo tiene un formato válido antes de enviar la notificación
-                            if (filter_var($correo, FILTER_VALIDATE_EMAIL)) {
-                                // Enviar notificación a cada dirección de correo electrónico
-                                $this->sendMailNotificacion($correo, $body);
-                            } else {
-                                // Manejar el caso en que el correo electrónico no sea válido
-                                Log::error("Correo electrónico no válido: $correo");
+                                // Verificar si el correo tiene un formato válido antes de enviar la notificación
+                                if (filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+                                    // Enviar notificación a cada dirección de correo electrónico
+                                    $this->sendMailNotificacion($correo, $body);
+                                } else {
+                                    // Manejar el caso en que el correo electrónico no sea válido
+                                    Log::error("Correo electrónico no válido: $correo");
+                                }
                             }
+
+
+                            File::put($rutaArchivo, $newContent);
+                        } else {
+                            Log::info('sin cambios ' . $url);
                         }
-
-
-                        File::put($filename, $newContent);
                     } else {
-                        Log::info('sin cambios ' . $url);
+                        File::put($rutaArchivo, $newContent);
                     }
-                } else {
-                    File::put($filename, $newContent);
+                    $monitoreo->UltimaEjecucion = $horaActual;
+                    $monitoreo->save();
+                } catch (\Exception $e) {
+                    Log::info('Ruta de Archivo' . $e->getMessage());
                 }
-
-                $monitoreo->UltimaEjecucion = $horaActual;
-                $monitoreo->save();
             } else {
+                Log::info('No se ejecuto el cron');
             }
         }
     }
