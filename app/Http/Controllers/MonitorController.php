@@ -82,7 +82,6 @@ class MonitorController extends Controller
 
                 try {
                     // Establecer el nombre del archivo para almacenar el contenido
-                    $filename = $alias . '.html';
                     // Realizar una solicitud HTTP para obtener el contenido actual
                     $client = new Client();
                     $response = $client->get($url);
