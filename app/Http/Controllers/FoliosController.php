@@ -78,26 +78,32 @@ class FoliosController extends Controller
 
                 $query = "
                            SELECT
-                           cp.id cpid,
-                           cp.Nombre cpNombre,
-                           df.id dfid,
-                           df.Titular dfTitular,
-                           df.Cargo dfCargo,
-                             cf.*,
-                             Case 
-                             when cf.Tipo ='CAF' then 'COORDINACION DE AUDITORIAS FEDERALES'
-                             when cf.Tipo ='CAE' then 'COORDINACION DE AUDITORIAS ESTATALES'
-                             END tipoau, 
-                             Case 
-                             when cf.Cancelado ='1' then 'CANCELADO'
-                             else ''
-                             END Cancelado
-                             FROM SICSA.cfolios cf
+                                 cp.id AS cpid,
+                                 cp.Nombre AS cpNombre,
+                                 df.id AS dfid,
+                                 df.Titular AS dfTitular,
+                                 df.Cargo AS dfCargo,
+                                 cf.*,
+                                 CASE
+                                     WHEN cf.Tipo = 'CAF' THEN 'COORDINACION DE AUDITORIAS FEDERALES'
+                                     WHEN cf.Tipo = 'CAE' THEN 'COORDINACION DE AUDITORIAS ESTATALES'
+                                 END AS tipoau,
+                                 CASE
+                                     WHEN cf.Cancelado = '1' THEN 'CANCELADO'
+                                     ELSE ''
+                                 END AS Cancelado,
+                                 (
+                                     SELECT COUNT(1)
+                                     FROM SICSA.cfoliosfiles cff
+                                     INNER JOIN SICSA.subfiles sf ON sf.idfile = cff.id
+                                     WHERE cff.idfolio = cf.id
+                                 ) AS magneticos
+                             FROM
+                                 SICSA.cfolios cf
                              LEFT JOIN SICSA.Cat_Personal cp ON cf.Solicita = cp.id
                              LEFT JOIN SICSA.Cat_Destinatarios_Oficios df ON cf.Destinatario = df.id
-
-                             
-                             where cf.deleted =0
+                             WHERE
+                                 cf.deleted = 0
                              AND (year(cf.Fecha) = (
                                 SELECT ca.anio 
                                 FROM SICSA.Cat_Anios ca 
