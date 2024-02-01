@@ -50,7 +50,6 @@ class Cfolio extends Model
 		'Fecha' => 'datetime',
 		'FechaEntrega' => 'datetime',
 		'FechaRecibido' => 'datetime',
-		'Nauditoria' => 'int',
 		//'Tipo' => 'int'
 	];
 
