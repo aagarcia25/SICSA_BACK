@@ -9,6 +9,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class Cfolio
@@ -49,7 +50,6 @@ class Cfolio extends Model
 		'Fecha' => 'datetime',
 		'FechaEntrega' => 'datetime',
 		'FechaRecibido' => 'datetime',
-		'Nauditoria' => 'int',
 		//'Tipo' => 'int'
 	];
 
@@ -88,5 +88,30 @@ class Cfolio extends Model
 	public function Cat_Personal()
 	{
 		return $this->belongsTo(CatPersonal::class, 'Solicita');
+	}
+
+
+	public function getDestinataria($searchTerm)
+	{
+		$response = DB::select(
+			"SELECT id FROM SICSA.Cat_Destinatarios_Oficios cdf
+        WHERE LOWER(TRIM(cdf.Titular)) LIKE LOWER(TRIM(:searchTerm))
+        LIMIT 1",
+			['searchTerm' => '%' . $searchTerm . '%']
+		);
+
+		return isset($response[0]) ? $response[0]->id : null;
+	}
+
+	public function getsolicitante($searchTerm)
+	{
+		$response = DB::select(
+			"SELECT id FROM SICSA.Cat_Personal cdf
+        WHERE LOWER(TRIM(cdf.Nombre)) LIKE LOWER(TRIM(:searchTerm))
+        LIMIT 1",
+			['searchTerm' => '%' . $searchTerm . '%']
+		);
+
+		return isset($response[0]) ? $response[0]->id : null;
 	}
 }

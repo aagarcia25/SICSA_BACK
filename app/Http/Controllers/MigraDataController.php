@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Imports\AccioneImport;
 use App\Imports\AuditoriaImport;
+use App\Models\Cfolio;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Excel as ExcelExcel;
 use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class MigraDataController extends Controller
 {
@@ -29,7 +33,6 @@ class MigraDataController extends Controller
 
             ]
         );
-
     }
 
     public function migraData(Request $request)
@@ -45,10 +48,82 @@ class MigraDataController extends Controller
 
                 case 'migraAcciones':
                     Excel::import(new AccioneImport($request->CHUSER), request()->file('inputfile'), ExcelExcel::XLS);
-                break;
+                    break;
                 case 'migraAuditorias':
                     Excel::import(new AuditoriaImport($request->CHUSER), request()->file('inputfile'), ExcelExcel::XLS);
-                break;
+                    break;
+                case 'migraoficios':
+
+                    $file = request()->file('inputfile');
+                    if ($file) {
+                        // Almacenar el archivo temporalmente en el sistema de archivos local
+                        $filePath = $file->storeAs('temp', $file->getClientOriginalName());
+                        try {
+                            // Leer el contenido del archivo Excel usando Maatwebsite/Laravel-Excel
+                            $data = Excel::toArray([], $filePath);
+
+                            // Obtener la primera hoja del archivo (ajustar según tu archivo)
+                            $sheetData = $data[0];
+                            $sheetDataWithoutHeader = array_slice($sheetData, 1);
+
+                            // Iterar sobre las filas
+                            foreach ($sheetDataWithoutHeader as $row) {
+                                $id = $this->uuidretrun();
+
+                                if ("cancelado" ===  strtolower($row[1])) {
+                                    Log::info("OFICIO CANCELADO: " . $row[0]);
+                                    $OBJ = new Cfolio();
+                                    $OBJ->id = $id;
+                                    $OBJ->ModificadoPor = $request->CHUSER;
+                                    $OBJ->CreadoPor = $request->CHUSER;
+                                    $OBJ->Oficio = $row[0];
+                                    $OBJ->Cancelado = 1;
+                                    $OBJ->save();
+                                } else {
+                                    Log::info("****************************");
+                                    Log::info("Filas afectadas: " . $row[0]);
+                                    Log::info("Filas afectadas: " . $row[1]);
+                                    Log::info("Filas afectadas: " . $row[2]);
+                                    Log::info("Filas afectadas: " . $row[3]);
+                                    Log::info("Filas afectadas: " . $row[4]);
+                                    Log::info("Filas afectadas: " . $row[5]);
+                                    Log::info("Filas afectadas: " . $row[6]);
+                                    Log::info("Filas afectadas: " . $row[7]);
+                                    Log::info("Filas afectadas: " . Date::excelToDateTimeObject($row[8])->format('Y-m-d H:i:s'));
+                                    Log::info("Filas afectadas: " . Date::excelToDateTimeObject($row[9])->format('Y-m-d H:i:s'));
+                                    Log::info("Filas afectadas: " . $row[10]);
+                                    Log::info("****************************");
+                                    $OBJ = new Cfolio();
+                                    $OBJ->id = $id;
+                                    $OBJ->ModificadoPor = $request->CHUSER;
+                                    $OBJ->CreadoPor = $request->CHUSER;
+                                    $OBJ->Oficio = $row[0];
+                                    $OBJ->Cancelado = 0;
+                                    $OBJ->Asunto = $row[4];
+                                    $OBJ->Tema = $row[5];
+                                    $OBJ->Fecha = Date::excelToDateTimeObject($row[8]);
+                                    $OBJ->FechaRecibido = Date::excelToDateTimeObject($row[9]);
+                                    $OBJ->Tema = $row[5];
+                                    $OBJ->Observaciones = $row[10];
+                                    $OBJ->Destinatario = $OBJ->getDestinataria(strval($row[2]));
+                                    $OBJ->Solicita = $OBJ->getsolicitante(strval($row[7]));
+                                    $OBJ->Nauditoria = $row[6];
+                                    $OBJ->save();
+                                    // Log::info("Destinatario: " . $OBJ->getDestinataria(strval($row[2])));
+                                    // Log::info("Solicita: " . $OBJ->getsolicitante(strval($row[7])));
+                                }
+                            }
+                        } catch (\Exception $e) {
+                            // Manejar la excepción, por ejemplo, registrarla o mostrar un mensaje al usuario.
+                            var_dump($e->getMessage());
+                            Log::error('Error al leer el archivo Excel: ' . $e->getMessage());
+                            // También podrías redirigir al usuario a una página de error
+                        }
+
+                        // Eliminar el archivo temporal después de procesarlo
+                        Storage::delete($filePath);
+                    }
+                    break;
 
                 default:
                     $response = "No se Encuentra configurado para la migración";
