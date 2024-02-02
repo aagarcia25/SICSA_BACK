@@ -93,4 +93,6 @@ Route::group([
     Route::post('Personal_index', [PersonalController::class, 'Personal_index']);
     Route::post('Destinatarios_index', [DestinatariosOficios::class, 'Destinatarios_index']);
     Route::post('monitorWeb', [MonitorController::class, 'monitorWeb']);
+    Route::post('Monitoreo_index', [MonitorController::class, 'Monitoreo_index']);
+
 });
