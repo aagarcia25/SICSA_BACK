@@ -100,7 +100,8 @@ class OrganoController extends Controller
                     INNER JOIN SICSA.Cat_Origen_Auditoria sec ON ca.idOrganoAuditorOrigen = sec.id
                     where ca.deleted =0
                     ";
-                $query = $query . " and    ca.idAuditoria='" . $request->P_IDAUDITORIA . "'";
+                $query = $query . " and    ca.idAuditoria='" . $request->P_IDAUDITORIA . "'
+                order by Oficio desc";
                 $response = DB::select($query);
             }
         } catch (QueryException $e) {
@@ -216,7 +217,8 @@ class OrganoController extends Controller
                     left JOIN SICSA.Cat_Origen_Auditoria destino ON destino.id = organo.idOrganoAuditorDestino
                     where organo.deleted =0
                     ";
-                $query = $query . " and    organo.idOrganoC='" . $request->P_IDNOTIFICACION . "'";
+                $query = $query . " and    organo.idOrganoC='" . $request->P_IDNOTIFICACION . "'
+                order by Oficio desc";
                 $response = DB::select($query);
             }
         } catch (QueryException $e) {

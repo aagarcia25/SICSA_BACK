@@ -112,7 +112,8 @@ class ContestacionController extends Controller
                           INNER JOIN SICSA.cat_unidades uni ON ca.idunidad = uni.id
                           WHERE ca.deleted =0
                     ";
-                $query = $query . " and    idNotificacion='" . $request->P_IDNOTIFICACION . "'";
+                $query = $query . " and    idNotificacion='" . $request->P_IDNOTIFICACION . "'
+                order by Oficio desc";
                 $response = DB::select($query);
             }
         } catch (QueryException $e) {

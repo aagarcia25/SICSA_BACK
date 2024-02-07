@@ -109,9 +109,10 @@ class FoliosController extends Controller
                                 FROM SICSA.Cat_Anios ca 
                                 WHERE ca.anio ='" . $request->Anio . "' 
                                 )
+                                
                                 OR '" . $request->Anio . "'IS NULL 
                                 OR '" . $request->Anio . "'='')
-                                order by FechaCreacion desc";
+                                order by Oficio desc";
                 if ($request->FolioSIGA != "") {
                     $query = $query . " and    aud.FolioSIGA='" . $request->FolioSIGA . "'";
                 }
