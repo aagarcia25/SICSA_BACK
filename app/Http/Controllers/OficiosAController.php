@@ -109,7 +109,9 @@ class OficiosAController extends Controller
                     FROM SICSA.OficiosA   
                     where deleted =0
                     ";
-                $query =  $query . " and    idAuditoria='" . $request->P_IDAUDITORIA . "'";
+                $query =  $query . " and    idAuditoria='" . $request->P_IDAUDITORIA . "'
+                order by Oficio desc
+                ";
                 $response = DB::select($query);
 
                 //                     $query = "
