@@ -115,7 +115,8 @@ class NotificacionController extends Controller
                     INNER JOIN SICSA.cat_unidades uni ON ca.idunidad = uni.id
                     where ca.deleted =0
                     ";
-                $query = $query . " and    idAuditoria='" . $request->P_IDAUDITORIA . "'";
+                $query = $query . " and    idAuditoria='" . $request->P_IDAUDITORIA . "'
+                order by Oficio desc";
                 $response = DB::select($query);
             } elseif ($type == 5) {
 
