@@ -166,6 +166,20 @@ class FoliosController extends Controller
                 $OBJ->Oficio = $request->Oficio . '-BS';
                 $OBJ->save();
                 $response = $OBJ;
+            }else if ($type == 8) {
+                $CHIDs = $request->input('CHIDs'); // Supongamos que CHIDs es un array de identificadores
+                $response = [];
+
+                foreach ($CHIDs as $CHID) {
+                $OBJ = Cfolio::find($CHID);
+
+                    if ($OBJ) {
+                    $OBJ->deleted = 1;
+                    $OBJ->ModificadoPor = $request->CHUSER;
+                    $OBJ->save();
+                    $response[] = $OBJ;
+                    }
+                }
             }
         } catch (QueryException $e) {
             $SUCCESS = false;
