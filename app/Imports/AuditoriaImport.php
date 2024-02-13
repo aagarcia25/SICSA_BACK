@@ -45,89 +45,100 @@ class AuditoriaImport extends Auditorium implements ToModel, WithHeadingRow, Wit
     public function model(array $row)
     {
 
-        if(isset($row['id_modalidad'])){
-
-             $idModalidadFromExcel = $row['id_modalidad'];
-             $id_origen_auditoriaFromExcel = $row['id_origen_auditoria'];
-             $id_anioFromExcel = $row['anio'];
-
-             $id_estatusFromExcel = $row['id_estatus'];
-             $id_tipoFromExcel = $row['id_tipo'];
-             $id_inicio_auditoriaFromExcel = $row['id_inicio_auditoria'];
-             $id_grupo_funcionalFromExcel = $row['id_grupo_funcional'];
-             $id_sectorFromExcel = $row['id_sector'];
-             $id_entidad_fiscalizadaFromExcel = $row['id_entidad_fiscalizada'];
-             $id_tipo_auditoriaFromExcel = $row['id_tipo_auditoria'];
-             $id_entregaFromExcel = $row['id_entrega'];
-             $id_unidad_administrativa_auditoraFromExcel = $row['id_unidad_administrativa_auditora'];
-             $id_area_auditoraFromExcel = $row['id_area_auditora'];
-             $id_ramosFromExcel = $row['id_ramos'];
-             $id_municipioFromExcel = $row['id_municipio'];
+        if(isset($row['id_entidad_fiscalizada'])){
 
 
+             
+            $idModalidadFromExcel = isset($row['id_modalidad']) ? $row['id_modalidad'] : null;
+            $id_origen_auditoriaFromExcel = isset($row['id_origen_auditoria']) ? $row['id_origen_auditoria'] : null;
+            $id_anioFromExcel = isset($row['anio']) ? $row['anio'] : null;
+            $id_estatusFromExcel = isset($row['id_estatus']) ? $row['id_estatus'] : null;
+            $id_tipoFromExcel = isset($row['id_tipo']) ? $row['id_tipo'] : null;
+            
+            $id_inicio_auditoriaFromExcel = isset($row['id_inicio_auditoria']) ? $row['id_inicio_auditoria'] : null;
+            $id_grupo_funcionalFromExcel = isset($row['id_grupo_funcional']) ? $row['id_grupo_funcional'] : null;
+            $id_sectorFromExcel = isset($row['id_sector']) ? $row['id_sector'] : null;
+            $id_entidad_fiscalizadaFromExcel = isset($row['id_entidad_fiscalizada']) ? $row['id_entidad_fiscalizada'] : null;
+            
+            $id_tipo_auditoriaFromExcel = isset($row['id_tipo_auditoria']) ? $row['id_tipo_auditoria'] : null;
+            $id_entregaFromExcel = isset($row['id_entrega']) ? $row['id_entrega'] : null;
+            $id_unidad_administrativa_auditoraFromExcel = isset($row['id_unidad_administrativa_auditora']) ? $row['id_unidad_administrativa_auditora'] : null;
+            
+            $id_area_auditoraFromExcel = isset($row['id_area_auditora']) ? $row['id_area_auditora'] : null;
+            $id_ramosFromExcel = isset($row['id_ramos']) ? $row['id_ramos'] : null;
+            $id_municipioFromExcel = isset($row['id_municipio']) ? $row['id_municipio'] : null;
+            
 
-        $OBJ1 = CatModalidad::find($idModalidadFromExcel);
+
+
+        $OBJ1 = CatModalidad::find($idModalidadFromExcel); 
         $OBJ2 = CatOrigenAuditorium::find($id_origen_auditoriaFromExcel);
         $OBJ3 = CatEstatusAuditorium::find($id_estatusFromExcel);
-        $OBJ3 = CatTipo::find($id_tipoFromExcel);
-        $OBJ3 = CatInicioAuditorium::find($id_inicio_auditoriaFromExcel);
-        $OBJ3 = CatAnio::find($id_anioFromExcel);
+        $OBJ4 = CatTipo::find($id_tipoFromExcel);
+        $OBJ5 = CatInicioAuditorium::find($id_inicio_auditoriaFromExcel);
+        $OBJ6 = CatAnio::find($id_anioFromExcel);
 
-        $OBJ3 = CatGrupoFuncional::find($id_inicio_auditoriaFromExcel);
-        $OBJ3 = CatSector::find($id_sectorFromExcel);
-        $OBJ3 = CatEntidadFiscalizada::find($id_entidad_fiscalizadaFromExcel);
-        $OBJ3 = CatTiposAuditorium::find($id_tipo_auditoriaFromExcel);
-        $OBJ3 = CatInforme::find($id_entregaFromExcel);
-        $OBJ3 = CatUnidadAdminAuditora::find($id_unidad_administrativa_auditoraFromExcel);
-        $OBJ3 = CatAreaAuditora::find($id_area_auditoraFromExcel);
-        $OBJ3 = CatRamo::find($id_ramosFromExcel);
-        $OBJ3 = Municipio::find($id_municipioFromExcel);
-
-
+        $OBJ7 = CatGrupoFuncional::find($id_inicio_auditoriaFromExcel);
+        $OBJ8 = CatSector::find($id_sectorFromExcel);
+        $OBJ9 = CatEntidadFiscalizada::find($id_entidad_fiscalizadaFromExcel);
+        $OBJ10 = CatTiposAuditorium::find($id_tipo_auditoriaFromExcel);
+        $OBJ11 = CatInforme::find($id_entregaFromExcel);
+        $OBJ12 = CatUnidadAdminAuditora::find($id_unidad_administrativa_auditoraFromExcel);
+        $OBJ13 = CatAreaAuditora::find($id_area_auditoraFromExcel);
+        $OBJ14 = CatRamo::find($id_ramosFromExcel);
+        $OBJ15 = Municipio::find($id_municipioFromExcel);
 
 
-        if($OBJ1){
+
+
+        if($OBJ9){
+
+            
             return new Auditorium([
+                
                 'ModificadoPor' =>$this->userid,
                 'CreadoPor' => $this->userid,
                 
 
                
-                'NAUDITORIA' => $row['numero_auditoria'],
-                'Consecutivo' => $row['consecutivo'],
-                'ActaInicio' => $row['acta_inicio'],
-                'NombreAudoria' => $row['nombre_auditoria'],
-                'Encargado' => $row['encargado'],
-                'PersonalEncargado' => $row['personal_encargado'],
-                'montoauditado' => $row['monto_auditado'],
-                'universopesos' => $row['universo_pesos'],
-                'muestrapesos' => $row['muestra_pesos'],
-                'idModalidad' => $idModalidadFromExcel,
-                'idcatorigenaud' => $id_origen_auditoriaFromExcel,
-                'anio' => $id_anioFromExcel,
+                'NAUDITORIA' => $row['numero_auditoria'] ?? null ,
+                'Consecutivo' => $row['consecutivo'] ?? null ,
+                'ActaInicio' => $row['acta_inicio'] ?? null ,
+                'NombreAudoria' => $row['nombre_auditoria'] ?? null ,
+                'Encargado' => $row['encargado'] ?? null ,
+                'PersonalEncargado' => $row['personal_encargado'] ?? null ,
+                'montoauditado' => $row['monto_auditado'] ?? null ,
+                'universopesos' => $row['universo_pesos'] ?? null ,
+                'muestrapesos' => $row['muestra_pesos'] ?? null ,
+                'FolioSIGA' => $row['folio_siga'] ?? null ,
 
-                'idEstatus' => $id_estatusFromExcel,
-                'idClasificacion' => $id_tipoFromExcel,
-                'idInicioauditoria' => $id_inicio_auditoriaFromExcel,
-                'idCatGrupoFuncional' => $id_grupo_funcionalFromExcel,
-                'idCatSector' => $id_sectorFromExcel,
-                'idCatEntidadFiscalizada' => $id_entidad_fiscalizadaFromExcel,
-                'idTipoAuditoria' => $id_tipo_auditoriaFromExcel,
-                'idCatInforme' => $id_entregaFromExcel,
-                'idUnidadAdm' => $id_unidad_administrativa_auditoraFromExcel,
-                'idAreaAdm' => $id_area_auditoraFromExcel,
-                'idRamo' => $id_ramosFromExcel,
-                'idmunicipio' => $id_municipioFromExcel,
-                'FolioSIGA' => $row['folio_siga'],
+                'idModalidad' => $idModalidadFromExcel == "#N/A" ? null: $idModalidadFromExcel,
+                'idcatorigenaud' => $id_origen_auditoriaFromExcel == "#N/A" ? null: $id_origen_auditoriaFromExcel,
+                'anio' =>  $id_anioFromExcel == "#N/A" ? null: $id_anioFromExcel,
+                //is_numeric($id_anioFromExcel) ? intval($id_anioFromExcel) : null,
 
-
-
-
+              
+                'idEstatus' => $id_estatusFromExcel == "#N/A" ? null: $id_estatusFromExcel,
+                'idClasificacion' => $id_tipoFromExcel == "#N/A" ? null: $id_tipoFromExcel,
+                'idInicioauditoria' => $id_inicio_auditoriaFromExcel == "#N/A" ? null: $id_inicio_auditoriaFromExcel,
+                'idCatGrupoFuncional' => $id_grupo_funcionalFromExcel == "#N/A" ? null: $id_grupo_funcionalFromExcel,
+                'idCatSector' => $id_sectorFromExcel == "#N/A" ? null: $id_sectorFromExcel,
+                'idCatEntidadFiscalizada' => $id_entidad_fiscalizadaFromExcel == "#N/A" ? null: $id_entidad_fiscalizadaFromExcel,
+                'idTipoAuditoria' => $id_tipo_auditoriaFromExcel == "#N/A" ? null: $id_tipo_auditoriaFromExcel,
+                'idCatInforme' => $id_entregaFromExcel == "#N/A" ? null: $id_entregaFromExcel,
+                'idUnidadAdm' => $id_unidad_administrativa_auditoraFromExcel == "#N/A" ? null: $id_unidad_administrativa_auditoraFromExcel,
+                'idAreaAdm' => $id_area_auditoraFromExcel == "#N/A" ? null: $id_area_auditoraFromExcel,
+                'idRamo' => $id_ramosFromExcel == "#N/A" ? null: $id_ramosFromExcel,
+                'idmunicipio' => $id_municipioFromExcel == "#N/A" ? null: $id_municipioFromExcel,
+                
 
             ]);
         }
         }         
     }
+
+   
+    
 
     public function headingRow(): int
     {
