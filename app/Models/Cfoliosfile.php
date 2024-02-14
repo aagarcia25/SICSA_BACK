@@ -45,7 +45,8 @@ class Cfoliosfile extends Model
 		'CreadoPor',
 		'idfolio',
 		'Route',
-		'Nombre'
+		'Nombre',
+		'Tipo'
 	];
 
 	public function cfolio()
