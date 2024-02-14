@@ -39,12 +39,12 @@ trait ApiDocTrait
                         'Content-Type' => '<Content-type header>',
                     ],
                 ],
-            ]];
+            ]
+        ];
         $requestter = new Psr7Request('POST', env('APP_DOC_API') . '/api/ApiDoc/SaveFile', $headers);
         $res = $client->sendAsync($requestter, $options)->wait();
         $data = json_decode($res->getBody()->getContents());
         return $data;
-
     }
 
     public function GetFile($TOKEN, $Ruta, $nombre_archivo)
@@ -71,7 +71,8 @@ trait ApiDocTrait
                     'contents' => $nombre_archivo,
                 ],
 
-            ]];
+            ]
+        ];
         $requestter = new Psr7Request('POST', env('APP_DOC_API') . '/api/ApiDoc/GetByName', $headers);
         $res = $client->sendAsync($requestter, $options)->wait();
         $data = json_decode($res->getBody()->getContents());
@@ -103,7 +104,8 @@ trait ApiDocTrait
                     'contents' => $nombre_archivo,
                 ],
 
-            ]];
+            ]
+        ];
         $requestter = new Psr7Request('POST', env('APP_DOC_API') . '/api/ApiDoc/DeleteFile', $headers);
         $res = $client->sendAsync($requestter, $options)->wait();
         $data = json_decode($res->getBody()->getContents());
@@ -130,7 +132,8 @@ trait ApiDocTrait
                     'contents' => 'SICSA',
                 ],
 
-            ]];
+            ]
+        ];
         $requestter = new Psr7Request('POST', env('APP_DOC_API') . '/api/ApiDoc/DeleteFileByRoute', $headers);
         $res = $client->sendAsync($requestter, $options)->wait();
         $data = json_decode($res->getBody()->getContents());
@@ -157,7 +160,8 @@ trait ApiDocTrait
                     'contents' => 'SICSA',
                 ],
 
-            ]];
+            ]
+        ];
         $requestter = new Psr7Request('POST', env('APP_DOC_API') . '/api/ApiDoc/GetByName', $headers);
         $res = $client->sendAsync($requestter, $options)->wait();
         $data = json_decode($res->getBody()->getContents());
@@ -183,11 +187,99 @@ trait ApiDocTrait
                     'name' => 'APP',
                     'contents' => 'SICSA',
                 ],
-            ]];
+            ]
+        ];
         $requestter = new Psr7Request('POST', env('APP_DOC_API') . '/api/ApiDoc/GetByRoute', $headers);
         $res = $client->sendAsync($requestter, $options)->wait();
         $data = json_decode($res->getBody()->getContents());
         return $data;
     }
 
+    public function CreateDirectorio($TOKEN, $Ruta)
+    {
+
+        $client = new Client();
+        $headers = [
+            'Authorization' => $TOKEN,
+        ];
+        $options = [
+            'verify' => false,
+            'timeout' => 500.14,
+            'multipart' => [
+                [
+                    'name' => 'ROUTE',
+                    'contents' => $Ruta,
+                ],
+                [
+                    'name' => 'APP',
+                    'contents' => 'SICSA',
+                ],
+
+
+            ]
+        ];
+        $requestter = new Psr7Request('POST', env('APP_DOC_API') . '/api/ApiDoc/CreateDirectorio', $headers);
+        $res = $client->sendAsync($requestter, $options)->wait();
+        $data = json_decode($res->getBody()->getContents());
+        return $data;
+    }
+
+    public function DeleteDirectorio($TOKEN, $Ruta)
+    {
+
+        $client = new Client();
+        $headers = [
+            'Authorization' => $TOKEN,
+        ];
+        $options = [
+            'verify' => false,
+            'timeout' => 500.14,
+            'multipart' => [
+                [
+                    'name' => 'ROUTE',
+                    'contents' => $Ruta,
+                ],
+                [
+                    'name' => 'APP',
+                    'contents' => 'SICSA',
+                ],
+
+
+            ]
+        ];
+        $requestter = new Psr7Request('POST', env('APP_DOC_API') . '/api/ApiDoc/DeleteDirectorio', $headers);
+        $res = $client->sendAsync($requestter, $options)->wait();
+        $data = json_decode($res->getBody()->getContents());
+        return $data;
+    }
+
+
+    public function ListFileSimple($TOKEN, $Ruta)
+    {
+
+        $client = new Client();
+        $headers = [
+            'Authorization' => $TOKEN,
+        ];
+        $options = [
+            'verify' => false,
+            'timeout' => 500.14,
+            'multipart' => [
+                [
+                    'name' => 'ROUTE',
+                    'contents' => $Ruta,
+                ],
+                [
+                    'name' => 'APP',
+                    'contents' => 'SICSA',
+                ],
+
+
+            ]
+        ];
+        $requestter = new Psr7Request('POST', env('APP_DOC_API') . '/api/ApiDoc/ListFileSimple', $headers);
+        $res = $client->sendAsync($requestter, $options)->wait();
+        $data = json_decode($res->getBody()->getContents());
+        return $data;
+    }
 }
