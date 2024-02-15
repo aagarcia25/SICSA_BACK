@@ -10,8 +10,13 @@ use Illuminate\Support\Facades\DB;
 
 class PersonalController extends Controller
 {
-    //
-
+    /* SE IDENTIFICA EL TIPO DE OPERACION A REALIZAR
+    1._ INSERTAR UN REGISTRO
+    2._ ACTUALIZAR UN REGISTRO
+    3._ ELIMINAR UN REGISTRO
+    4._ CONSULTAR GENERAL DE REGISTROS, (SE INCLUYEN FILTROS)
+    5._ ELIMINA REGISTROS SELECCIONADOS
+     */
     public function Personal_index(Request $request)
     {
 
@@ -81,6 +86,20 @@ class PersonalController extends Controller
                     ";
                 $response = DB::select($query);
 
+            }else if ($type == 5) {
+                $CHIDs = $request->input('CHIDs'); 
+                $response = [];
+
+                foreach ($CHIDs as $CHID) {
+                $OBJ = CatPersonal::find($CHID);
+
+                    if ($OBJ) {
+                    $OBJ->deleted = 1;
+                    $OBJ->ModificadoPor = $request->CHUSER;
+                    $OBJ->save();
+                    $response[] = $OBJ;
+                    }
+                }
             }
         } catch (QueryException $e) {
             $SUCCESS = false;
