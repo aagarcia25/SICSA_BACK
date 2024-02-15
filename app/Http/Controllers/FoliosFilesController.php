@@ -18,6 +18,7 @@ class FoliosFilesController extends Controller
     2._ ACTUALIZAR UN REGISTRO
     3._ ELIMINAR UN REGISTRO
     4._ CONSULTAR GENERAL DE REGISTROS, (SE INCLUYEN FILTROS)
+    11._ ELIMINA REGISTROS SELECCIONADOS
      */
 
     public function FoliosFilesindex(Request $request)
@@ -125,6 +126,21 @@ class FoliosFilesController extends Controller
                     $response = $data->RESPONSE;
                 } else {
                     throw new Exception($data->STRMESSAGE);
+                }
+            }
+            else if ($type == 11) {
+                $CHIDs = $request->input('CHIDs'); 
+                $response = [];
+
+                foreach ($CHIDs as $CHID) {
+                $OBJ = FileSub::find($CHID);
+
+                    if ($OBJ) {
+                    $OBJ->deleted = 1;
+                    $OBJ->ModificadoPor = $request->CHUSER;
+                    $OBJ->save();
+                    $response[] = $OBJ;
+                    }
                 }
             }
         } catch (QueryException $e) {
