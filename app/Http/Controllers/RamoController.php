@@ -14,6 +14,7 @@ class RamoController extends Controller
     2._ ACTUALIZAR UN REGISTRO
     3._ ELIMINAR UN REGISTRO
     4._ CONSULTAR GENERAL DE REGISTROS, (SE INCLUYEN FILTROS)
+    5._ ELIMINA REGISTROS SELECCIONADOS
      */
 
     public function Ramo_index(Request $request)
@@ -67,6 +68,20 @@ class RamoController extends Controller
                     ";
                 $response = DB::select($query);
 
+            }else if ($type == 5) {
+                $CHIDs = $request->input('CHIDs'); 
+                $response = [];
+
+                foreach ($CHIDs as $CHID) {
+                $OBJ = CatRamo::find($CHID);
+
+                    if ($OBJ) {
+                    $OBJ->deleted = 1;
+                    $OBJ->ModificadoPor = $request->CHUSER;
+                    $OBJ->save();
+                    $response[] = $OBJ;
+                    }
+                }
             }
         } catch (QueryException $e) {
             $SUCCESS = false;
