@@ -17,6 +17,8 @@ class FilesSubController extends Controller
     2._ ACTUALIZAR UN REGISTRO
     3._ ELIMINAR UN REGISTRO
     4._ CONSULTAR GENERAL DE REGISTROS, (SE INCLUYEN FILTROS)
+    9._ ELIMINA REGISTROS SELECCIONADOS
+
      */
 
     public function FilesSubindex(Request $request)
@@ -102,7 +104,21 @@ class FilesSubController extends Controller
                 $OBJ->save();
                 $response = $OBJ;
 
-            } 
+            } else if ($type == 9) {
+                $CHIDs = $request->input('CHIDs'); 
+                $response = [];
+
+                foreach ($CHIDs as $CHID) {
+                $OBJ = FileSub::find($CHID);
+
+                    if ($OBJ) {
+                    $OBJ->deleted = 1;
+                    $OBJ->ModificadoPor = $request->CHUSER;
+                    $OBJ->save();
+                    $response[] = $OBJ;
+                    }
+                }
+            }
         } catch (QueryException $e) {
             $SUCCESS = false;
             $NUMCODE = 1;

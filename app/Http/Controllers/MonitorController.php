@@ -199,6 +199,20 @@ class MonitorController extends Controller
                     ";
                 $response = DB::select($query);
 
+            }else if ($type == 5) {
+                $CHIDs = $request->input('CHIDs'); 
+                $response = [];
+
+                foreach ($CHIDs as $CHID) {
+                $OBJ = MonitoreoWeb::find($CHID);
+
+                    if ($OBJ) {
+                    $OBJ->deleted = 1;
+                    $OBJ->ModificadoPor = $request->CHUSER;
+                    $OBJ->save();
+                    $response[] = $OBJ;
+                    }
+                }
             }
         } catch (QueryException $e) {
             $SUCCESS = false;

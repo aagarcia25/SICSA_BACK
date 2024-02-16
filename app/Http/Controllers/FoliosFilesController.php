@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpSpreadsheet\Calculation\TextData\Replace;
 
 class FoliosFilesController extends Controller
 {
@@ -17,6 +18,7 @@ class FoliosFilesController extends Controller
     2._ ACTUALIZAR UN REGISTRO
     3._ ELIMINAR UN REGISTRO
     4._ CONSULTAR GENERAL DE REGISTROS, (SE INCLUYEN FILTROS)
+    11._ ELIMINA REGISTROS SELECCIONADOS
      */
 
     public function FoliosFilesindex(Request $request)
@@ -32,6 +34,11 @@ class FoliosFilesController extends Controller
             $FOLIO = $request->FOLIO;
 
             if ($type == 1) {
+
+
+
+
+
 
                 $file = request()->file('FILE');
                 $nombre = $file->getClientOriginalName();
@@ -71,7 +78,7 @@ class FoliosFilesController extends Controller
                 }
             } elseif ($type == 4) {
 
-                $query = "SELECT
+                /* $query = "SELECT
                     id,
                     deleted,
                     UltimaActualizacion,
@@ -80,12 +87,13 @@ class FoliosFilesController extends Controller
                     getUserName(CreadoPor) creado,
                     idfolio,
                     Route,
-                    Nombre
+                    Nombre,
+                    Tipo
                     FROM cfoliosfiles
                     where deleted =0
                     ";
                 $query = $query . " and    idfolio='" . $request->P_ID . "'";
-                $response = DB::select($query);
+                $response = DB::select($query);*/
             } elseif ($type == 5) {
                 $data = $this->GetByRoute($request->TOKEN, $request->P_ROUTE, $request->P_NOMBRE);
                 $response = $data->RESPONSE;
@@ -95,6 +103,45 @@ class FoliosFilesController extends Controller
                 $OBJ->Estatus = 1;
                 $OBJ->save();
                 $response = $OBJ;
+            } elseif ($type == 9) {
+
+                $data = $this->CreateDirectorio($request->TOKEN, env('APP_DOC_ROUTE') . $request->FOLIO . '/' . $request->ROUTE);
+                if ($data->SUCCESS) {
+                    $response = $data->RESPONSE;
+                    // $OBJ = new Cfoliosfile();
+                    // $OBJ->ModificadoPor = $request->CHUSER;
+                    // $OBJ->CreadoPor = $request->CHUSER;
+                    // $OBJ->idfolio = $request->ID;
+                    // $OBJ->Route = strval(str_replace('/mnt/HD/HD_a2/', '', $response));
+                    // $OBJ->Nombre = $request->ROUTE;
+                    // $OBJ->Tipo = 2;
+                    // $OBJ->save();
+                    //$response = $OBJ;
+                } else {
+                    throw new Exception($data->STRMESSAGE);
+                }
+            } elseif ($type == 10) {
+                $data = $this->ListFileSimple($request->TOKEN, env('APP_DOC_ROUTE') . $request->FOLIO);
+                if ($data->SUCCESS) {
+                    $response = $data->RESPONSE;
+                } else {
+                    throw new Exception($data->STRMESSAGE);
+                }
+            }
+            else if ($type == 11) {
+                $CHIDs = $request->input('CHIDs'); 
+                $response = [];
+
+                foreach ($CHIDs as $CHID) {
+                $OBJ = FileSub::find($CHID);
+
+                    if ($OBJ) {
+                    $OBJ->deleted = 1;
+                    $OBJ->ModificadoPor = $request->CHUSER;
+                    $OBJ->save();
+                    $response[] = $OBJ;
+                    }
+                }
             }
         } catch (QueryException $e) {
             $SUCCESS = false;
