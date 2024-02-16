@@ -216,7 +216,14 @@ class AuditoriaController extends Controller
             }elseif ($type == 5) {
                 $OBJ = Auditorium::find($request->CHID);
                 $OBJ->ModificadoPor = $request->CHUSER;
-                $OBJ->entregado = 1;
+                //$OBJ->entregado = 1;
+
+                if ($OBJ->entregado == 1) {
+                    $OBJ->entregado = 0;
+                } else {
+                    $OBJ->entregado = 1;
+                }
+
                 $OBJ->save();
                 $response = $OBJ;
 
