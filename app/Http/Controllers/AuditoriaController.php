@@ -121,6 +121,7 @@ class AuditoriaController extends Controller
 					aud.NombreAudoria,
 					aud.Encargado,
                     aud.PersonalEncargado,
+                    
                     ct.id ctid,
 					ct.Descripcion ctDescripcion,
 					coa.id coaid,
@@ -202,6 +203,10 @@ class AuditoriaController extends Controller
 
                 if ($request->ente != "") {
                     $query = $query . " and    coa.id='" . $request->ente . "'";
+                }
+
+                if ($request->idCatEntidadFiscalizada != "") {
+                    $query = $query . " and    cef.id='" . $request->idCatEntidadFiscalizada . "'";
                 }
 
                 $query = $query . "   order by aud.Consecutivo asc";
