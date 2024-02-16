@@ -15,6 +15,7 @@ class AuditoriaController extends Controller
     3._ ELIMINAR UN REGISTRO
     4._ CONSULTAR GENERAL DE REGISTROS, (SE INCLUYEN FILTROS)
     5._ CAMBIA EL ESTADO DE ENTREGA DE LA AUDITRIA
+    9._ ELIMINA REGISTROS SELECCIONADOS
      */
 
     public function Auditoriaindex(Request $request)
@@ -207,16 +208,27 @@ class AuditoriaController extends Controller
 
                 $response = DB::select($query);
 
-            }
-
-
-            elseif ($type == 5) {
+            }elseif ($type == 5) {
                 $OBJ = Auditorium::find($request->CHID);
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->entregado = 1;
                 $OBJ->save();
                 $response = $OBJ;
 
+            }else if ($type == 9) {
+                $CHIDs = $request->input('CHIDs'); 
+                $response = [];
+
+                foreach ($CHIDs as $CHID) {
+                $OBJ = Auditorium::find($CHID);
+
+                    if ($OBJ) {
+                    $OBJ->deleted = 1;
+                    $OBJ->ModificadoPor = $request->CHUSER;
+                    $OBJ->save();
+                    $response[] = $OBJ;
+                    }
+                }
             }
 
 

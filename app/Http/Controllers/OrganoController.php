@@ -12,6 +12,13 @@ use App\Models\File;
 
 class OrganoController extends Controller
 {
+    /* SE IDENTIFICA EL TIPO DE OPERACION A REALIZAR
+    1._ INSERTAR UN REGISTRO
+    2._ ACTUALIZAR UN REGISTRO
+    3._ ELIMINAR UN REGISTRO
+    4._ CONSULTAR GENERAL DE REGISTROS, (SE INCLUYEN FILTROS)
+    9._ ELIMINA REGISTROS SELECCIONADOS
+     */
 
 
 
@@ -103,6 +110,20 @@ class OrganoController extends Controller
                 $query = $query . " and    ca.idAuditoria='" . $request->P_IDAUDITORIA . "'
                 order by Oficio desc";
                 $response = DB::select($query);
+            }else if ($type == 9) {
+                $CHIDs = $request->input('CHIDs'); 
+                $response = [];
+
+                foreach ($CHIDs as $CHID) {
+                $OBJ = OrganoC::find($CHID);
+
+                    if ($OBJ) {
+                    $OBJ->deleted = 1;
+                    $OBJ->ModificadoPor = $request->CHUSER;
+                    $OBJ->save();
+                    $response[] = $OBJ;
+                    }
+                }
             }
         } catch (QueryException $e) {
             $SUCCESS = false;
@@ -220,6 +241,20 @@ class OrganoController extends Controller
                 $query = $query . " and    organo.idOrganoC='" . $request->P_IDNOTIFICACION . "'
                 order by Oficio desc";
                 $response = DB::select($query);
+            }else if ($type == 9) {
+                $CHIDs = $request->input('CHIDs'); 
+                $response = [];
+
+                foreach ($CHIDs as $CHID) {
+                $OBJ = OrganoR::find($CHID);
+
+                    if ($OBJ) {
+                    $OBJ->deleted = 1;
+                    $OBJ->ModificadoPor = $request->CHUSER;
+                    $OBJ->save();
+                    $response[] = $OBJ;
+                    }
+                }
             }
         } catch (QueryException $e) {
             $SUCCESS = false;
