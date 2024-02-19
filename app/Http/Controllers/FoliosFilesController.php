@@ -39,8 +39,6 @@ class FoliosFilesController extends Controller
 
 
 
-
-
                 $file = request()->file('FILE');
                 $nombre = $file->getClientOriginalName();
 
@@ -96,7 +94,7 @@ class FoliosFilesController extends Controller
                 $query = $query . " and    idfolio='" . $request->P_ID . "'";
                 $response = DB::select($query);*/
             } elseif ($type == 5) {
-                $data = $this->GetByRoute($request->TOKEN, $request->P_ROUTE, $request->P_NOMBRE);
+                $data = $this->GetByRoute($request->TOKEN, $request->P_ROUTE);
                 $response = $data->RESPONSE;
             } elseif ($type == 6) {
                 $OBJ = Cfoliosfile::find($request->CHID);
