@@ -144,6 +144,7 @@ class FoliosFilesController extends Controller
                     }
                 }
             } else if ($type == 12) {
+                Log::info("Ruta: " . trim($request->FOLIO));
                 $data = $this->DeleteFileSimple($request->TOKEN, $request->FOLIO);
                 if ($data->SUCCESS) {
                     $response = $data->RESPONSE;
