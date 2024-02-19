@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpSpreadsheet\Calculation\TextData\Replace;
 
 class FoliosFilesController extends Controller
@@ -121,26 +122,40 @@ class FoliosFilesController extends Controller
                     throw new Exception($data->STRMESSAGE);
                 }
             } elseif ($type == 10) {
-                $data = $this->ListFileSimple($request->TOKEN, env('APP_DOC_ROUTE') . $request->FOLIO);
+                Log::info("Ruta: " . trim(env('APP_DOC_ROUTE') . $request->FOLIO));
+                $data = $this->ListFileSimple($request->TOKEN, trim(env('APP_DOC_ROUTE') . $request->FOLIO));
                 if ($data->SUCCESS) {
                     $response = $data->RESPONSE;
                 } else {
                     throw new Exception($data->STRMESSAGE);
                 }
-            }
-            else if ($type == 11) {
-                $CHIDs = $request->input('CHIDs'); 
+            } else if ($type == 11) {
+                $CHIDs = $request->input('CHIDs');
                 $response = [];
 
                 foreach ($CHIDs as $CHID) {
-                $OBJ = FileSub::find($CHID);
+                    $OBJ = FileSub::find($CHID);
 
                     if ($OBJ) {
-                    $OBJ->deleted = 1;
-                    $OBJ->ModificadoPor = $request->CHUSER;
-                    $OBJ->save();
-                    $response[] = $OBJ;
+                        $OBJ->deleted = 1;
+                        $OBJ->ModificadoPor = $request->CHUSER;
+                        $OBJ->save();
+                        $response[] = $OBJ;
                     }
+                }
+            } else if ($type == 12) {
+                $data = $this->DeleteFileSimple($request->TOKEN, $request->FOLIO);
+                if ($data->SUCCESS) {
+                    $response = $data->RESPONSE;
+                } else {
+                    throw new Exception($data->STRMESSAGE);
+                }
+            } else if ($type == 13) {
+                $data = $this->DeleteDirectorio($request->TOKEN,  $request->FOLIO);
+                if ($data->SUCCESS) {
+                    $response = $data->RESPONSE;
+                } else {
+                    throw new Exception($data->STRMESSAGE);
                 }
             }
         } catch (QueryException $e) {
