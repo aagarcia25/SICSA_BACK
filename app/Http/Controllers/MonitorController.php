@@ -65,76 +65,73 @@ class MonitorController extends Controller
     public function monitorWebcron()
     {
 
-        $monitoreos = MonitoreoWeb::all();
+        MonitoreoWeb::where('Activo', 1)->chunk(200, function ($monitoreos) {
+            foreach ($monitoreos as $monitoreo) {
+                // Obtener la hora actual
+
+                Carbon::setLocale('es');
+                $horaActual = Carbon::now('America/Monterrey');
+                $url = $monitoreo->Url;
+                $alias = $monitoreo->Alias;
+                $email = $monitoreo->Correos;
+                $tiempo = $monitoreo->Tiempo;
+                $ultimaves = $monitoreo->UltimaEjecucion;
+                $diferenciaEnMinutos = $horaActual->diffInMinutes($ultimaves);
+
+                if ($diferenciaEnMinutos >= $tiempo) {
+
+                    try {
+                        // Establecer el nombre del archivo para almacenar el contenido
+                        // Realizar una solicitud HTTP para obtener el contenido actual
+                        $client = new Client();
+                        $response = $client->get($url);
+                        $newContent = $response->getBody()->getContents();
+                        $rutaArchivo = storage_path("archivos/{$alias}.html");
+                        Log::info('Ruta de Archivo' . $rutaArchivo);
+                        // Verificar si el archivo existe y comparar el contenido
+                        if (File::exists($rutaArchivo)) {
+                            $currentContent = File::get($rutaArchivo);
+
+                            // Comparar el contenido actual con el anterior
+                            if ($currentContent !== $newContent) {
+                                $differ = new Differ(new DiffOnlyOutputBuilder("\n"));
+                                $differences = $differ->diff($currentContent, $newContent);
+                                $body = "<p>Favor de revisar la siguiente ruta: <strong>{$url}</strong></p>";
+                                $body .= "<br>";
+                                $body .= "<p>Se ha detectado la siguiente diferencia:</p>";
+                                $body .= "<br>";
+                                $body .= "<p>{$differences}</p>";
+
+                                $correos = explode(
+                                    ';',
+                                    $email
+                                );
+
+                                foreach ($correos as $correo) {
+                                    // Limpiar espacios alrededor del correo electrónico
+                                    $correo = trim($correo);
+                                    // Enviar notificación a cada dirección de correo electrónico
+                                    $this->sendMailNotificacion($correo, $body);
+                                }
 
 
-        foreach ($monitoreos as $monitoreo) {
-            // Obtener la hora actual
-
-            Carbon::setLocale('es');
-            $horaActual = Carbon::now('America/Monterrey');
-            $url = $monitoreo->Url;
-            $alias = $monitoreo->Alias;
-            $email = $monitoreo->Correos;
-            $tiempo = $monitoreo->Tiempo;
-            $ultimaves = $monitoreo->UltimaEjecucion;
-            Log::info('Hora de Ejecucion' . $horaActual);
-            Log::info('Datos' . $monitoreo);
-            $diferenciaEnMinutos = $horaActual->diffInMinutes($ultimaves);
-
-            if ($diferenciaEnMinutos >= $tiempo) {
-
-                try {
-                    // Establecer el nombre del archivo para almacenar el contenido
-                    // Realizar una solicitud HTTP para obtener el contenido actual
-                    $client = new Client();
-                    $response = $client->get($url);
-                    $newContent = $response->getBody()->getContents();
-                    $rutaArchivo = storage_path("archivos/{$alias}.html");
-                    Log::info('Ruta de Archivo' . $rutaArchivo);
-                    // Verificar si el archivo existe y comparar el contenido
-                    if (File::exists($rutaArchivo)) {
-                        $currentContent = File::get($rutaArchivo);
-
-                        // Comparar el contenido actual con el anterior
-                        if ($currentContent !== $newContent) {
-                            $differ = new Differ(new DiffOnlyOutputBuilder("\n"));
-                            $differences = $differ->diff($currentContent, $newContent);
-                            $body = "<p>Favor de revisar la siguiente ruta: <strong>{$url}</strong></p>";
-                            $body .= "<br>";
-                            $body .= "<p>Se ha detectado la siguiente diferencia:</p>";
-                            $body .= "<br>";
-                            $body .= "<p>{$differences}</p>";
-
-                            $correos = explode(
-                                ';',
-                                $email
-                            );
-
-                            foreach ($correos as $correo) {
-                                // Limpiar espacios alrededor del correo electrónico
-                                $correo = trim($correo);
-                                // Enviar notificación a cada dirección de correo electrónico
-                                $this->sendMailNotificacion($correo, $body);
+                                File::put($rutaArchivo, $newContent);
+                            } else {
+                                Log::info('sin cambios ' . $url);
                             }
-
-
-                            File::put($rutaArchivo, $newContent);
                         } else {
-                            Log::info('sin cambios ' . $url);
+                            File::put($rutaArchivo, $newContent);
                         }
-                    } else {
-                        File::put($rutaArchivo, $newContent);
+                        $monitoreo->UltimaEjecucion = $horaActual;
+                        $monitoreo->save();
+                    } catch (\Exception $e) {
+                        Log::info('Ruta de Archivo' . $e->getMessage());
                     }
-                    $monitoreo->UltimaEjecucion = $horaActual;
-                    $monitoreo->save();
-                } catch (\Exception $e) {
-                    Log::info('Ruta de Archivo' . $e->getMessage());
+                } else {
+                    Log::info('No se ejecuto el cron');
                 }
-            } else {
-                Log::info('No se ejecuto el cron');
             }
-        }
+        });
     }
 
     public function Monitoreo_index(Request $request)
@@ -158,7 +155,6 @@ class MonitorController extends Controller
                 $OBJ->Tiempo = $request->Tiempo;
                 $OBJ->save();
                 $response = $OBJ;
-
             } elseif ($type == 2) {
 
                 $OBJ = MonitoreoWeb::find($request->CHID);
@@ -170,14 +166,12 @@ class MonitorController extends Controller
                 $OBJ->Tiempo = $request->Tiempo;
                 $OBJ->save();
                 $response = $OBJ;
-
             } elseif ($type == 3) {
                 $OBJ = MonitoreoWeb::find($request->CHID);
                 $OBJ->deleted = 1;
                 $OBJ->ModificadoPor = $request->CHUSER;
                 $OBJ->save();
                 $response = $OBJ;
-
             } elseif ($type == 4) {
 
                 $query = "
@@ -198,19 +192,18 @@ class MonitorController extends Controller
                     order by FechaCreacion desc
                     ";
                 $response = DB::select($query);
-
-            }else if ($type == 5) {
-                $CHIDs = $request->input('CHIDs'); 
+            } else if ($type == 5) {
+                $CHIDs = $request->input('CHIDs');
                 $response = [];
 
                 foreach ($CHIDs as $CHID) {
-                $OBJ = MonitoreoWeb::find($CHID);
+                    $OBJ = MonitoreoWeb::find($CHID);
 
                     if ($OBJ) {
-                    $OBJ->deleted = 1;
-                    $OBJ->ModificadoPor = $request->CHUSER;
-                    $OBJ->save();
-                    $response[] = $OBJ;
+                        $OBJ->deleted = 1;
+                        $OBJ->ModificadoPor = $request->CHUSER;
+                        $OBJ->save();
+                        $response[] = $OBJ;
                     }
                 }
             }
@@ -229,9 +222,7 @@ class MonitorController extends Controller
                 'STRMESSAGE' => $STRMESSAGE,
                 'RESPONSE' => $response,
                 'SUCCESS' => $SUCCESS,
-            ]);
-
+            ]
+        );
     }
-
 }
-
