@@ -35,7 +35,9 @@ class MonitoreoWeb extends Model
 		'UltimaEjecucion' => 'datetime',
 		'UltimaActualizacion' => 'datetime',
 		'FechaCreacion' => 'datetime',
-		'Tiempo' => 'int'
+		'Tiempo' => 'int',
+		'Activo' => 'int',
+
 	];
 
 	protected $fillable = [
@@ -48,6 +50,7 @@ class MonitoreoWeb extends Model
 		'Correos',
 		'Alias',
 		'Tiempo',
-		'UltimaEjecucion'
+		'UltimaEjecucion',
+		'Activo'
 	];
 }
