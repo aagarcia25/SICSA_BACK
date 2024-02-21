@@ -43,18 +43,18 @@ class FoliosFilesController extends Controller
                 $nombre = $file->getClientOriginalName();
 
                 $data = $this->UploadFile($request->TOKEN, env('APP_DOC_ROUTE') . $FOLIO, $nombre, $file, 'TRUE');
-                if ($data->SUCCESS) {
-                    $OBJ = new Cfoliosfile();
-                    $OBJ->ModificadoPor = $request->CHUSER;
-                    $OBJ->CreadoPor = $request->CHUSER;
-                    $OBJ->idfolio = $request->ID;
-                    $OBJ->Route = strval($data->RESPONSE->RUTA);
-                    $OBJ->Nombre = $nombre;
-                    $OBJ->save();
-                    $response = $OBJ;
-                } else {
-                    throw new Exception($data->STRMESSAGE);
-                }
+                // if ($data->SUCCESS) {
+                //     $OBJ = new Cfoliosfile();
+                //     $OBJ->ModificadoPor = $request->CHUSER;
+                //     $OBJ->CreadoPor = $request->CHUSER;
+                //     $OBJ->idfolio = $request->ID;
+                //     $OBJ->Route = strval($data->RESPONSE->RUTA);
+                //     $OBJ->Nombre = $nombre;
+                //     $OBJ->save();
+                //     $response = $OBJ;
+                // } else {
+                //     throw new Exception($data->STRMESSAGE);
+                // }
             } elseif ($type == 2) {
 
                 $OBJ = Cfoliosfile::find($request->CHID);
