@@ -106,10 +106,15 @@ class FoliosController extends Controller
                                 
                                 OR '" . $request->Anio . "'IS NULL 
                                 OR '" . $request->Anio . "'='')
-                                order by Oficio desc";
+                                order by 
+                                 CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(cf.Oficio, '-', -2), '-', 1) AS SIGNED) asc
+                                ";
+
+
                 if ($request->FolioSIGA != "") {
                     $query = $query . " and    aud.FolioSIGA='" . $request->FolioSIGA . "'";
                 }
+                info($query);
                 $response = DB::select($query);
             } else if ($type == 5) {
                 $OBJ = new Cfolio();
@@ -160,18 +165,18 @@ class FoliosController extends Controller
                 $OBJ->Oficio = $request->Oficio . '-BS';
                 $OBJ->save();
                 $response = $OBJ;
-            }else if ($type == 8) {
+            } else if ($type == 8) {
                 $CHIDs = $request->input('CHIDs'); // Supongamos que CHIDs es un array de identificadores
                 $response = [];
 
                 foreach ($CHIDs as $CHID) {
-                $OBJ = Cfolio::find($CHID);
+                    $OBJ = Cfolio::find($CHID);
 
                     if ($OBJ) {
-                    $OBJ->deleted = 1;
-                    $OBJ->ModificadoPor = $request->CHUSER;
-                    $OBJ->save();
-                    $response[] = $OBJ;
+                        $OBJ->deleted = 1;
+                        $OBJ->ModificadoPor = $request->CHUSER;
+                        $OBJ->save();
+                        $response[] = $OBJ;
                     }
                 }
             }
