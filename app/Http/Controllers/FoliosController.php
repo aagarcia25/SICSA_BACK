@@ -91,13 +91,7 @@ class FoliosController extends Controller
                                  CASE
                                      WHEN cf.Cancelado = '1' THEN 'CANCELADO'
                                      ELSE ''
-                                 END AS Cancelado,
-                                 (
-                                     SELECT COUNT(1)
-                                     FROM SICSA.cfoliosfiles cff
-                                     INNER JOIN SICSA.subfiles sf ON sf.idfile = cff.id
-                                     WHERE cff.idfolio = cf.id
-                                 ) AS magneticos
+                                 END AS Cancelado
                              FROM
                                  SICSA.cfolios cf
                              LEFT JOIN SICSA.Cat_Personal cp ON cf.Solicita = cp.id

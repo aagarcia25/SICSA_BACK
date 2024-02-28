@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cfoliosfile;
 use App\Traits\ApiDocTrait;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -35,87 +34,26 @@ class FoliosFilesController extends Controller
             $FOLIO = $request->FOLIO;
 
             if ($type == 1) {
-
-
-
-
                 $file = request()->file('FILE');
                 $nombre = $file->getClientOriginalName();
-
                 $data = $this->UploadFile($request->TOKEN, env('APP_DOC_ROUTE') . $FOLIO, $nombre, $file, 'TRUE');
-                // if ($data->SUCCESS) {
-                //     $OBJ = new Cfoliosfile();
-                //     $OBJ->ModificadoPor = $request->CHUSER;
-                //     $OBJ->CreadoPor = $request->CHUSER;
-                //     $OBJ->idfolio = $request->ID;
-                //     $OBJ->Route = strval($data->RESPONSE->RUTA);
-                //     $OBJ->Nombre = $nombre;
-                //     $OBJ->save();
-                //     $response = $OBJ;
-                // } else {
-                //     throw new Exception($data->STRMESSAGE);
-                // }
             } elseif ($type == 2) {
-
-                $OBJ = Cfoliosfile::find($request->CHID);
-                $OBJ->ModificadoPor = $request->CHUSER;
-                $OBJ->Nombre = $request->NOMBRE;
-                $OBJ->Descripcion = $request->DESCRIPCION;
-                $OBJ->save();
-                $response = $OBJ;
             } elseif ($type == 3) {
-
                 $data = $this->DeleteFileByRoute($request->TOKEN, $request->P_ROUTE);
                 if ($data->SUCCESS) {
-                    $OBJ = Cfoliosfile::find($request->CHID);
-                    $OBJ->deleted = 1;
-                    $OBJ->ModificadoPor = $request->CHUSER;
-                    $OBJ->save();
-                    $response = $OBJ;
+                    $response = $data;
                 } else {
                     throw new Exception($data->STRMESSAGE);
                 }
             } elseif ($type == 4) {
-
-                /* $query = "SELECT
-                    id,
-                    deleted,
-                    UltimaActualizacion,
-                    FechaCreacion,
-                    getUserName(ModificadoPor) modi,
-                    getUserName(CreadoPor) creado,
-                    idfolio,
-                    Route,
-                    Nombre,
-                    Tipo
-                    FROM cfoliosfiles
-                    where deleted =0
-                    ";
-                $query = $query . " and    idfolio='" . $request->P_ID . "'";
-                $response = DB::select($query);*/
             } elseif ($type == 5) {
                 $data = $this->GetByRoute($request->TOKEN, $request->P_ROUTE);
                 $response = $data->RESPONSE;
             } elseif ($type == 6) {
-                $OBJ = Cfoliosfile::find($request->CHID);
-                $OBJ->ModificadoPor = $request->CHUSER;
-                $OBJ->Estatus = 1;
-                $OBJ->save();
-                $response = $OBJ;
             } elseif ($type == 9) {
-
                 $data = $this->CreateDirectorio($request->TOKEN, env('APP_DOC_ROUTE') . $request->FOLIO . '/' . $request->ROUTE);
                 if ($data->SUCCESS) {
                     $response = $data->RESPONSE;
-                    // $OBJ = new Cfoliosfile();
-                    // $OBJ->ModificadoPor = $request->CHUSER;
-                    // $OBJ->CreadoPor = $request->CHUSER;
-                    // $OBJ->idfolio = $request->ID;
-                    // $OBJ->Route = strval(str_replace('/mnt/HD/HD_a2/', '', $response));
-                    // $OBJ->Nombre = $request->ROUTE;
-                    // $OBJ->Tipo = 2;
-                    // $OBJ->save();
-                    //$response = $OBJ;
                 } else {
                     throw new Exception($data->STRMESSAGE);
                 }
@@ -128,19 +66,6 @@ class FoliosFilesController extends Controller
                     throw new Exception($data->STRMESSAGE);
                 }
             } else if ($type == 11) {
-                $CHIDs = $request->input('CHIDs');
-                $response = [];
-
-                foreach ($CHIDs as $CHID) {
-                    $OBJ = FileSub::find($CHID);
-
-                    if ($OBJ) {
-                        $OBJ->deleted = 1;
-                        $OBJ->ModificadoPor = $request->CHUSER;
-                        $OBJ->save();
-                        $response[] = $OBJ;
-                    }
-                }
             } else if ($type == 12) {
                 Log::info("Ruta: " . trim($request->FOLIO));
                 $data = $this->DeleteFileSimple($request->TOKEN, $request->FOLIO);

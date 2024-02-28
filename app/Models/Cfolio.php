@@ -33,8 +33,6 @@ use Illuminate\Support\Facades\DB;
  * @property int|null $Nauditoria
  * @property int|null $Tipo
  * 
- * @property Collection|Cfoliosfile[] $cfoliosfiles
- *
  * @package App\Models
  */
 class Cfolio extends Model
@@ -75,10 +73,7 @@ class Cfolio extends Model
 		'Cargo'
 	];
 
-	public function cfoliosfiles()
-	{
-		return $this->hasMany(Cfoliosfile::class, 'idfolio');
-	}
+
 
 	public function Cat_Destinatarios_Oficios()
 	{
