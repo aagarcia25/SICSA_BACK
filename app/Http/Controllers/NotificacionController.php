@@ -49,22 +49,22 @@ class NotificacionController extends Controller
 
                 if ($OBJ->save()) {
 
-                    $response = DB::select("SELECT  ? as id, ? as ModificadoPor, ? as CreadoPor, cff.Route, cff.Nombre FROM 
-    SICSA.cfolios cf 
-    JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
-    WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
+                    //                 $response = DB::select("SELECT  ? as id, ? as ModificadoPor, ? as CreadoPor, cff.Route, cff.Nombre FROM 
+                    // SICSA.cfolios cf 
+                    // JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
+                    // WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
 
 
-                    $OBJFile = new File();
+                    //                 $OBJFile = new File();
 
-                    foreach ($response as $result) {
-                        $OBJFile->idowner =  $id;
-                        $OBJFile->ModificadoPor = $result->ModificadoPor;
-                        $OBJFile->CreadoPor = $result->CreadoPor;
-                        $OBJFile->Route    = $result->Route;
-                        $OBJFile->Nombre    = $result->Nombre;
-                    }
-                    $OBJFile->save();
+                    //                 foreach ($response as $result) {
+                    //                     $OBJFile->idowner =  $id;
+                    //                     $OBJFile->ModificadoPor = $result->ModificadoPor;
+                    //                     $OBJFile->CreadoPor = $result->CreadoPor;
+                    //                     $OBJFile->Route    = $result->Route;
+                    //                     $OBJFile->Nombre    = $result->Nombre;
+                    //                 }
+                    //                 $OBJFile->save();
                 } else {
                     $response = $OBJ;
                 }
@@ -121,27 +121,27 @@ class NotificacionController extends Controller
                 $response = DB::select($query);
             } elseif ($type == 5) {
 
-                $query = "
-                SELECT cf.Fecha 
-                FROM SICSA.cfolios cf 
-                INNER JOIN SICSA.cfoliosfiles cff ON cff.idfolio=cf.id
-                WHERE cf.deleted=0 AND cf.Oficio='";
-                $query = $query . $request->Oficio . "'";
-                $response = DB::select($query);
+                // $query = "
+                // SELECT cf.Fecha 
+                // FROM SICSA.cfolios cf 
+                // INNER JOIN SICSA.cfoliosfiles cff ON cff.idfolio=cf.id
+                // WHERE cf.deleted=0 AND cf.Oficio='";
+                // $query = $query . $request->Oficio . "'";
+                // $response = DB::select($query);
                 // $response = $query;
 
-            }else if ($type == 9) {
-                $CHIDs = $request->input('CHIDs'); 
+            } else if ($type == 9) {
+                $CHIDs = $request->input('CHIDs');
                 $response = [];
 
                 foreach ($CHIDs as $CHID) {
-                $OBJ = CNotificacionArea::find($CHID);
+                    $OBJ = CNotificacionArea::find($CHID);
 
                     if ($OBJ) {
-                    $OBJ->deleted = 1;
-                    $OBJ->ModificadoPor = $request->CHUSER;
-                    $OBJ->save();
-                    $response[] = $OBJ;
+                        $OBJ->deleted = 1;
+                        $OBJ->ModificadoPor = $request->CHUSER;
+                        $OBJ->save();
+                        $response[] = $OBJ;
                     }
                 }
             }
