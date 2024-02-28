@@ -48,22 +48,22 @@ class ContestacionController extends Controller
                 $OBJ->idunidad = $request->idunidad;
                 if ($OBJ->save()) {
 
-                    $response = DB::select("SELECT  ? as id, ? as ModificadoPor, ? as CreadoPor, cff.Route, cff.Nombre FROM 
-                    SICSA.cfolios cf 
-                    JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
-                    WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
+                    // $response = DB::select("SELECT  ? as id, ? as ModificadoPor, ? as CreadoPor, cff.Route, cff.Nombre FROM 
+                    // SICSA.cfolios cf 
+                    // JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
+                    // WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
 
 
-                    $OBJFile = new File();
+                    // $OBJFile = new File();
 
-                    foreach ($response as $result) {
-                        $OBJFile->idowner =  $id;
-                        $OBJFile->ModificadoPor = $result->ModificadoPor;
-                        $OBJFile->CreadoPor = $result->CreadoPor;
-                        $OBJFile->Route    = $result->Route;
-                        $OBJFile->Nombre    = $result->Nombre;
-                    }
-                    $OBJFile->save();
+                    // foreach ($response as $result) {
+                    //     $OBJFile->idowner =  $id;
+                    //     $OBJFile->ModificadoPor = $result->ModificadoPor;
+                    //     $OBJFile->CreadoPor = $result->CreadoPor;
+                    //     $OBJFile->Route    = $result->Route;
+                    //     $OBJFile->Nombre    = $result->Nombre;
+                    // }
+                    // $OBJFile->save();
                 } else {
                     $response = $OBJ;
                 }
@@ -92,42 +92,47 @@ class ContestacionController extends Controller
             } elseif ($type == 4) {
 
                 $query = "SELECT
-                           ca.id,
-                           ca.deleted,
-                           ca.UltimaActualizacion,
-                           ca.FechaCreacion,
-                           getUserName(ca.ModificadoPor) modi,
-                           getUserName(ca.CreadoPor) creado,
-                           ca.Prorroga,
-                           ca.Oficio,
-                           ca.SIGAOficio,
-                           ca.FOficio,
-                           sec.id secid,
-                           sec.Descripcion secretaria,
-                           uni.id uniid,
-                           uni.Descripcion unidad, 
-                           ca.FRecibido,
-                           ca.FVencimiento
-                          FROM SICSA.C_Contestacion_area ca
-                          INNER JOIN SICSA.cat_secretarias sec ON ca.idsecretaria = sec.id
-                          INNER JOIN SICSA.cat_unidades uni ON ca.idunidad = uni.id
-                          WHERE ca.deleted =0
+                ca.id,
+                ca.deleted,
+                ca.UltimaActualizacion,
+                ca.FechaCreacion,
+                ca.idNotificacion,
+                getUserName(ca.ModificadoPor) modi,
+                getUserName(ca.CreadoPor) creado,
+                ca.Prorroga,
+                ca.Oficio,
+                ca.SIGAOficio,
+                ca.FOficio,
+                sec.id secid,
+                sec.Descripcion secretaria,
+                uni.id uniid,
+                uni.Descripcion unidad, 
+                ca.FRecibido,
+                ca.FVencimiento,
+                na.idAuditoria,
+                aud.NAUDITORIA
+               FROM SICSA.C_Contestacion_area ca
+               INNER JOIN SICSA.cat_secretarias sec ON ca.idsecretaria = sec.id
+               INNER JOIN SICSA.cat_unidades uni ON ca.idunidad = uni.id
+               INNER JOIN SICSA.C_Notificacion_area na ON ca.idNotificacion = na.id
+               INNER JOIN SICSA.auditoria aud ON na.idAuditoria = aud.id
+               WHERE ca.deleted =0
                     ";
                 $query = $query . " and    idNotificacion='" . $request->P_IDNOTIFICACION . "'
                 order by Oficio desc";
                 $response = DB::select($query);
-            }else if ($type == 9) {
-                $CHIDs = $request->input('CHIDs'); 
+            } else if ($type == 9) {
+                $CHIDs = $request->input('CHIDs');
                 $response = [];
 
                 foreach ($CHIDs as $CHID) {
-                $OBJ = CContestacionArea::find($CHID);
+                    $OBJ = CContestacionArea::find($CHID);
 
                     if ($OBJ) {
-                    $OBJ->deleted = 1;
-                    $OBJ->ModificadoPor = $request->CHUSER;
-                    $OBJ->save();
-                    $response[] = $OBJ;
+                        $OBJ->deleted = 1;
+                        $OBJ->ModificadoPor = $request->CHUSER;
+                        $OBJ->save();
+                        $response[] = $OBJ;
                     }
                 }
             }
