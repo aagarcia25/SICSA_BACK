@@ -92,26 +92,31 @@ class ContestacionController extends Controller
             } elseif ($type == 4) {
 
                 $query = "SELECT
-                           ca.id,
-                           ca.deleted,
-                           ca.UltimaActualizacion,
-                           ca.FechaCreacion,
-                           getUserName(ca.ModificadoPor) modi,
-                           getUserName(ca.CreadoPor) creado,
-                           ca.Prorroga,
-                           ca.Oficio,
-                           ca.SIGAOficio,
-                           ca.FOficio,
-                           sec.id secid,
-                           sec.Descripcion secretaria,
-                           uni.id uniid,
-                           uni.Descripcion unidad, 
-                           ca.FRecibido,
-                           ca.FVencimiento
-                          FROM SICSA.C_Contestacion_area ca
-                          INNER JOIN SICSA.cat_secretarias sec ON ca.idsecretaria = sec.id
-                          INNER JOIN SICSA.cat_unidades uni ON ca.idunidad = uni.id
-                          WHERE ca.deleted =0
+                ca.id,
+                ca.deleted,
+                ca.UltimaActualizacion,
+                ca.FechaCreacion,
+                ca.idNotificacion,
+                getUserName(ca.ModificadoPor) modi,
+                getUserName(ca.CreadoPor) creado,
+                ca.Prorroga,
+                ca.Oficio,
+                ca.SIGAOficio,
+                ca.FOficio,
+                sec.id secid,
+                sec.Descripcion secretaria,
+                uni.id uniid,
+                uni.Descripcion unidad, 
+                ca.FRecibido,
+                ca.FVencimiento,
+                na.idAuditoria,
+                aud.NAUDITORIA
+               FROM SICSA.C_Contestacion_area ca
+               INNER JOIN SICSA.cat_secretarias sec ON ca.idsecretaria = sec.id
+               INNER JOIN SICSA.cat_unidades uni ON ca.idunidad = uni.id
+               INNER JOIN SICSA.C_Notificacion_area na ON ca.idNotificacion = na.id
+               INNER JOIN SICSA.auditoria aud ON na.idAuditoria = aud.id
+               WHERE ca.deleted =0
                     ";
                 $query = $query . " and    idNotificacion='" . $request->P_IDNOTIFICACION . "'
                 order by Oficio desc";
