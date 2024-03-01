@@ -107,7 +107,7 @@ class FoliosController extends Controller
                                 OR '" . $request->Anio . "'IS NULL 
                                 OR '" . $request->Anio . "'='')
                                 order by 
-                                 CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(cf.Oficio, '-', -2), '-', 1) AS SIGNED) asc
+                                 CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(cf.Oficio, '-', -2), '-', 1) AS SIGNED) desc
                                 ";
 
 
