@@ -81,6 +81,15 @@ class FoliosFilesController extends Controller
                 } else {
                     throw new Exception($data->STRMESSAGE);
                 }
+            } else if ($type == 14) {
+                Log::info("Ruta Origen: " . trim(env('APP_DOC_ROUTE') . $request->ORIGEN));
+                Log::info("Ruta Destino: " . trim(env('APP_DOC_ROUTE') . $request->DESTINO));
+                $data = $this->moverArchivos($request->TOKEN, trim(env('APP_DOC_ROUTE') . $request->ORIGEN), trim(env('APP_DOC_ROUTE') . $request->DESTINO));
+                if ($data->SUCCESS) {
+                    $response = $data->RESPONSE;
+                } else {
+                    throw new Exception($data->STRMESSAGE);
+                }
             }
         } catch (QueryException $e) {
             $SUCCESS = false;
