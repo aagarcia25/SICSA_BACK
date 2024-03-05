@@ -7,6 +7,7 @@ use App\Imports\AuditoriaImport;
 use App\Models\Cfolio;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Excel as ExcelExcel;
@@ -113,6 +114,17 @@ class MigraDataController extends Controller
                                     // Log::info("Solicita: " . $OBJ->getsolicitante(strval($row[7])));
                                 }
                             }
+
+
+                            DB::update("
+                          UPDATE SICSA.cfolios cf
+                           SET cf.Anio = (
+                            SELECT SUBSTRING(af.Oficio, -4) 
+                            FROM SICSA.cfolios af 
+                            WHERE af.id = cf.id
+                            )
+                         WHERE cf.Anio IS NULL
+                          ");
                         } catch (\Exception $e) {
                             // Manejar la excepción, por ejemplo, registrarla o mostrar un mensaje al usuario.
                             var_dump($e->getMessage());
