@@ -46,26 +46,8 @@ class OrganoController extends Controller
                 $OBJ->FRecibido = $request->FRecibido;
                 $OBJ->FVencimiento = $request->FVencimiento;
                 $OBJ->idOrganoAuditorOrigen = $request->idOrganoAuditorOrigen;
-                if ($OBJ->save()) {
-                    // $response = DB::select("SELECT  ? as id, ? as ModificadoPor, ? as CreadoPor, cff.Route, cff.Nombre FROM 
-                    // SICSA.cfolios cf 
-                    // JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
-                    // WHERE cf.Oficio= ?", [$id, $request->CHUSER, $request->CHUSER, $OBJ->Oficio]);
-
-
-                    // $OBJFile = new File();
-
-                    // foreach ($response as $result) {
-                    //     $OBJFile->idowner =  $id;
-                    //     $OBJFile->ModificadoPor = $result->ModificadoPor;
-                    //     $OBJFile->CreadoPor = $result->CreadoPor;
-                    //     $OBJFile->Route    = $result->Route;
-                    //     $OBJFile->Nombre    = $result->Nombre;
-                    // }
-                    $OBJFile->save();
-                } else {
-                    $response = $OBJ;
-                }
+                $OBJ->save();
+                $response = $OBJ;
             } elseif ($type == 2) {
 
                 $OBJ = OrganoC::find($request->CHID);
