@@ -49,6 +49,16 @@ class FoliosController extends Controller
                 $OBJ->Destinatario = $request->Destinatario;
                 $OBJ->save();
                 $response = $OBJ;
+
+                DB::update("
+                          UPDATE SICSA.cfolios cf
+                           SET cf.Anio = (
+                            SELECT SUBSTRING(af.Oficio, -4) 
+                            FROM SICSA.cfolios af 
+                            WHERE af.id = cf.id
+                            )
+                         WHERE cf.Anio IS NULL
+                          ");
             } elseif ($type == 2) {
                 $OBJ = Cfolio::find($request->CHID);
                 $OBJ->ModificadoPor = $request->CHUSER;
