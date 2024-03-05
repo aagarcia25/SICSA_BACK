@@ -48,7 +48,7 @@ class Cfolio extends Model
 		'Fecha' => 'datetime',
 		'FechaEntrega' => 'datetime',
 		'FechaRecibido' => 'datetime',
-		//'Tipo' => 'int'
+		'Anio' => 'int'
 	];
 
 	protected $fillable = [
@@ -70,7 +70,8 @@ class Cfolio extends Model
 		'Observaciones',
 		'Nauditoria',
 		'Tipo',
-		'Cargo'
+		'Cargo',
+		'Anio'
 	];
 
 
