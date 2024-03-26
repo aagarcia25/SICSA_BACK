@@ -31,6 +31,7 @@ use App\Http\Controllers\Tipos_AuditoriaController;
 use App\Http\Controllers\Unidad_Admin_AuditoraController;
 use App\Http\Controllers\PersonalController;
 use App\Http\Controllers\DestinatariosOficios;
+use App\Http\Controllers\FormatosController;
 use App\Http\Controllers\MonitorController;
 use Illuminate\Support\Facades\Route;
 
@@ -90,4 +91,5 @@ Route::group([
     Route::post('Destinatarios_index', [DestinatariosOficios::class, 'Destinatarios_index']);
     Route::post('monitorWeb', [MonitorController::class, 'monitorWeb']);
     Route::post('Monitoreo_index', [MonitorController::class, 'Monitoreo_index']);
+    Route::post('informes', [FormatosController::class, 'informes']);
 });
