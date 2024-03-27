@@ -124,7 +124,6 @@ class FoliosController extends Controller
                 if ($request->FolioSIGA != "") {
                     $query = $query . " and    aud.FolioSIGA='" . $request->FolioSIGA . "'";
                 }
-                info($query);
                 $response = DB::select($query);
             } else if ($type == 5) {
                 $OBJ = new Cfolio();
