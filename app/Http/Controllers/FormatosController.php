@@ -33,25 +33,35 @@ class FormatosController extends Controller
             $inputPath = "";
             $outputPath = "";
             $rutaCompleta = "";
+            setlocale(LC_TIME, 'es_ES');
+            $param = Cfolio::find($request->CHID);
+            $fecha_formateada = date('d \d\e F \d\e Y', strtotime($param->Fecha));
+            $destinatario = $param->Cat_Destinatarios_Oficios;
+
             if ($request->TIPO == "ADMINISTRATIVO") {
 
                 $inputPath = storage_path('/archivos/ADMINISTRATIVO.docx');
                 $outputPath = storage_path('/archivos/ADMINISTRATIVO_TES.docx');
-                $param = Cfolio::find($request->CHID);
-                info(json_encode($param));
+
                 $reemplazos = [
                     '${OFICIO}' => $param->Oficio,
-
-
+                    '${FECHA}' => $fecha_formateada,
+                    '${ASUNTO}' => $param->Asunto,
+                    '${DESTINATARIO}' => $destinatario->Titular,
+                    '${CARGO}' => $destinatario->Cargo,
                 ];
 
                 $this->remplazarPalabras($inputPath, $outputPath, $reemplazos);
             } else if ($request->TIPO == "SALIDA") {
                 $inputPath = storage_path('/archivos/SALIDA.docx');
                 $outputPath = storage_path('/archivos/SALIDA_TES.docx');
-                $param = Cfolio::find($request->CHID);
+
                 $reemplazos = [
                     '${OFICIO}' => $param->Oficio,
+                    '${FECHA}' => $fecha_formateada,
+                    '${ASUNTO}' => $param->Asunto,
+                    '${DESTINATARIO}' => $destinatario->Titular,
+                    '${CARGO}' => $destinatario->Cargo,
 
                 ];
 
@@ -60,10 +70,13 @@ class FormatosController extends Controller
 
                 $inputPath = storage_path('/archivos/SOLICITUD.docx');
                 $outputPath = storage_path('/archivos/SOLICITUD_TES.docx');
-                $param = Cfolio::find($request->CHID);
 
                 $reemplazos = [
                     '${OFICIO}' => $param->Oficio,
+                    '${FECHA}' => $fecha_formateada,
+                    '${ASUNTO}' => $param->Asunto,
+                    '${DESTINATARIO}' => $destinatario->Titular,
+                    '${CARGO}' => $destinatario->Cargo,
 
                 ];
                 $this->remplazarPalabras($inputPath, $outputPath, $reemplazos);
