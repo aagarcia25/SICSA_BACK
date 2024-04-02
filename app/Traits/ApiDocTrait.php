@@ -344,4 +344,38 @@ trait ApiDocTrait
         $data = json_decode($res->getBody()->getContents());
         return $data;
     }
+
+
+    public function VerificaMueveArchivos($TOKEN, $ORIGEN, $DESTINO)
+    {
+
+        $client = new Client();
+        $headers = [
+            'Authorization' => $TOKEN,
+        ];
+        $options = [
+            'verify' => false,
+            'timeout' => 500.14,
+            'multipart' => [
+                [
+                    'name' => 'ORIGEN',
+                    'contents' => $ORIGEN,
+                ],
+                [
+                    'name' => 'DESTINO',
+                    'contents' => $DESTINO,
+                ],
+                [
+                    'name' => 'APP',
+                    'contents' => 'SICSA',
+                ],
+
+
+            ]
+        ];
+        $requestter = new Psr7Request('POST', env('APP_DOC_API') . '/api/ApiDoc/VerificaMueveArchivos', $headers);
+        $res = $client->sendAsync($requestter, $options)->wait();
+        $data = json_decode($res->getBody()->getContents());
+        return $data;
+    }
 }
