@@ -30,12 +30,129 @@ class InfoAuditoriaController extends Controller
             $sheet1->setCellValue('B5', $auditoria->cat_inicio_auditorium->Descripcion);
             $sheet1->setCellValue('B6', $auditoria->ActaInicio);
             $query = "
+            SELECT 
+            ofi.Oficio Oficio,
+            DATE(ofi.FechaVencimiento) AS FechaVencimiento
+            
+            FROM SICSA.OficiosA ofi
+            LEFT JOIN SICSA.auditoria aud on ofi.idAuditoria = aud.id 
+            
+            WHERE aud.deleted = 0
+            AND ofi.deleted = 0
+            and aud.NAUDITORIA = ?
+                         ";
+            $dataSheet1 = DB::select($query, [$auditoria->NAUDITORIA]);
+            $count = 11;
+            for ($i = 0; $i < count($dataSheet1); ++$i) {
+                $sheet1->setCellValue('A' . $count, $dataSheet1[$i]->Oficio);
+                $sheet1->setCellValue('B' . $count, $dataSheet1[$i]->FechaVencimiento);
+                
+                ++$count;
+            }
+
+            
+            $query = "
+            SELECT 
+            sec.Descripcion Secretaria,
+            uni.Descripcion UnidadAdministrativa,
+            na.Oficio Oficio,
+            DATE(na.FOficio) AS FechaOficioNA,
+            DATE(na.FRecibido) AS FechaRecibidoNA,
+            DATE(na.FVencimiento) AS FechaVencimientoNA,
+            DATE(na.Prorroga) AS ProrrogaNA
+            FROM SICSA.C_Notificacion_area na
+            LEFT JOIN SICSA.auditoria aud on na.idAuditoria = aud.id 
+            LEFT JOIN SICSA.cat_unidades uni ON na.idunidad = uni.id 
+            LEFT JOIN SICSA.cat_secretarias sec  ON na.idsecretaria = sec.id
+            
+            WHERE aud.deleted = 0
+            AND na.deleted = 0
+            and aud.NAUDITORIA = ?
+                         ";
+            $dataSheet1 = DB::select($query, [$auditoria->NAUDITORIA]);
+            $count = 11;
+            for ($i = 0; $i < count($dataSheet1); ++$i) {
+                $sheet1->setCellValue('D' . $count, $dataSheet1[$i]->Secretaria);
+                $sheet1->setCellValue('E' . $count, $dataSheet1[$i]->UnidadAdministrativa);
+                $sheet1->setCellValue('F' . $count, $dataSheet1[$i]->Oficio);
+                $sheet1->setCellValue('G' . $count, $dataSheet1[$i]->FechaOficioNA);
+                $sheet1->setCellValue('H' . $count, $dataSheet1[$i]->FechaRecibidoNA);
+                $sheet1->setCellValue('I' . $count, $dataSheet1[$i]->FechaVencimientoNA);
+                $sheet1->setCellValue('J' . $count, $dataSheet1[$i]->ProrrogaNA);
+
+                ++$count;
+            }
+
+            $query = "
+            SELECT 
+            coa.Descripcion UnidadAdministrativa,
+            oc.Oficio Oficio,
+            oc.SIGAOficio FolioSIGA,
+            DATE(oc.FOficio) AS FechaOficioOC,
+            DATE(oc.FRecibido) AS FechaRecibidoOC,
+            DATE(oc.FVencimiento) ASFechaVencimientoOC
+           
+           FROM SICSA.Organo_C oc
+           LEFT JOIN SICSA.auditoria aud on oc.idAuditoria = aud.id 
+           LEFT JOIN SICSA.Cat_Origen_Auditoria coa ON oc.idOrganoAuditorOrigen = coa.id 
+           -- LEFT JOIN SICSA.cat_secretarias sec  ON na.idsecretaria = sec.id
+           
+           WHERE aud.deleted = 0
+           AND oc.deleted = 0
+           and aud.NAUDITORIA = ?
+                         ";
+            $dataSheet1 = DB::select($query, [$auditoria->NAUDITORIA]);
+            $count = 11;
+            for ($i = 0; $i < count($dataSheet1); ++$i) {
+                $sheet1->setCellValue('L' . $count, $dataSheet1[$i]->UnidadAdministrativa);
+                $sheet1->setCellValue('M' . $count, $dataSheet1[$i]->Oficio);
+                $sheet1->setCellValue('N' . $count, $dataSheet1[$i]->FolioSIGA);
+                $sheet1->setCellValue('O' . $count, $dataSheet1[$i]->FechaOficioOC);
+                $sheet1->setCellValue('P' . $count, $dataSheet1[$i]->FechaRecibidoOC);
+                $sheet1->setCellValue('Q' . $count, $dataSheet1[$i]->ASFechaVencimientoOC);
+                ++$count;
+            }
+
+            $query = "
+            SELECT 
+                         ta.Descripcion TipoResultado,
+                         ea.Descripcion EstatusResultados,
+                         ac.monto Monto,
+                         ac.ClaveAccion ClaveResultado,
+                         ac.TextoAccion ResultadoObservacion,
+                         ac.accionSuperviviente ResultadoSuperviviente,
+                         ac.numeroResultado NumeroResultado
+                         
+                         FROM SICSA.acciones ac
+                          LEFT JOIN SICSA.auditoria aud on ac.idAuditoria = aud.id 
+                          LEFT JOIN SICSA.Cat_Estatus_Acciones ea ON ac.idEstatusAccion = ea.id
+                          LEFT JOIN SICSA.Cat_Tipos_Accion ta  ON ac.idTipoAccion = ta.id
+                         
+                         WHERE 
+                         ac.deleted = 0
+                         and aud.NAUDITORIA = ?
+                         ";
+            $dataSheet1 = DB::select($query, [$auditoria->NAUDITORIA]);
+            $count = 11;
+            for ($i = 0; $i < count($dataSheet1); ++$i) {
+                $sheet1->setCellValue('S' . $count, $dataSheet1[$i]->TipoResultado);
+                $sheet1->setCellValue('T' . $count, $dataSheet1[$i]->EstatusResultados);
+                $sheet1->setCellValue('U' . $count, $dataSheet1[$i]->Monto);
+                $sheet1->setCellValue('V' . $count, $dataSheet1[$i]->ClaveResultado);
+                $sheet1->setCellValue('W' . $count, $dataSheet1[$i]->ResultadoObservacion);
+                $sheet1->setCellValue('X' . $count, $dataSheet1[$i]->ResultadoSuperviviente);
+                $sheet1->setCellValue('Y' . $count, $dataSheet1[$i]->NumeroResultado);
+
+                ++$count;
+            }
+
+            $query = "
                                  SELECT
                          uni.Descripcion AS AreaNotificada,
                          na.Oficio AS OficioNotificación,
-                         na.FOficio AS Fecha,
+                         DATE(na.FOficio) AS Fecha,
                          (SELECT ca.Oficio FROM SICSA.C_Contestacion_area ca WHERE ca.idNotificacion = na.id AND ca.deleted = 0 LIMIT 1) AS OficioContestación,
-                         (SELECT ca.FRecibido FROM SICSA.C_Contestacion_area ca WHERE ca.idNotificacion = na.id AND ca.deleted = 0 LIMIT 1) AS FechaRecibido
+                         (SELECT DATE(ca.FRecibido) FROM SICSA.C_Contestacion_area ca WHERE ca.idNotificacion = na.id AND ca.deleted = 0 LIMIT 1) AS FechaRecibido
                         
                      FROM
                          SICSA.auditoria aud
@@ -51,14 +168,16 @@ class InfoAuditoriaController extends Controller
             $dataSheet1 = DB::select($query, [$auditoria->NAUDITORIA]);
             $count = 11;
             for ($i = 0; $i < count($dataSheet1); ++$i) {
-                $sheet1->setCellValue('A' . $count, $dataSheet1[$i]->AreaNotificada);
-                $sheet1->setCellValue('B' . $count, $dataSheet1[$i]->OficioNotificación);
-                $sheet1->setCellValue('C' . $count, $dataSheet1[$i]->Fecha);
-                $sheet1->setCellValue('D' . $count, '');
-                $sheet1->setCellValue('E' . $count, $dataSheet1[$i]->OficioContestación);
-                $sheet1->setCellValue('F' . $count, $dataSheet1[$i]->FechaRecibido);
+                $sheet1->setCellValue('AA' . $count, $dataSheet1[$i]->AreaNotificada);
+                $sheet1->setCellValue('AB' . $count, $dataSheet1[$i]->OficioNotificación);
+                $sheet1->setCellValue('AC' . $count, $dataSheet1[$i]->Fecha);
+                $sheet1->setCellValue('AD' . $count, '');
+                $sheet1->setCellValue('AE' . $count, $dataSheet1[$i]->OficioContestación);
+                $sheet1->setCellValue('AF' . $count, $dataSheet1[$i]->FechaRecibido);
                 ++$count;
             }
+
+
 
 
 
