@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $ModificadoPor
  * @property string $CreadoPor
  * @property string|null $Descripcion
- *
+ *@property string|null $Clave
  * @package App\Models
  */
 class CatTiposOficio extends Model
@@ -39,6 +39,7 @@ class CatTiposOficio extends Model
 		'FechaCreacion',
 		'ModificadoPor',
 		'CreadoPor',
-		'Descripcion'
+		'Descripcion',
+		'Clave'
 	];
 }

@@ -113,7 +113,8 @@ class OficiosAController extends Controller
                 ofa.FechaVencimiento,
                 ofa.idAuditoria,
                 ofa.idOficios,
-                tof.Descripcion tofDescripcion
+                tof.Descripcion tofDescripcion,
+                tof.id tofid
                 
                 FROM SICSA.OficiosA ofa
                  

@@ -35,6 +35,7 @@ class TiposOficioController extends Controller
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->CreadoPor = $request->CHUSER;
                     $OBJ->Descripcion = $request->DESCRIPCION;
+                    $OBJ->Clave = $request->Clave;
                     $OBJ->save();
                     $response = $OBJ;
     
@@ -44,6 +45,7 @@ class TiposOficioController extends Controller
                     $OBJ = CatTiposOficio::find($request->CHID);
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->Descripcion = $request->DESCRIPCION;
+                    $OBJ->Clave = $request->Clave;
                     $OBJ->save();
                     $response = $OBJ;
     
@@ -64,6 +66,7 @@ class TiposOficioController extends Controller
                     deleted, 
                     UltimaActualizacion, 
                     FechaCreacion,
+                    Clave,
                     getUserName(ModificadoPor) ModificadoPor,
                     getUserName(CreadoPor) CreadoPor,
                     Descripcion
