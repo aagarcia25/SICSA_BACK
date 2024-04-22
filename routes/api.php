@@ -35,6 +35,7 @@ use App\Http\Controllers\FormatosController;
 use App\Http\Controllers\InfoAuditoriaController;
 use App\Http\Controllers\MonitorController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TiposOficioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,4 +95,6 @@ Route::group([
     Route::post('Monitoreo_index', [MonitorController::class, 'Monitoreo_index']);
     Route::post('informes', [FormatosController::class, 'informes']);
     Route::post('handleReport', [InfoAuditoriaController::class, 'handleReport']);
+    Route::post('TipoOficio_index', [TiposOficioController::class, 'TipoOficio_index']);
+
 });

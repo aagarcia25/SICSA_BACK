@@ -109,8 +109,9 @@ class SelectController extends Controller
                 $query = "  SELECT id  value , Nombre label FROM SICSA.Cat_Personal WHERE DELETED=0";
             }elseif ($type == 28) {
                 $query = "  SELECT id  value , CorreoElectronico label FROM SICSA.Cat_Personal WHERE DELETED=0";
+            }elseif ($type == 29) {
+                $query = "  SELECT id  value , Descripcion label FROM SICSA.Cat_Tipos_Oficios WHERE DELETED=0";
             }
-   
    
 
             $response = DB::select($query);

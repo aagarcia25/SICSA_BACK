@@ -44,6 +44,8 @@ class OficiosAController extends Controller
                 $OBJ->Oficio           = $request->Oficio;
                 $OBJ->FechaRecibido    = $request->FechaRecibido;
                 $OBJ->FechaVencimiento = $request->FechaVencimiento;
+                $OBJ->idOficios = $request->idOficios;
+                
 
                 if ($OBJ->save()) {
 
@@ -87,6 +89,8 @@ class OficiosAController extends Controller
                 $OBJ->Oficio           = $request->Oficio;
                 $OBJ->FechaRecibido    = $request->FechaRecibido;
                 $OBJ->FechaVencimiento = $request->FechaVencimiento;
+                $OBJ->idOficios = $request->idOficios;
+
                 $OBJ->save();
                 $response = $OBJ;
             } else if ($type == 3) {
@@ -97,19 +101,28 @@ class OficiosAController extends Controller
                 $response = $OBJ;
             } else if ($type == 4) {
                 $query = "
-                    SELECT               
-                    id,
-                    deleted,
-                    UltimaActualizacion,
-                    FechaCreacion,
-                    getUserName(ModificadoPor) modi,
-                    getUserName(CreadoPor) creado,
-                    Oficio,
-                    FechaRecibido,
-                    FechaVencimiento,
-                    idAuditoria
-                    FROM SICSA.OficiosA   
-                    where deleted =0
+                SELECT               
+                ofa.id,
+                ofa.deleted,
+                ofa.UltimaActualizacion,
+                ofa.FechaCreacion,
+                getUserName(ofa.ModificadoPor) modi,
+                getUserName(ofa.CreadoPor) creado,
+                ofa.Oficio,
+                ofa.FechaRecibido,
+                ofa.FechaVencimiento,
+                ofa.idAuditoria,
+                ofa.idOficios,
+                tof.Descripcion tofDescripcion,
+                tof.id tofid
+                
+                FROM SICSA.OficiosA ofa
+                 
+                 LEFT JOIN
+                     SICSA.Cat_Tipos_Oficios tof ON ofa.idOficios = tof.id
+                
+                where ofa.deleted =0
+                     
                     ";
                 $query =  $query . " and    idAuditoria='" . $request->P_IDAUDITORIA . "'
                 order by Oficio desc
