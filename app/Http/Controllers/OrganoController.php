@@ -88,9 +88,9 @@ class OrganoController extends Controller
                 getUserName(ca.CreadoPor) creado,
                 ca.Oficio,
                 ca.SIGAOficio,
-                ca.FOficio,
-                ca.FRecibido,
-                ca.FVencimiento,
+                TO_CHAR(ca.FOficio, 'DD/MM/YYYY') as  FOficio,
+                TO_CHAR(ca.FRecibido, 'DD/MM/YYYY') as FRecibido,
+                TO_CHAR(ca.FVencimiento, 'DD/MM/YYYY') as FVencimiento,
                 sec.id secid,
                 sec.Descripcion descripcionsec,
                 ca.idCatInforme,
@@ -99,7 +99,7 @@ class OrganoController extends Controller
                 FROM SICSA.Organo_C ca
                 INNER JOIN SICSA.Cat_Origen_Auditoria sec ON ca.idOrganoAuditorOrigen = sec.id
                 INNER JOIN SICSA.auditoria aud ON ca.idAuditoria = aud.id 
-                INNER JOIN SICSA.Cat_Informes ci ON ca.idCatInforme = ci.id
+                left JOIN SICSA.Cat_Informes ci ON ca.idCatInforme = ci.id
                 where ca.deleted =0
                     ";
                 $query = $query . " and    ca.idAuditoria='" . $request->P_IDAUDITORIA . "'
@@ -219,9 +219,9 @@ class OrganoController extends Controller
                 getUserName(organo.CreadoPor) creado,
                 organo.Oficio,
                 organo.SIGAOficio,
-                organo.FOficio,
-                organo.FRecibido,
-                organo.FVencimiento,
+                TO_CHAR(organo.FOficio, 'DD/MM/YYYY') as FOficio,
+                TO_CHAR(organo.FRecibido, 'DD/MM/YYYY') as FRecibido,
+                TO_CHAR(organo.FVencimiento, 'DD/MM/YYYY') as FVencimiento,
                 origen.id origenid,
                 origen.Descripcion descripcionorigen
                 FROM SICSA.Organo_R organo

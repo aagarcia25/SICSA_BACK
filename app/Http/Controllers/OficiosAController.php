@@ -47,7 +47,7 @@ class OficiosAController extends Controller
                 $OBJ->idOficios = $request->idOficios;
                 $OBJ->Descripcion = $request->Descripcion;
 
-                
+
 
                 if ($OBJ->save()) {
 
@@ -113,19 +113,16 @@ class OficiosAController extends Controller
                 getUserName(ofa.ModificadoPor) modi,
                 getUserName(ofa.CreadoPor) creado,
                 ofa.Oficio,
-                ofa.FechaRecibido,
-                ofa.FechaVencimiento,
+                TO_CHAR(ofa.FechaRecibido, 'DD/MM/YYYY') as FechaRecibido,
+                TO_CHAR(ofa.FechaVencimiento,'DD/MM/YYYY') as FechaVencimiento,
                 ofa.idAuditoria,
                 ofa.idOficios,
                 tof.Descripcion tofDescripcion,
                 tof.id tofid,
                 ofa.Descripcion
-                
                 FROM SICSA.OficiosA ofa
-                 
                  LEFT JOIN
                      SICSA.Cat_Tipos_Oficios tof ON ofa.idOficios = tof.id
-                
                 where ofa.deleted =0
                      
                     ";
@@ -133,34 +130,6 @@ class OficiosAController extends Controller
                 order by Oficio desc
                 ";
                 $response = DB::select($query);
-
-                //                     $query = "
-                //     SELECT               
-                //         oa.id,
-                //         oa.deleted,
-                //         oa.UltimaActualizacion,
-                //         oa.FechaCreacion,
-                //         getUserName(oa.ModificadoPor) modi,
-                //         getUserName(oa.CreadoPor) creado,
-                //         oa.Oficio,
-                //         oa.FechaRecibido,
-                //         oa.FechaVencimiento,
-                //         oa.idAuditoria,
-                //         cff.id AS cff_id,
-                //         cff.CHUSER AS cff_CHUSER,
-                //         cff.CHUSER AS cff_CHUSER,
-                //         cff.Route AS cff_Route,
-                //         cff.Nombre AS cff_Nombre
-                //     FROM SICSA.OficiosA oa
-                //     LEFT JOIN SICSA.cfolios cf ON oa.Oficio = cf.Oficio
-                //     LEFT JOIN SICSA.cfoliosfiles cff ON cf.id = cff.idfolio
-                //     WHERE oa.deleted = 0
-                //     AND oa.idAuditoria = '" . $request->P_IDAUDITORIA . "'
-                //     AND cf.Oficio = " . $OBJ->Oficio;
-
-                // $response = DB::select($query);
-
-
             } else if ($type == 9) {
                 $CHIDs = $request->input('CHIDs');
                 $response = [];
