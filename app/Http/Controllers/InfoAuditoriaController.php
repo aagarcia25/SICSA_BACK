@@ -196,7 +196,7 @@ foreach ($claves_result as $index => $clave) {
            FROM SICSA.Organo_C oc
            LEFT JOIN SICSA.auditoria aud on oc.idAuditoria = aud.id 
            LEFT JOIN SICSA.Cat_Origen_Auditoria coa ON oc.idOrganoAuditorOrigen = coa.id 
-           LEFT JOIN SICSA.Cat_Informes ci ON aud.idCatInforme = ci.id
+           LEFT JOIN SICSA.Cat_Informes ci ON oc.idCatInforme = ci.id
            
            WHERE aud.deleted = 0
            AND oc.deleted = 0
@@ -237,7 +237,7 @@ foreach ($claves_result as $index => $clave) {
             DATE(orc.FOficio) AS FechaOficiORC,
             DATE(orc.FRecibido) AS FechaRecibidoORC,
             DATE(orc.FVencimiento) AS FechaVencimientoORC,
-            coa.Descripcion
+            coa.Descripcion coaOrigen
             
             
             FROM SICSA.Organo_R orc
