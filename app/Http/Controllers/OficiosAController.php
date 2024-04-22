@@ -45,6 +45,8 @@ class OficiosAController extends Controller
                 $OBJ->FechaRecibido    = $request->FechaRecibido;
                 $OBJ->FechaVencimiento = $request->FechaVencimiento;
                 $OBJ->idOficios = $request->idOficios;
+                $OBJ->Descripcion = $request->Descripcion;
+
                 
 
                 if ($OBJ->save()) {
@@ -90,6 +92,8 @@ class OficiosAController extends Controller
                 $OBJ->FechaRecibido    = $request->FechaRecibido;
                 $OBJ->FechaVencimiento = $request->FechaVencimiento;
                 $OBJ->idOficios = $request->idOficios;
+                $OBJ->Descripcion = $request->Descripcion;
+
 
                 $OBJ->save();
                 $response = $OBJ;
@@ -114,7 +118,8 @@ class OficiosAController extends Controller
                 ofa.idAuditoria,
                 ofa.idOficios,
                 tof.Descripcion tofDescripcion,
-                tof.id tofid
+                tof.id tofid,
+                ofa.Descripcion
                 
                 FROM SICSA.OficiosA ofa
                  
