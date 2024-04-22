@@ -97,7 +97,7 @@ class NotificacionController extends Controller
                     where ca.deleted =0
                     ";
                 $query = $query . " and    idAuditoria='" . $request->P_IDAUDITORIA . "'
-                order by Oficio desc";
+                order by Oficio asc";
                 $response = DB::select($query);
             } elseif ($type == 5) {
 
