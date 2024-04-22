@@ -102,13 +102,13 @@ class ContestacionController extends Controller
                 ca.Prorroga,
                 ca.Oficio,
                 ca.SIGAOficio,
-                ca.FOficio,
+                 TO_CHAR(ca.FOficio, 'DD/MM/YYYY') as FOficio,
                 sec.id secid,
                 sec.Descripcion secretaria,
                 uni.id uniid,
                 uni.Descripcion unidad, 
-                ca.FRecibido,
-                ca.FVencimiento,
+                TO_CHAR(ca.FRecibido, 'DD/MM/YYYY') as FRecibido,
+                TO_CHAR(ca.FVencimiento, 'DD/MM/YYYY') as FVencimiento,
                 na.idAuditoria,
                 aud.NAUDITORIA
                FROM SICSA.C_Contestacion_area ca
