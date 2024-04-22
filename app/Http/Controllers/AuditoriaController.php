@@ -48,7 +48,7 @@ class AuditoriaController extends Controller
                 $OBJ->idCatSector = $request->idCatSector;
                 $OBJ->idCatEntidadFiscalizada = $request->idCatEntidadFiscalizada;
                 $OBJ->idTipoAuditoria = $request->idTipoAuditoria;
-                $OBJ->idCatInforme = $request->idCatInforme;
+                //$OBJ->idCatInforme = $request->idCatInforme;
                 $OBJ->idUnidadAdm = $request->idUnidadAdm;
                 $OBJ->idAreaAdm = $request->idAreaAdm;
                 $OBJ->idRamo = $request->idRamo;
@@ -81,7 +81,7 @@ class AuditoriaController extends Controller
                 $OBJ->idCatSector = $request->idCatSector;
                 $OBJ->idCatEntidadFiscalizada = $request->idCatEntidadFiscalizada;
                 $OBJ->idTipoAuditoria = $request->idTipoAuditoria;
-                $OBJ->idCatInforme = $request->idCatInforme;
+                //$OBJ->idCatInforme = $request->idCatInforme;
                 $OBJ->idUnidadAdm = $request->idUnidadAdm;
                 $OBJ->idAreaAdm = $request->idAreaAdm;
                 $OBJ->idRamo = $request->idRamo;
@@ -134,8 +134,7 @@ class AuditoriaController extends Controller
                     cef.Descripcion cefDescripcion,
                     cta.id ctaid,
                     cta.Descripcion ctaDescripcion,
-                    ci.id ciid,
-                    ci.Descripcion ciDescripcion,
+                    
                     cuaa.id cuaaid,
                     cuaa.Descripcion cuaaDescripcion,
                     caa.id caaid,
@@ -161,7 +160,6 @@ class AuditoriaController extends Controller
                     LEFT JOIN SICSA.Cat_Sector cs ON aud.idCatSector = cs.id
                     LEFT JOIN SICSA.Cat_Entidad_Fiscalizada cef ON cef.id=aud.idCatEntidadFiscalizada
                     LEFT JOIN SICSA.Cat_Tipos_Auditoria cta ON aud.idTipoAuditoria = cta.id
-                    LEFT JOIN SICSA.Cat_Informes ci ON aud.idCatInforme = ci.id
                     LEFT JOIN SICSA.Cat_Unidad_Admin_Auditora cuaa ON aud.idUnidadAdm = cuaa.id
                     LEFT JOIN SICSA.cat_area_auditoras caa ON aud.idAreaAdm = caa.id
                     LEFT JOIN SICSA.cat_ramo cr ON aud.idRamo = cr.id
