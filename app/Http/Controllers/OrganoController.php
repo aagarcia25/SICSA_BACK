@@ -96,13 +96,12 @@ class OrganoController extends Controller
                 ca.FRecibido,
                 ca.FVencimiento,
                 sec.id secid,
-                sec.Descripcion descripcionsec,
-                ci.Descripcion ciDescricpion,
-                ci.id ciid
+                sec.Descripcion descripcionsec
+                
                 FROM SICSA.Organo_C ca
                 INNER JOIN SICSA.Cat_Origen_Auditoria sec ON ca.idOrganoAuditorOrigen = sec.id
                 INNER JOIN SICSA.auditoria aud ON ca.idAuditoria = aud.id 
-                INNER JOIN SICSA.Cat_Informes ci ON aud.idCatInforme = ci.id
+               
                 where ca.deleted =0
                     ";
                 $query = $query . " and    ca.idAuditoria='" . $request->P_IDAUDITORIA . "'
