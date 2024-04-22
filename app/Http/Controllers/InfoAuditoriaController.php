@@ -232,47 +232,44 @@ foreach ($claves_result as $index => $clave) {
             
             $query = "
             SELECT 
-        (SELECT c.Descripcion FROM SICSA.Cat_Origen_Auditoria c WHERE c.id = orc.idOrganoAuditorDestino) AS coaDesDestino,
-        (SELECT c.Descripcion FROM SICSA.Cat_Origen_Auditoria c WHERE c.id = orc.idOrganoAuditorOrigen) AS coaOrigen,
-        
-        orc.Oficio OficioORC,
-        orc.SIGAOficio SIGAORC,
-        DATE(orc.FOficio) AS FechaOficiORC,
-        DATE(orc.FRecibido) AS FechaRecibidoORC,
-        DATE(orc.FVencimiento) AS FechaVencimientoORC
-        
-        
-        FROM SICSA.Organo_R orc
-        LEFT JOIN SICSA.Organo_C oc ON orc.idOrganoC = oc.id
-        LEFT JOIN SICSA.auditoria aud ON oc.idAuditoria = aud.id
-       
-        
-        WHERE aud.deleted = 0
-        AND orc.deleted=0
-        AND aud.NAUDITORIA = ?
+            orc.Oficio OficioORC,
+            orc.SIGAOficio SIGAORC,
+            DATE(orc.FOficio) AS FechaOficiORC,
+            DATE(orc.FRecibido) AS FechaRecibidoORC,
+            DATE(orc.FVencimiento) AS FechaVencimientoORC,
+            coa.Descripcion
+            
+            
+            FROM SICSA.Organo_R orc
+            LEFT JOIN SICSA.Organo_C oc ON orc.idOrganoC = oc.id
+            LEFT JOIN SICSA.auditoria aud ON oc.idAuditoria = aud.id
+            LEFT JOIN SICSA.Cat_Origen_Auditoria coa ON orc.idOrganoAuditorOrigen = coa.id
+           
+            
+            WHERE aud.deleted = 0
+            AND orc.deleted=0
+            AND aud.NAUDITORIA = ?
                          ";
             $dataSheet1 = DB::select($query, [$auditoria->NAUDITORIA]);
             $count = 11;
             if ($fechas){
                 for ($i = 0; $i < count($dataSheet1); ++$i) {
                     $sheet1->setCellValue('AD' . $count, $dataSheet1[$i]->coaOrigen);
-                    $sheet1->setCellValue('AE' . $count, $dataSheet1[$i]->coaDesDestino);
-                    $sheet1->setCellValue('AF' . $count, $dataSheet1[$i]->OficioORC);
-                    $sheet1->setCellValue('AG' . $count, $dataSheet1[$i]->SIGAORC);
-                    $sheet1->setCellValue('AH' . $count, $dataSheet1[$i]->FechaOficiORC);
-                    $sheet1->setCellValue('AI' . $count, $dataSheet1[$i]->FechaRecibidoORC);
-                    $sheet1->setCellValue('AJ' . $count, $dataSheet1[$i]->FechaVencimientoORC);
+                    $sheet1->setCellValue('AE' . $count, $dataSheet1[$i]->OficioORC);
+                    $sheet1->setCellValue('AF' . $count, $dataSheet1[$i]->SIGAORC);
+                    $sheet1->setCellValue('AG' . $count, $dataSheet1[$i]->FechaOficiORC);
+                    $sheet1->setCellValue('AH' . $count, $dataSheet1[$i]->FechaRecibidoORC);
+                    $sheet1->setCellValue('AI' . $count, $dataSheet1[$i]->FechaVencimientoORC);
                     ++$count;     
                     } 
             }else {
                 for ($i = 0; $i < count($dataSheet1); ++$i){
                     $sheet1->setCellValue('Z' . $count, $dataSheet1[$i]->coaOrigen);
-                    $sheet1->setCellValue('AA' . $count, $dataSheet1[$i]->coaDesDestino);
-                    $sheet1->setCellValue('AB' . $count, $dataSheet1[$i]->OficioORC);
-                    $sheet1->setCellValue('AC' . $count, $dataSheet1[$i]->SIGAORC);
-                    $sheet1->setCellValue('AD' . $count, $dataSheet1[$i]->FechaOficiORC);
-                    $sheet1->setCellValue('AE' . $count, $dataSheet1[$i]->FechaRecibidoORC);
-                    $sheet1->setCellValue('AF' . $count, $dataSheet1[$i]->FechaVencimientoORC);
+                    $sheet1->setCellValue('AA' . $count, $dataSheet1[$i]->OficioORC);
+                    $sheet1->setCellValue('AB' . $count, $dataSheet1[$i]->SIGAORC);
+                    $sheet1->setCellValue('AC' . $count, $dataSheet1[$i]->FechaOficiORC);
+                    $sheet1->setCellValue('AD' . $count, $dataSheet1[$i]->FechaRecibidoORC);
+                    $sheet1->setCellValue('AE' . $count, $dataSheet1[$i]->FechaVencimientoORC);
                     ++$count;     
                     }
                     
@@ -302,26 +299,26 @@ foreach ($claves_result as $index => $clave) {
             $count = 11;
             if ($fechas){
                 for ($i = 0; $i < count($dataSheet1); ++$i) {
-                $sheet1->setCellValue('AL' . $count, $dataSheet1[$i]->TipoResultado);
-                $sheet1->setCellValue('AM' . $count, $dataSheet1[$i]->EstatusResultados);
-                $sheet1->setCellValue('AN' . $count, $dataSheet1[$i]->Monto);
-                $sheet1->setCellValue('AO' . $count, $dataSheet1[$i]->ClaveResultado);
-                $sheet1->setCellValue('AP' . $count, $dataSheet1[$i]->ResultadoObservacion);
-                $sheet1->setCellValue('AQ' . $count, $dataSheet1[$i]->ResultadoSuperviviente);
-                $sheet1->setCellValue('AR' . $count, $dataSheet1[$i]->NumeroResultado);
+                $sheet1->setCellValue('AK' . $count, $dataSheet1[$i]->TipoResultado);
+                $sheet1->setCellValue('AL' . $count, $dataSheet1[$i]->EstatusResultados);
+                $sheet1->setCellValue('AM' . $count, $dataSheet1[$i]->Monto);
+                $sheet1->setCellValue('AN' . $count, $dataSheet1[$i]->ClaveResultado);
+                $sheet1->setCellValue('AO' . $count, $dataSheet1[$i]->ResultadoObservacion);
+                $sheet1->setCellValue('AP' . $count, $dataSheet1[$i]->ResultadoSuperviviente);
+                $sheet1->setCellValue('AQ' . $count, $dataSheet1[$i]->NumeroResultado);
 
                 ++$count;
             }
             
             }else {
                 for ($i = 0; $i < count($dataSheet1); ++$i) {
-                    $sheet1->setCellValue('AH' . $count, $dataSheet1[$i]->TipoResultado);
-                    $sheet1->setCellValue('AI' . $count, $dataSheet1[$i]->EstatusResultados);
-                    $sheet1->setCellValue('AJ' . $count, $dataSheet1[$i]->Monto);
-                    $sheet1->setCellValue('AK' . $count, $dataSheet1[$i]->ClaveResultado);
-                    $sheet1->setCellValue('AL' . $count, $dataSheet1[$i]->ResultadoObservacion);
-                    $sheet1->setCellValue('AM' . $count, $dataSheet1[$i]->ResultadoSuperviviente);
-                    $sheet1->setCellValue('AN' . $count, $dataSheet1[$i]->NumeroResultado);
+                    $sheet1->setCellValue('AG' . $count, $dataSheet1[$i]->TipoResultado);
+                    $sheet1->setCellValue('AH' . $count, $dataSheet1[$i]->EstatusResultados);
+                    $sheet1->setCellValue('AI' . $count, $dataSheet1[$i]->Monto);
+                    $sheet1->setCellValue('AJ' . $count, $dataSheet1[$i]->ClaveResultado);
+                    $sheet1->setCellValue('AK' . $count, $dataSheet1[$i]->ResultadoObservacion);
+                    $sheet1->setCellValue('AL' . $count, $dataSheet1[$i]->ResultadoSuperviviente);
+                    $sheet1->setCellValue('AM' . $count, $dataSheet1[$i]->NumeroResultado);
     
                     ++$count;
             }
@@ -357,22 +354,22 @@ foreach ($claves_result as $index => $clave) {
             $count = 11;
             if ($fechas){
                 for ($i = 0; $i < count($dataSheet1); ++$i) {
-                $sheet1->setCellValue('AT' . $count, $dataSheet1[$i]->AreaNotificada);
-                $sheet1->setCellValue('AU' . $count, $dataSheet1[$i]->OficioNotificación);
-                $sheet1->setCellValue('AV' . $count, $dataSheet1[$i]->Fecha);
-                $sheet1->setCellValue('AW' . $count, $dataSheet1[$i]->obtenerAsunto);
-                $sheet1->setCellValue('AX' . $count, $dataSheet1[$i]->OficioContestación);
-                $sheet1->setCellValue('AY' . $count, $dataSheet1[$i]->FechaRecibido);
+                $sheet1->setCellValue('AS' . $count, $dataSheet1[$i]->AreaNotificada);
+                $sheet1->setCellValue('AT' . $count, $dataSheet1[$i]->OficioNotificación);
+                $sheet1->setCellValue('AU' . $count, $dataSheet1[$i]->Fecha);
+                $sheet1->setCellValue('AV' . $count, $dataSheet1[$i]->obtenerAsunto);
+                $sheet1->setCellValue('AW' . $count, $dataSheet1[$i]->OficioContestación);
+                $sheet1->setCellValue('AX' . $count, $dataSheet1[$i]->FechaRecibido);
                 ++$count;
             }
             }else {
                 for ($i = 0; $i < count($dataSheet1); ++$i) {
-                    $sheet1->setCellValue('AP' . $count, $dataSheet1[$i]->AreaNotificada);
-                    $sheet1->setCellValue('AQ' . $count, $dataSheet1[$i]->OficioNotificación);
-                    $sheet1->setCellValue('AR' . $count, $dataSheet1[$i]->Fecha);
-                    $sheet1->setCellValue('AS' . $count, $dataSheet1[$i]->obtenerAsunto);
-                    $sheet1->setCellValue('AT' . $count, $dataSheet1[$i]->OficioContestación);
-                    $sheet1->setCellValue('AU' . $count, $dataSheet1[$i]->FechaRecibido);
+                    $sheet1->setCellValue('AO' . $count, $dataSheet1[$i]->AreaNotificada);
+                    $sheet1->setCellValue('AP' . $count, $dataSheet1[$i]->OficioNotificación);
+                    $sheet1->setCellValue('AQ' . $count, $dataSheet1[$i]->Fecha);
+                    $sheet1->setCellValue('AR' . $count, $dataSheet1[$i]->obtenerAsunto);
+                    $sheet1->setCellValue('AS' . $count, $dataSheet1[$i]->OficioContestación);
+                    $sheet1->setCellValue('AT' . $count, $dataSheet1[$i]->FechaRecibido);
                     ++$count;          
                 }
             }

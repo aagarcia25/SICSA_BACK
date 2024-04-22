@@ -48,11 +48,9 @@ class OrganoController extends Controller
                 $OBJ->FRecibido = $request->FRecibido;
                 $OBJ->FVencimiento = $request->FVencimiento;
                 $OBJ->idOrganoAuditorOrigen = $request->idOrganoAuditorOrigen;
-                $OBJ1 = Auditorium::find($request->idAuditoria);
-                $OBJ1->idCatInforme = $request->idCatInforme;
+                $OBJ->idCatInforme = $request->idCatInforme;
 
                 $OBJ->save();
-                $OBJ1->save();
 
                 $response = $OBJ;
             } elseif ($type == 2) {
@@ -67,11 +65,9 @@ class OrganoController extends Controller
                 $OBJ->FRecibido = $request->FRecibido;
                 $OBJ->FVencimiento = $request->FVencimiento;
                 $OBJ->idOrganoAuditorOrigen = $request->idOrganoAuditorOrigen;
-                $OBJ1 = Auditorium::find($request->idAuditoria);
-                $OBJ1->idCatInforme = $request->idCatInforme;
+                $OBJ->idCatInforme = $request->idCatInforme;
 
                 $OBJ->save();
-                $OBJ1->save();
 
                 $response = $OBJ;
             } elseif ($type == 3) {
@@ -97,12 +93,13 @@ class OrganoController extends Controller
                 ca.FVencimiento,
                 sec.id secid,
                 sec.Descripcion descripcionsec,
-                ci.Descripcion ciDescricpion,
+                ca.idCatInforme,
+                ci.Descripcion ciDescripcion,
                 ci.id ciid
                 FROM SICSA.Organo_C ca
                 INNER JOIN SICSA.Cat_Origen_Auditoria sec ON ca.idOrganoAuditorOrigen = sec.id
                 INNER JOIN SICSA.auditoria aud ON ca.idAuditoria = aud.id 
-                INNER JOIN SICSA.Cat_Informes ci ON aud.idCatInforme = ci.id
+                INNER JOIN SICSA.Cat_Informes ci ON ca.idCatInforme = ci.id
                 where ca.deleted =0
                     ";
                 $query = $query . " and    ca.idAuditoria='" . $request->P_IDAUDITORIA . "'
@@ -168,7 +165,6 @@ class OrganoController extends Controller
                 $OBJ->FRecibido = $request->FRecibido;
                 $OBJ->FVencimiento = $request->FVencimiento;
                 $OBJ->idOrganoAuditorOrigen = $request->idOrganoAuditorOrigen;
-                $OBJ->idOrganoAuditorDestino = $request->idOrganoAuditorDestino;
 
                 if ($OBJ->save()) {
                     // $response = DB::select("SELECT  ? as id, ? as ModificadoPor, ? as CreadoPor, cff.Route, cff.Nombre FROM 
@@ -202,7 +198,6 @@ class OrganoController extends Controller
                 $OBJ->FRecibido = $request->FRecibido;
                 $OBJ->FVencimiento = $request->FVencimiento;
                 $OBJ->idOrganoAuditorOrigen = $request->idOrganoAuditorOrigen;
-                $OBJ->idOrganoAuditorDestino = $request->idOrganoAuditorDestino;
 
                 $OBJ->save();
                 $response = $OBJ;
@@ -216,25 +211,22 @@ class OrganoController extends Controller
 
                 $query = "
                 SELECT
-                    organo.id,
-                    organo.deleted,
-                    organo.UltimaActualizacion,
-                    organo.FechaCreacion,
-                    getUserName(organo.ModificadoPor) modi,
-                    getUserName(organo.CreadoPor) creado,
-                    organo.Oficio,
-                    organo.SIGAOficio,
-                    organo.FOficio,
-                    organo.FRecibido,
-                    organo.FVencimiento,
-                    origen.id origenid,
-                    origen.Descripcion descripcionorigen,
-                    destino.id destinoid,
-                    destino.Descripcion descripciodestino
-                    FROM SICSA.Organo_R organo
-                    left JOIN SICSA.Cat_Origen_Auditoria origen ON origen.id = organo.idOrganoAuditorOrigen
-                    left JOIN SICSA.Cat_Origen_Auditoria destino ON destino.id = organo.idOrganoAuditorDestino
-                    where organo.deleted =0
+                organo.id,
+                organo.deleted,
+                organo.UltimaActualizacion,
+                organo.FechaCreacion,
+                getUserName(organo.ModificadoPor) modi,
+                getUserName(organo.CreadoPor) creado,
+                organo.Oficio,
+                organo.SIGAOficio,
+                organo.FOficio,
+                organo.FRecibido,
+                organo.FVencimiento,
+                origen.id origenid,
+                origen.Descripcion descripcionorigen
+                FROM SICSA.Organo_R organo
+                left JOIN SICSA.Cat_Origen_Auditoria origen ON origen.id = organo.idOrganoAuditorOrigen
+                where organo.deleted =0
                     ";
                 $query = $query . " and    organo.idOrganoC='" . $request->P_IDNOTIFICACION . "'
                 order by Oficio desc";
