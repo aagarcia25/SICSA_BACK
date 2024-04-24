@@ -60,6 +60,7 @@ class OrganoC extends Model
         'FOficio',
         'FRecibido',
         'FVencimiento',
+        'Prorroga',
         'idOrganoAuditorOrigen',
     ];
 

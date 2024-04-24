@@ -58,6 +58,7 @@ class OrganoR extends Model
         'FOficio',
         'FRecibido',
         'FVencimiento',
+        'Prorroga',
         'idOrganoAuditorOrigen',
         'idOrganoAuditorDestino',
     ];
