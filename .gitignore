@@ -17,3 +17,4 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+/var/www/html/SICSA_BACK/public/reportes/auditoria.xlsx
