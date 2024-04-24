@@ -82,6 +82,7 @@ class OrganoController extends Controller
             } elseif ($type == 4) {
 
                 $query = "
+                
                 SELECT
                 ca.id,
                 ca.deleted,
@@ -101,7 +102,8 @@ class OrganoController extends Controller
                 sec.Descripcion descripcionsec,
                 ca.idCatInforme,
                 ci.Descripcion ciDescripcion,
-                ci.id ciid
+                ci.id ciid,
+                (SELECT COUNT(cont.id) FROM SICSA.Organo_R cont WHERE cont.idOrganoC= ca.id) NoContestacion
                 FROM SICSA.Organo_C ca
                 INNER JOIN SICSA.Cat_Origen_Auditoria sec ON ca.idOrganoAuditorOrigen = sec.id
                 INNER JOIN SICSA.auditoria aud ON ca.idAuditoria = aud.id 
