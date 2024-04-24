@@ -99,7 +99,6 @@ class ContestacionController extends Controller
                 ca.idNotificacion,
                 getUserName(ca.ModificadoPor) modi,
                 getUserName(ca.CreadoPor) creado,
-                ca.Prorroga,
                 ca.Oficio,
                 ca.SIGAOficio,
                  TO_CHAR(ca.FOficio, 'DD/MM/YYYY') as FOficio,
@@ -109,6 +108,7 @@ class ContestacionController extends Controller
                 uni.Descripcion unidad, 
                 TO_CHAR(ca.FRecibido, 'DD/MM/YYYY') as FRecibido,
                 TO_CHAR(ca.FVencimiento, 'DD/MM/YYYY') as FVencimiento,
+                TO_CHAR(ca.Prorroga, 'DD/MM/YYYY') as Prorroga,
                 na.idAuditoria,
                 aud.NAUDITORIA
                FROM SICSA.C_Contestacion_area ca
