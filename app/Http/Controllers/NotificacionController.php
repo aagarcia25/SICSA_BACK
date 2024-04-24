@@ -91,7 +91,8 @@ class NotificacionController extends Controller
                     sec.Descripcion secretaria,
                     sec.id secid,
                     uni.id uniid,
-                    uni.Descripcion unidad
+                    uni.Descripcion unidad,
+                    (SELECT COUNT(cont.id) FROM SICSA.C_Contestacion_area cont WHERE cont.idNotificacion= ca.id) NoContestacion
                     FROM SICSA.C_Notificacion_area ca
                     INNER JOIN SICSA.cat_secretarias sec ON ca.idsecretaria = sec.id
                     INNER JOIN SICSA.cat_unidades uni ON ca.idunidad = uni.id
