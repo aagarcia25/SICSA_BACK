@@ -49,6 +49,8 @@ class OrganoController extends Controller
                 $OBJ->FVencimiento = $request->FVencimiento;
                 $OBJ->idOrganoAuditorOrigen = $request->idOrganoAuditorOrigen;
                 $OBJ->idCatInforme = $request->idCatInforme;
+                $OBJ->Prorroga = $request->Prorroga;
+
 
                 $OBJ->save();
 
@@ -66,6 +68,7 @@ class OrganoController extends Controller
                 $OBJ->FVencimiento = $request->FVencimiento;
                 $OBJ->idOrganoAuditorOrigen = $request->idOrganoAuditorOrigen;
                 $OBJ->idCatInforme = $request->idCatInforme;
+                $OBJ->Prorroga = $request->Prorroga;
 
                 $OBJ->save();
 
@@ -79,6 +82,7 @@ class OrganoController extends Controller
             } elseif ($type == 4) {
 
                 $query = "
+                
                 SELECT
                 ca.id,
                 ca.deleted,
@@ -88,14 +92,18 @@ class OrganoController extends Controller
                 getUserName(ca.CreadoPor) creado,
                 ca.Oficio,
                 ca.SIGAOficio,
+
                 TO_CHAR(ca.FOficio, 'DD/MM/YYYY') as  FOficio,
                 TO_CHAR(ca.FRecibido, 'DD/MM/YYYY') as FRecibido,
                 TO_CHAR(ca.FVencimiento, 'DD/MM/YYYY') as FVencimiento,
+                TO_CHAR(ca.Prorroga, 'DD/MM/YYYY') as Prorroga,
+
                 sec.id secid,
                 sec.Descripcion descripcionsec,
                 ca.idCatInforme,
                 ci.Descripcion ciDescripcion,
-                ci.id ciid
+                ci.id ciid,
+                (SELECT COUNT(cont.id) FROM SICSA.Organo_R cont WHERE cont.idOrganoC= ca.id) NoContestacion
                 FROM SICSA.Organo_C ca
                 INNER JOIN SICSA.Cat_Origen_Auditoria sec ON ca.idOrganoAuditorOrigen = sec.id
                 INNER JOIN SICSA.auditoria aud ON ca.idAuditoria = aud.id 
@@ -165,6 +173,8 @@ class OrganoController extends Controller
                 $OBJ->FRecibido = $request->FRecibido;
                 $OBJ->FVencimiento = $request->FVencimiento;
                 $OBJ->idOrganoAuditorOrigen = $request->idOrganoAuditorOrigen;
+                $OBJ->Prorroga = $request->Prorroga;
+
 
                 if ($OBJ->save()) {
                     // $response = DB::select("SELECT  ? as id, ? as ModificadoPor, ? as CreadoPor, cff.Route, cff.Nombre FROM 
@@ -198,6 +208,8 @@ class OrganoController extends Controller
                 $OBJ->FRecibido = $request->FRecibido;
                 $OBJ->FVencimiento = $request->FVencimiento;
                 $OBJ->idOrganoAuditorOrigen = $request->idOrganoAuditorOrigen;
+                $OBJ->Prorroga = $request->Prorroga;
+
 
                 $OBJ->save();
                 $response = $OBJ;
@@ -219,9 +231,12 @@ class OrganoController extends Controller
                 getUserName(organo.CreadoPor) creado,
                 organo.Oficio,
                 organo.SIGAOficio,
+
                 TO_CHAR(organo.FOficio, 'DD/MM/YYYY') as FOficio,
                 TO_CHAR(organo.FRecibido, 'DD/MM/YYYY') as FRecibido,
                 TO_CHAR(organo.FVencimiento, 'DD/MM/YYYY') as FVencimiento,
+                TO_CHAR(organo.Prorroga, 'DD/MM/YYYY') as Prorroga,
+
                 origen.id origenid,
                 origen.Descripcion descripcionorigen
                 FROM SICSA.Organo_R organo
