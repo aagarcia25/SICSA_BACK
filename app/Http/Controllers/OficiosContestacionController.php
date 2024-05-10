@@ -74,32 +74,32 @@ class OficiosContestacionController extends Controller
 
                     $query = "
                     SELECT 
-ofc.id,
-ofc.deleted,
-ofc.UltimaActualizacion,
-ofc.FechaCreacion,
-getUserName(ofc.ModificadoPor) modi,
-getUserName(ofc.CreadoPor) creado,
-ofc.idOficio,
-aud.NAUDITORIA,
-ofc.SIGAOficio,
-TO_CHAR(ofc.Prorroga, 'DD/MM/YYYY') as Prorroga,
-TO_CHAR(ofc.FOficio, 'DD/MM/YYYY') as FOficio,
-TO_CHAR(ofc.FRecibido, 'DD/MM/YYYY') as FRecibido,
-TO_CHAR(ofc.FVencimiento, 'DD/MM/YYYY') as FVencimiento,
-sec.Descripcion secDescripcion,
-sec.id secid,
-cu.Descripcion cuDescripcion,
-cu.id cuid,
-ofc.Oficio
+                    ofc.id,
+                    ofc.deleted,
+                    ofc.UltimaActualizacion,
+                    ofc.FechaCreacion,
+                    getUserName(ofc.ModificadoPor) modi,
+                    getUserName(ofc.CreadoPor) creado,
+                    ofc.idOficio,
+                    aud.NAUDITORIA,
+                    ofc.SIGAOficio,
+                    TO_CHAR(ofc.Prorroga, 'DD/MM/YYYY') as Prorroga,
+                    TO_CHAR(ofc.FOficio, 'DD/MM/YYYY') as FOficio,
+                    TO_CHAR(ofc.FRecibido, 'DD/MM/YYYY') as FRecibido,
+                    TO_CHAR(ofc.FVencimiento, 'DD/MM/YYYY') as FVencimiento,
+                    sec.Descripcion secDescripcion,
+                    sec.id secid,
+                    cu.Descripcion cuDescripcion,
+                    cu.id cuid,
+                    ofc.Oficio
 
-FROM SICSA.Oficios_Contestacion ofc
-INNER JOIN SICSA.OficiosA oa ON ofc.idOficio = oa.id
-INNER JOIN SICSA.auditoria aud ON oa.idAuditoria = aud.id
-INNER JOIN SICSA.cat_secretarias sec ON ofc.idsecretaria = sec.id
-INNER JOIN SICSA.cat_unidades cu ON ofc.idunidad = cu.id
+                    FROM SICSA.Oficios_Contestacion ofc
+                    INNER JOIN SICSA.OficiosA oa ON ofc.idOficio = oa.id
+                    INNER JOIN SICSA.auditoria aud ON oa.idAuditoria = aud.id
+                    INNER JOIN SICSA.cat_secretarias sec ON ofc.idsecretaria = sec.id
+                    INNER JOIN SICSA.cat_unidades cu ON ofc.idunidad = cu.id
 
-WHERE ofc.deleted=0
+                    WHERE ofc.deleted=0
                         ";
                     $query = $query . " and    idOficio='" . $request->P_IDNOTIFICACION . "'
                     order by Oficio asc";
