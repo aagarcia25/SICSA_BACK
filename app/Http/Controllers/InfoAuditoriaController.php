@@ -19,13 +19,13 @@ class InfoAuditoriaController extends Controller
             $fechas = $request->input('Fechas');
 
             $obj = new \stdClass();
-            if($fechas){
+            if ($fechas) {
                 $input = public_path() . '/reportes/informe.xlsx';
-            }else{
+            } else {
                 $input = public_path() . '/reportes/informe2.xlsx';
             }
 
-            
+
             $book = \PhpOffice\PhpSpreadsheet\IOFactory::load($input);
             $sheet1 = $book->getSheetByName('Sheet1');
 
@@ -45,14 +45,14 @@ class InfoAuditoriaController extends Controller
             ORDER BY cto.Clave asc
 ";
 
-$claves_result = DB::select($query_claves);
+            $claves_result = DB::select($query_claves);
 
-$count = 11;
+            $count = 11;
 
-foreach ($claves_result as $index => $clave) {
-    $count = 11;
-    // Consulta SQL para cada clave
-    $query = "
+            foreach ($claves_result as $index => $clave) {
+                $count = 11;
+                // Consulta SQL para cada clave
+                $query = "
         SELECT 
         ofi.Oficio AS Oficio,
         cto.Descripcion AS Descripcion,
@@ -68,19 +68,19 @@ foreach ($claves_result as $index => $clave) {
         AND cto.Clave = ?
     ";
 
-    // Ejecutar la consulta principal
-    $dataSheet1 = DB::select($query, [$auditoria->NAUDITORIA, $clave->Clave]);
+                // Ejecutar la consulta principal
+                $dataSheet1 = DB::select($query, [$auditoria->NAUDITORIA, $clave->Clave]);
 
-    // Asignar los valores a las celdas correspondientes
-    foreach ($dataSheet1 as $data) {
-        $column = chr(65 + $index * 2); // Calcular la letra de la columna
-        $sheet1->setCellValue($column . $count, $data->Oficio); // Asignar valor a la celda correspondiente
-        $sheet1->setCellValue(chr(ord($column) + 1) . $count, $data->FechaVencimiento); // Incrementar la columna y asignar valor a la siguiente celda
-       ++$count;
-    }
-}
+                // Asignar los valores a las celdas correspondientes
+                foreach ($dataSheet1 as $data) {
+                    $column = chr(65 + $index * 2); // Calcular la letra de la columna
+                    $sheet1->setCellValue($column . $count, $data->Oficio); // Asignar valor a la celda correspondiente
+                    $sheet1->setCellValue(chr(ord($column) + 1) . $count, $data->FechaVencimiento); // Incrementar la columna y asignar valor a la siguiente celda
+                    ++$count;
+                }
+            }
 
-            
+
             $query = "
             SELECT 
             sec.Descripcion Secretaria,
@@ -101,37 +101,37 @@ foreach ($claves_result as $index => $clave) {
             order by Oficio asc
 
                          ";
-           
+
             $dataSheet1 = DB::select($query, [$auditoria->NAUDITORIA]);
 
             $count = 11;
-           if ($fechas){
-            for ($i = 0; $i < count($dataSheet1); ++$i) {
-                //$sheet1->setCellValue('D' . $count, $dataSheet1[$i]->Secretaria);
-                $sheet1->setCellValue('H' . $count, $dataSheet1[$i]->UnidadAdministrativa);
-                $sheet1->setCellValue('I' . $count, $dataSheet1[$i]->Oficio);
-                $sheet1->setCellValue('J' . $count, $dataSheet1[$i]->FechaOficioNA);
-                $sheet1->setCellValue('K' . $count, $dataSheet1[$i]->FechaRecibidoNA);
-                $sheet1->setCellValue('L' . $count, $dataSheet1[$i]->FechaVencimientoNA);
-                $sheet1->setCellValue('M' . $count, $dataSheet1[$i]->ProrrogaNA);
+            if ($fechas) {
+                for ($i = 0; $i < count($dataSheet1); ++$i) {
+                    //$sheet1->setCellValue('D' . $count, $dataSheet1[$i]->Secretaria);
+                    $sheet1->setCellValue('H' . $count, $dataSheet1[$i]->UnidadAdministrativa);
+                    $sheet1->setCellValue('I' . $count, $dataSheet1[$i]->Oficio);
+                    $sheet1->setCellValue('J' . $count, $dataSheet1[$i]->FechaOficioNA);
+                    $sheet1->setCellValue('K' . $count, $dataSheet1[$i]->FechaRecibidoNA);
+                    $sheet1->setCellValue('L' . $count, $dataSheet1[$i]->FechaVencimientoNA);
+                    $sheet1->setCellValue('M' . $count, $dataSheet1[$i]->ProrrogaNA);
 
-                ++$count;
-            }
-           }else {
-            for ($i = 0; $i < count($dataSheet1); ++$i) {
-                //$sheet1->setCellValue('D' . $count, $dataSheet1[$i]->Secretaria);
-                $sheet1->setCellValue('H' . $count, $dataSheet1[$i]->UnidadAdministrativa);
-                $sheet1->setCellValue('I' . $count, $dataSheet1[$i]->Oficio);
-                $sheet1->setCellValue('J' . $count, $dataSheet1[$i]->FechaOficioNA);
-                $sheet1->setCellValue('K' . $count, $dataSheet1[$i]->FechaRecibidoNA);
-                //$sheet1->setCellValue('L' . $count, $dataSheet1[$i]->FechaRecibidoNA);
-                //$sheet1->setCellValue('M' . $count, $dataSheet1[$i]->ProrrogaNA);
+                    ++$count;
+                }
+            } else {
+                for ($i = 0; $i < count($dataSheet1); ++$i) {
+                    //$sheet1->setCellValue('D' . $count, $dataSheet1[$i]->Secretaria);
+                    $sheet1->setCellValue('H' . $count, $dataSheet1[$i]->UnidadAdministrativa);
+                    $sheet1->setCellValue('I' . $count, $dataSheet1[$i]->Oficio);
+                    $sheet1->setCellValue('J' . $count, $dataSheet1[$i]->FechaOficioNA);
+                    $sheet1->setCellValue('K' . $count, $dataSheet1[$i]->FechaRecibidoNA);
+                    //$sheet1->setCellValue('L' . $count, $dataSheet1[$i]->FechaRecibidoNA);
+                    //$sheet1->setCellValue('M' . $count, $dataSheet1[$i]->ProrrogaNA);
 
-                ++$count;
+                    ++$count;
+                }
             }
-           }
-                
-           
+
+
 
             $query = "
             SELECT 
@@ -156,30 +156,30 @@ foreach ($claves_result as $index => $clave) {
                          ";
             $dataSheet1 = DB::select($query, [$auditoria->NAUDITORIA]);
             $count = 11;
-            if ($fechas){
-            for ($i = 0; $i < count($dataSheet1); ++$i) {
-                $sheet1->setCellValue('O' . $count, $dataSheet1[$i]->UnidadAdministrativa);
-                $sheet1->setCellValue('P' . $count, $dataSheet1[$i]->Oficio);
-                $sheet1->setCellValue('Q' . $count, $dataSheet1[$i]->FechaOficioCA);
-                $sheet1->setCellValue('R' . $count, $dataSheet1[$i]->FechaRecibidoCA);
-                $sheet1->setCellValue('S' . $count, $dataSheet1[$i]->FechaVencimientoCA);
-                $sheet1->setCellValue('T' . $count, $dataSheet1[$i]->ProrrogaCA);
+            if ($fechas) {
+                for ($i = 0; $i < count($dataSheet1); ++$i) {
+                    $sheet1->setCellValue('O' . $count, $dataSheet1[$i]->UnidadAdministrativa);
+                    $sheet1->setCellValue('P' . $count, $dataSheet1[$i]->Oficio);
+                    $sheet1->setCellValue('Q' . $count, $dataSheet1[$i]->FechaOficioCA);
+                    $sheet1->setCellValue('R' . $count, $dataSheet1[$i]->FechaRecibidoCA);
+                    $sheet1->setCellValue('S' . $count, $dataSheet1[$i]->FechaVencimientoCA);
+                    $sheet1->setCellValue('T' . $count, $dataSheet1[$i]->ProrrogaCA);
 
-                ++$count;
-            }
-            }else{
-            for ($i = 0; $i < count($dataSheet1); ++$i){
-                 $sheet1->setCellValue('M' . $count, $dataSheet1[$i]->UnidadAdministrativa);
-                $sheet1->setCellValue('N' . $count, $dataSheet1[$i]->Oficio);
-                $sheet1->setCellValue('O' . $count, $dataSheet1[$i]->FechaOficioCA);
-                $sheet1->setCellValue('P' . $count, $dataSheet1[$i]->FechaRecibidoCA);
-                //$sheet1->setCellValue('Q' . $count, $dataSheet1[$i]->FechaVencimientoCA);
-                //$sheet1->setCellValue('R' . $count, $dataSheet1[$i]->ProrrogaCA);
+                    ++$count;
+                }
+            } else {
+                for ($i = 0; $i < count($dataSheet1); ++$i) {
+                    $sheet1->setCellValue('M' . $count, $dataSheet1[$i]->UnidadAdministrativa);
+                    $sheet1->setCellValue('N' . $count, $dataSheet1[$i]->Oficio);
+                    $sheet1->setCellValue('O' . $count, $dataSheet1[$i]->FechaOficioCA);
+                    $sheet1->setCellValue('P' . $count, $dataSheet1[$i]->FechaRecibidoCA);
+                    //$sheet1->setCellValue('Q' . $count, $dataSheet1[$i]->FechaVencimientoCA);
+                    //$sheet1->setCellValue('R' . $count, $dataSheet1[$i]->ProrrogaCA);
 
-                ++$count;
+                    ++$count;
+                }
             }
-            }
-            
+
 
 
 
@@ -188,7 +188,7 @@ foreach ($claves_result as $index => $clave) {
             coa.Descripcion UnidadAdministrativa,
             oc.Oficio Oficio,
             oc.SIGAOficio FolioSIGA,
-            ci.Descripcion ciDescripcion,
+          
             DATE(oc.FOficio) AS FechaOficioOC,
             DATE(oc.FRecibido) AS FechaRecibidoOC,
             DATE(oc.FVencimiento) ASFechaVencimientoOC
@@ -196,7 +196,7 @@ foreach ($claves_result as $index => $clave) {
            FROM SICSA.Organo_C oc
            LEFT JOIN SICSA.auditoria aud on oc.idAuditoria = aud.id 
            LEFT JOIN SICSA.Cat_Origen_Auditoria coa ON oc.idOrganoAuditorOrigen = coa.id 
-           LEFT JOIN SICSA.Cat_Informes ci ON oc.idCatInforme = ci.id
+          
            
            WHERE aud.deleted = 0
            AND oc.deleted = 0
@@ -204,19 +204,19 @@ foreach ($claves_result as $index => $clave) {
                          ";
             $dataSheet1 = DB::select($query, [$auditoria->NAUDITORIA]);
             $count = 11;
-            if ($fechas){
+            if ($fechas) {
                 for ($i = 0; $i < count($dataSheet1); ++$i) {
                     $sheet1->setCellValue('V' . $count, $dataSheet1[$i]->UnidadAdministrativa);
                     $sheet1->setCellValue('W' . $count, $dataSheet1[$i]->Oficio);
                     $sheet1->setCellValue('X' . $count, $dataSheet1[$i]->FolioSIGA);
-                    $sheet1->setCellValue('Y' . $count, $dataSheet1[$i]->ciDescripcion);
+                    // $sheet1->setCellValue('Y' . $count, $dataSheet1[$i]->ciDescripcion);
                     $sheet1->setCellValue('Z' . $count, $dataSheet1[$i]->FechaOficioOC);
                     $sheet1->setCellValue('AA' . $count, $dataSheet1[$i]->FechaRecibidoOC);
                     $sheet1->setCellValue('AB' . $count, $dataSheet1[$i]->ASFechaVencimientoOC);
-                    ++$count;     
-                    } 
-            }else {
-                for ($i = 0; $i < count($dataSheet1); ++$i){
+                    ++$count;
+                }
+            } else {
+                for ($i = 0; $i < count($dataSheet1); ++$i) {
                     $sheet1->setCellValue('R' . $count, $dataSheet1[$i]->UnidadAdministrativa);
                     $sheet1->setCellValue('S' . $count, $dataSheet1[$i]->Oficio);
                     $sheet1->setCellValue('T' . $count, $dataSheet1[$i]->FolioSIGA);
@@ -224,12 +224,11 @@ foreach ($claves_result as $index => $clave) {
                     $sheet1->setCellValue('V' . $count, $dataSheet1[$i]->FechaOficioOC);
                     $sheet1->setCellValue('W' . $count, $dataSheet1[$i]->FechaRecibidoOC);
                     $sheet1->setCellValue('X' . $count, $dataSheet1[$i]->ASFechaVencimientoOC);
-                    ++$count;     
-                    }
-                    
+                    ++$count;
+                }
             }
-            
-            
+
+
             $query = "
             SELECT 
             orc.Oficio OficioORC,
@@ -252,7 +251,7 @@ foreach ($claves_result as $index => $clave) {
                          ";
             $dataSheet1 = DB::select($query, [$auditoria->NAUDITORIA]);
             $count = 11;
-            if ($fechas){
+            if ($fechas) {
                 for ($i = 0; $i < count($dataSheet1); ++$i) {
                     $sheet1->setCellValue('AD' . $count, $dataSheet1[$i]->coaOrigen);
                     $sheet1->setCellValue('AE' . $count, $dataSheet1[$i]->OficioORC);
@@ -260,19 +259,18 @@ foreach ($claves_result as $index => $clave) {
                     $sheet1->setCellValue('AG' . $count, $dataSheet1[$i]->FechaOficiORC);
                     $sheet1->setCellValue('AH' . $count, $dataSheet1[$i]->FechaRecibidoORC);
                     $sheet1->setCellValue('AI' . $count, $dataSheet1[$i]->FechaVencimientoORC);
-                    ++$count;     
-                    } 
-            }else {
-                for ($i = 0; $i < count($dataSheet1); ++$i){
+                    ++$count;
+                }
+            } else {
+                for ($i = 0; $i < count($dataSheet1); ++$i) {
                     $sheet1->setCellValue('Z' . $count, $dataSheet1[$i]->coaOrigen);
                     $sheet1->setCellValue('AA' . $count, $dataSheet1[$i]->OficioORC);
                     $sheet1->setCellValue('AB' . $count, $dataSheet1[$i]->SIGAORC);
                     $sheet1->setCellValue('AC' . $count, $dataSheet1[$i]->FechaOficiORC);
                     $sheet1->setCellValue('AD' . $count, $dataSheet1[$i]->FechaRecibidoORC);
                     $sheet1->setCellValue('AE' . $count, $dataSheet1[$i]->FechaVencimientoORC);
-                    ++$count;     
-                    }
-                    
+                    ++$count;
+                }
             }
 
 
@@ -297,20 +295,19 @@ foreach ($claves_result as $index => $clave) {
                          ";
             $dataSheet1 = DB::select($query, [$auditoria->NAUDITORIA]);
             $count = 11;
-            if ($fechas){
+            if ($fechas) {
                 for ($i = 0; $i < count($dataSheet1); ++$i) {
-                $sheet1->setCellValue('AK' . $count, $dataSheet1[$i]->TipoResultado);
-                $sheet1->setCellValue('AL' . $count, $dataSheet1[$i]->EstatusResultados);
-                $sheet1->setCellValue('AM' . $count, $dataSheet1[$i]->Monto);
-                $sheet1->setCellValue('AN' . $count, $dataSheet1[$i]->ClaveResultado);
-                $sheet1->setCellValue('AO' . $count, $dataSheet1[$i]->ResultadoObservacion);
-                $sheet1->setCellValue('AP' . $count, $dataSheet1[$i]->ResultadoSuperviviente);
-                $sheet1->setCellValue('AQ' . $count, $dataSheet1[$i]->NumeroResultado);
+                    $sheet1->setCellValue('AK' . $count, $dataSheet1[$i]->TipoResultado);
+                    $sheet1->setCellValue('AL' . $count, $dataSheet1[$i]->EstatusResultados);
+                    $sheet1->setCellValue('AM' . $count, $dataSheet1[$i]->Monto);
+                    $sheet1->setCellValue('AN' . $count, $dataSheet1[$i]->ClaveResultado);
+                    $sheet1->setCellValue('AO' . $count, $dataSheet1[$i]->ResultadoObservacion);
+                    $sheet1->setCellValue('AP' . $count, $dataSheet1[$i]->ResultadoSuperviviente);
+                    $sheet1->setCellValue('AQ' . $count, $dataSheet1[$i]->NumeroResultado);
 
-                ++$count;
-            }
-            
-            }else {
+                    ++$count;
+                }
+            } else {
                 for ($i = 0; $i < count($dataSheet1); ++$i) {
                     $sheet1->setCellValue('AG' . $count, $dataSheet1[$i]->TipoResultado);
                     $sheet1->setCellValue('AH' . $count, $dataSheet1[$i]->EstatusResultados);
@@ -319,9 +316,9 @@ foreach ($claves_result as $index => $clave) {
                     $sheet1->setCellValue('AK' . $count, $dataSheet1[$i]->ResultadoObservacion);
                     $sheet1->setCellValue('AL' . $count, $dataSheet1[$i]->ResultadoSuperviviente);
                     $sheet1->setCellValue('AM' . $count, $dataSheet1[$i]->NumeroResultado);
-    
+
                     ++$count;
-            }
+                }
             }
             $query = "
             SELECT
@@ -352,17 +349,17 @@ foreach ($claves_result as $index => $clave) {
                          ";
             $dataSheet1 = DB::select($query, [$auditoria->NAUDITORIA]);
             $count = 11;
-            if ($fechas){
+            if ($fechas) {
                 for ($i = 0; $i < count($dataSheet1); ++$i) {
-                $sheet1->setCellValue('AS' . $count, $dataSheet1[$i]->AreaNotificada);
-                $sheet1->setCellValue('AT' . $count, $dataSheet1[$i]->OficioNotificación);
-                $sheet1->setCellValue('AU' . $count, $dataSheet1[$i]->Fecha);
-                $sheet1->setCellValue('AV' . $count, $dataSheet1[$i]->obtenerAsunto);
-                $sheet1->setCellValue('AW' . $count, $dataSheet1[$i]->OficioContestación);
-                $sheet1->setCellValue('AX' . $count, $dataSheet1[$i]->FechaRecibido);
-                ++$count;
-            }
-            }else {
+                    $sheet1->setCellValue('AS' . $count, $dataSheet1[$i]->AreaNotificada);
+                    $sheet1->setCellValue('AT' . $count, $dataSheet1[$i]->OficioNotificación);
+                    $sheet1->setCellValue('AU' . $count, $dataSheet1[$i]->Fecha);
+                    $sheet1->setCellValue('AV' . $count, $dataSheet1[$i]->obtenerAsunto);
+                    $sheet1->setCellValue('AW' . $count, $dataSheet1[$i]->OficioContestación);
+                    $sheet1->setCellValue('AX' . $count, $dataSheet1[$i]->FechaRecibido);
+                    ++$count;
+                }
+            } else {
                 for ($i = 0; $i < count($dataSheet1); ++$i) {
                     $sheet1->setCellValue('AO' . $count, $dataSheet1[$i]->AreaNotificada);
                     $sheet1->setCellValue('AP' . $count, $dataSheet1[$i]->OficioNotificación);
@@ -370,7 +367,7 @@ foreach ($claves_result as $index => $clave) {
                     $sheet1->setCellValue('AR' . $count, $dataSheet1[$i]->obtenerAsunto);
                     $sheet1->setCellValue('AS' . $count, $dataSheet1[$i]->OficioContestación);
                     $sheet1->setCellValue('AT' . $count, $dataSheet1[$i]->FechaRecibido);
-                    ++$count;          
+                    ++$count;
                 }
             }
 
