@@ -37,6 +37,7 @@ use App\Http\Controllers\MonitorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TiposOficioController;
 use App\Http\Controllers\OficiosContestacionController;
+use App\Http\Controllers\EntregaController;
 
 
 
@@ -100,5 +101,6 @@ Route::group([
     Route::post('handleReport', [InfoAuditoriaController::class, 'handleReport']);
     Route::post('TipoOficio_index', [TiposOficioController::class, 'TipoOficio_index']);
     Route::post('OficiosContestacon_index', [OficiosContestacionController::class, 'OficiosContestacon_index']);
+    Route::post('Entregaindex', [EntregaController::class, 'Entregaindex']);
 
 });

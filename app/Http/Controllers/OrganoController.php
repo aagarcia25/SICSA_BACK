@@ -48,7 +48,7 @@ class OrganoController extends Controller
                 $OBJ->FRecibido = $request->FRecibido;
                 $OBJ->FVencimiento = $request->FVencimiento;
                 $OBJ->idOrganoAuditorOrigen = $request->idOrganoAuditorOrigen;
-                $OBJ->idCatInforme = $request->idCatInforme;
+                $OBJ->idEntrega = $request->idEntrega;
                 $OBJ->Prorroga = $request->Prorroga;
 
 
@@ -58,17 +58,16 @@ class OrganoController extends Controller
             } elseif ($type == 2) {
 
                 $OBJ = OrganoC::find($request->CHID);
-                $OBJ->ModificadoPor = $request->CHUSER;
-                $OBJ->CreadoPor = $request->CHUSER;
-                $OBJ->idAuditoria = $request->idAuditoria;
-                $OBJ->Oficio = $request->Oficio;
-                $OBJ->SIGAOficio = $request->SIGAOficio;
-                $OBJ->FOficio = $request->FOficio;
-                $OBJ->FRecibido = $request->FRecibido;
-                $OBJ->FVencimiento = $request->FVencimiento;
-                $OBJ->idOrganoAuditorOrigen = $request->idOrganoAuditorOrigen;
-                $OBJ->idCatInforme = $request->idCatInforme;
-                $OBJ->Prorroga = $request->Prorroga;
+                 $OBJ->ModificadoPor = $request->CHUSER;
+                 $OBJ->idAuditoria = $request->idAuditoria;
+                 $OBJ->Oficio = $request->Oficio;
+                 $OBJ->SIGAOficio = $request->SIGAOficio;
+                 $OBJ->FOficio = $request->FOficio;
+                 $OBJ->FRecibido = $request->FRecibido;
+                 $OBJ->FVencimiento = $request->FVencimiento;
+                 $OBJ->idOrganoAuditorOrigen = $request->idOrganoAuditorOrigen;
+                 $OBJ->idEntrega = $request->idEntrega;
+                 $OBJ->Prorroga = $request->Prorroga;
 
                 $OBJ->save();
 
@@ -92,25 +91,26 @@ class OrganoController extends Controller
                 getUserName(ca.CreadoPor) creado,
                 ca.Oficio,
                 ca.SIGAOficio,
-
+                en.Entrega,
+					 ci.id ciid,
+					 ci.Descripcion ciDescripcion,
                 TO_CHAR(ca.FOficio, 'DD/MM/YYYY') as  FOficio,
                 TO_CHAR(ca.FRecibido, 'DD/MM/YYYY') as FRecibido,
                 TO_CHAR(ca.FVencimiento, 'DD/MM/YYYY') as FVencimiento,
                 TO_CHAR(ca.Prorroga, 'DD/MM/YYYY') as Prorroga,
-
+					 en.id enid,
+					 en.Entrega,
                 sec.id secid,
                 sec.Descripcion descripcionsec,
-                ca.idCatInforme,
-                ci.Descripcion ciDescripcion,
-                ci.id ciid,
                 (SELECT COUNT(cont.id) FROM SICSA.Organo_R cont WHERE cont.idOrganoC= ca.id) NoContestacion
                 FROM SICSA.Organo_C ca
                 INNER JOIN SICSA.Cat_Origen_Auditoria sec ON ca.idOrganoAuditorOrigen = sec.id
                 INNER JOIN SICSA.auditoria aud ON ca.idAuditoria = aud.id 
-                left JOIN SICSA.Cat_Informes ci ON ca.idCatInforme = ci.id
+                LEFT JOIN SICSA.Entregas en ON ca.idEntrega = en.id
+                LEFT JOIN SICSA.Cat_Informes ci ON en.Entrega = ci.id
                 where ca.deleted =0
                     ";
-                $query = $query . " and    ca.idAuditoria='" . $request->P_IDAUDITORIA . "'
+                $query = $query . " and    ca.idEntrega='" . $request->P_IDENTREGA . "'
                 order by Oficio desc";
                 $response = DB::select($query);
             } else if ($type == 9) {
