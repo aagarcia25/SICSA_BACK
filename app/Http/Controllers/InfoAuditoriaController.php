@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Auditorium;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class InfoAuditoriaController extends Controller
 {
@@ -28,9 +29,7 @@ class InfoAuditoriaController extends Controller
 
             $book = \PhpOffice\PhpSpreadsheet\IOFactory::load($input);
             $sheet1 = $book->getSheetByName('Sheet1');
-
             $auditoria = Auditorium::find($request->CHID);
-
             $sheet1->setCellValue('B1', $auditoria->anio);
             $sheet1->setCellValue('B2', $auditoria->NAUDITORIA);
             $sheet1->setCellValue('B3', $auditoria->NombreAudoria);
@@ -39,11 +38,11 @@ class InfoAuditoriaController extends Controller
             $sheet1->setCellValue('B6', $auditoria->ActaInicio);
 
             $query_claves = "
-    
             SELECT DISTINCT cto.Clave AS Clave
             FROM SICSA.Cat_Tipos_Oficios cto
+            WHERE cto.deleted=0
             ORDER BY cto.Clave asc
-";
+             ";
 
             $claves_result = DB::select($query_claves);
 
@@ -57,11 +56,9 @@ class InfoAuditoriaController extends Controller
         ofi.Oficio AS Oficio,
         cto.Descripcion AS Descripcion,
         DATE(ofi.FechaVencimiento) AS FechaVencimiento
-                    
         FROM SICSA.OficiosA ofi
         LEFT JOIN SICSA.auditoria aud ON ofi.idAuditoria = aud.id 
         LEFT JOIN SICSA.Cat_Tipos_Oficios cto ON ofi.idOficios = cto.id
-                    
         WHERE aud.deleted = 0
         AND ofi.deleted = 0
         AND aud.NAUDITORIA = ?
@@ -74,6 +71,7 @@ class InfoAuditoriaController extends Controller
                 // Asignar los valores a las celdas correspondientes
                 foreach ($dataSheet1 as $data) {
                     $column = chr(65 + $index * 2); // Calcular la letra de la columna
+                    Log::info("column: " . $column);
                     $sheet1->setCellValue($column . $count, $data->Oficio); // Asignar valor a la celda correspondiente
                     $sheet1->setCellValue(chr(ord($column) + 1) . $count, $data->FechaVencimiento); // Incrementar la columna y asignar valor a la siguiente celda
                     ++$count;
@@ -94,7 +92,6 @@ class InfoAuditoriaController extends Controller
             LEFT JOIN SICSA.auditoria aud on na.idAuditoria = aud.id 
             LEFT JOIN SICSA.cat_unidades uni ON na.idunidad = uni.id 
             LEFT JOIN SICSA.cat_secretarias sec  ON na.idsecretaria = sec.id
-            
             WHERE aud.deleted = 0
             AND na.deleted = 0
             and aud.NAUDITORIA = ?
@@ -107,26 +104,20 @@ class InfoAuditoriaController extends Controller
             $count = 11;
             if ($fechas) {
                 for ($i = 0; $i < count($dataSheet1); ++$i) {
-                    //$sheet1->setCellValue('D' . $count, $dataSheet1[$i]->Secretaria);
                     $sheet1->setCellValue('H' . $count, $dataSheet1[$i]->UnidadAdministrativa);
                     $sheet1->setCellValue('I' . $count, $dataSheet1[$i]->Oficio);
                     $sheet1->setCellValue('J' . $count, $dataSheet1[$i]->FechaOficioNA);
                     $sheet1->setCellValue('K' . $count, $dataSheet1[$i]->FechaRecibidoNA);
                     $sheet1->setCellValue('L' . $count, $dataSheet1[$i]->FechaVencimientoNA);
                     $sheet1->setCellValue('M' . $count, $dataSheet1[$i]->ProrrogaNA);
-
                     ++$count;
                 }
             } else {
                 for ($i = 0; $i < count($dataSheet1); ++$i) {
-                    //$sheet1->setCellValue('D' . $count, $dataSheet1[$i]->Secretaria);
                     $sheet1->setCellValue('H' . $count, $dataSheet1[$i]->UnidadAdministrativa);
                     $sheet1->setCellValue('I' . $count, $dataSheet1[$i]->Oficio);
                     $sheet1->setCellValue('J' . $count, $dataSheet1[$i]->FechaOficioNA);
                     $sheet1->setCellValue('K' . $count, $dataSheet1[$i]->FechaRecibidoNA);
-                    //$sheet1->setCellValue('L' . $count, $dataSheet1[$i]->FechaRecibidoNA);
-                    //$sheet1->setCellValue('M' . $count, $dataSheet1[$i]->ProrrogaNA);
-
                     ++$count;
                 }
             }
@@ -142,7 +133,6 @@ class InfoAuditoriaController extends Controller
           DATE(ca.FRecibido) AS FechaRecibidoCA,
           DATE(ca.FVencimiento) AS FechaVencimientoCA,
           DATE(ca.Prorroga) AS ProrrogaCA
-
           FROM SICSA.C_Contestacion_area ca
           LEFT JOIN SICSA.cat_unidades uni ON ca.idunidad = uni.id 
           LEFT JOIN SICSA.C_Notificacion_area na ON ca.idNotificacion = na.id
@@ -152,7 +142,6 @@ class InfoAuditoriaController extends Controller
           AND ca.deleted = 0
           and aud.NAUDITORIA = ?
           order by Oficio asc
-
                          ";
             $dataSheet1 = DB::select($query, [$auditoria->NAUDITORIA]);
             $count = 11;
@@ -164,7 +153,6 @@ class InfoAuditoriaController extends Controller
                     $sheet1->setCellValue('R' . $count, $dataSheet1[$i]->FechaRecibidoCA);
                     $sheet1->setCellValue('S' . $count, $dataSheet1[$i]->FechaVencimientoCA);
                     $sheet1->setCellValue('T' . $count, $dataSheet1[$i]->ProrrogaCA);
-
                     ++$count;
                 }
             } else {
@@ -173,9 +161,6 @@ class InfoAuditoriaController extends Controller
                     $sheet1->setCellValue('N' . $count, $dataSheet1[$i]->Oficio);
                     $sheet1->setCellValue('O' . $count, $dataSheet1[$i]->FechaOficioCA);
                     $sheet1->setCellValue('P' . $count, $dataSheet1[$i]->FechaRecibidoCA);
-                    //$sheet1->setCellValue('Q' . $count, $dataSheet1[$i]->FechaVencimientoCA);
-                    //$sheet1->setCellValue('R' . $count, $dataSheet1[$i]->ProrrogaCA);
-
                     ++$count;
                 }
             }
@@ -188,16 +173,12 @@ class InfoAuditoriaController extends Controller
             coa.Descripcion UnidadAdministrativa,
             oc.Oficio Oficio,
             oc.SIGAOficio FolioSIGA,
-          
             DATE(oc.FOficio) AS FechaOficioOC,
             DATE(oc.FRecibido) AS FechaRecibidoOC,
             DATE(oc.FVencimiento) ASFechaVencimientoOC
-           
            FROM SICSA.Organo_C oc
            LEFT JOIN SICSA.auditoria aud on oc.idAuditoria = aud.id 
            LEFT JOIN SICSA.Cat_Origen_Auditoria coa ON oc.idOrganoAuditorOrigen = coa.id 
-          
-           
            WHERE aud.deleted = 0
            AND oc.deleted = 0
            and aud.NAUDITORIA = ?
@@ -209,7 +190,6 @@ class InfoAuditoriaController extends Controller
                     $sheet1->setCellValue('V' . $count, $dataSheet1[$i]->UnidadAdministrativa);
                     $sheet1->setCellValue('W' . $count, $dataSheet1[$i]->Oficio);
                     $sheet1->setCellValue('X' . $count, $dataSheet1[$i]->FolioSIGA);
-                    // $sheet1->setCellValue('Y' . $count, $dataSheet1[$i]->ciDescripcion);
                     $sheet1->setCellValue('Z' . $count, $dataSheet1[$i]->FechaOficioOC);
                     $sheet1->setCellValue('AA' . $count, $dataSheet1[$i]->FechaRecibidoOC);
                     $sheet1->setCellValue('AB' . $count, $dataSheet1[$i]->ASFechaVencimientoOC);
@@ -237,14 +217,10 @@ class InfoAuditoriaController extends Controller
             DATE(orc.FRecibido) AS FechaRecibidoORC,
             DATE(orc.FVencimiento) AS FechaVencimientoORC,
             coa.Descripcion coaOrigen
-            
-            
             FROM SICSA.Organo_R orc
             LEFT JOIN SICSA.Organo_C oc ON orc.idOrganoC = oc.id
             LEFT JOIN SICSA.auditoria aud ON oc.idAuditoria = aud.id
             LEFT JOIN SICSA.Cat_Origen_Auditoria coa ON orc.idOrganoAuditorOrigen = coa.id
-           
-            
             WHERE aud.deleted = 0
             AND orc.deleted=0
             AND aud.NAUDITORIA = ?
@@ -283,12 +259,10 @@ class InfoAuditoriaController extends Controller
                          ac.TextoAccion ResultadoObservacion,
                          ac.accionSuperviviente ResultadoSuperviviente,
                          ac.numeroResultado NumeroResultado
-                         
                          FROM SICSA.acciones ac
                           LEFT JOIN SICSA.auditoria aud on ac.idAuditoria = aud.id 
                           LEFT JOIN SICSA.Cat_Estatus_Acciones ea ON ac.idEstatusAccion = ea.id
                           LEFT JOIN SICSA.Cat_Tipos_Accion ta  ON ac.idTipoAccion = ta.id
-                         
                          WHERE 
                          ac.deleted = 0
                          and aud.NAUDITORIA = ?
@@ -304,7 +278,6 @@ class InfoAuditoriaController extends Controller
                     $sheet1->setCellValue('AO' . $count, $dataSheet1[$i]->ResultadoObservacion);
                     $sheet1->setCellValue('AP' . $count, $dataSheet1[$i]->ResultadoSuperviviente);
                     $sheet1->setCellValue('AQ' . $count, $dataSheet1[$i]->NumeroResultado);
-
                     ++$count;
                 }
             } else {
@@ -316,33 +289,26 @@ class InfoAuditoriaController extends Controller
                     $sheet1->setCellValue('AK' . $count, $dataSheet1[$i]->ResultadoObservacion);
                     $sheet1->setCellValue('AL' . $count, $dataSheet1[$i]->ResultadoSuperviviente);
                     $sheet1->setCellValue('AM' . $count, $dataSheet1[$i]->NumeroResultado);
-
                     ++$count;
                 }
             }
             $query = "
             SELECT
-                        
             uni.Descripcion AS AreaNotificada,
             na.Oficio AS OficioNotificación,
             obtenerAsunto(na.Oficio) AS obtenerAsunto,
             DATE(na.FOficio) AS Fecha,
             (SELECT ca.Oficio FROM SICSA.C_Contestacion_area ca WHERE ca.idNotificacion = na.id AND ca.deleted = 0 LIMIT 1) AS OficioContestación,
             (SELECT DATE(ca.FRecibido) FROM SICSA.C_Contestacion_area ca WHERE ca.idNotificacion = na.id AND ca.deleted = 0 LIMIT 1) AS FechaRecibido
-           
         FROM
             SICSA.auditoria aud
         LEFT JOIN
             SICSA.C_Notificacion_area na ON aud.id = na.idAuditoria
         LEFT JOIN
             SICSA.cat_unidades uni ON na.idunidad = uni.id
-        
-            
         WHERE
             aud.NAUDITORIA = ?
-        
              AND na.deleted = 0
-            
             ORDER BY oficio asc
                          
                      
