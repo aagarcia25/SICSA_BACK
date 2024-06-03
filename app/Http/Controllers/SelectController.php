@@ -55,10 +55,12 @@ class SelectController extends Controller
                              UNION ALL
                              SELECT 'DDPYPF' value ,'Dirección de Deuda Pública y Planeación Financiera' label FROM DUAL
                              UNION ALL
-                             SELECT 'CGA'       value ,'Coordinación General Administrativa' label FROM DUAL";
+                             SELECT 'CGA'       value ,'Coordinación General Administrativa' label FROM DUAL
+                             UNION ALL
+                             SELECT 'DASA'       value ,'Dirección de Atención y Seguimiento de Auditorías' label FROM DUAL
+                             ";
             } elseif ($type == 12) {
                 $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Modalidad WHERE DELETED=0";
-
             } elseif ($type == 13) {
                 $query = "   SELECT
                     caa.id value,
@@ -68,7 +70,6 @@ class SelectController extends Controller
                    ";
                 $query = $query . " and caa.idCatUnidadAdmin='" . $request->P_ID . "'";
                 $query = $query . "  order by caa.FechaCreacion desc";
-
             } elseif ($type == 14) {
                 $query = "SELECT id  value , Descripcion label FROM SICSA.cat_tipo WHERE DELETED=0";
             } elseif ($type == 15) {
@@ -84,7 +85,6 @@ class SelectController extends Controller
             } elseif ($type == 20) {
                 $query = "  SELECT id  value , descripcion label FROM SICSA.cat_unidades WHERE DELETED=0";
                 $query = $query . " and idSecretaria='" . $request->P_ID . "'";
-
             } elseif ($type == 21) {
                 $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Origen_Auditoria WHERE DELETED=0";
                 $query = $query . " and idOrigenAuditoria='" . $request->P_ID . "'";
@@ -94,25 +94,24 @@ class SelectController extends Controller
                 // $query="SELECT Id value, Menu label FROM TiCentral.Menus WHERE DELETED=0 AND IdApp ='8f515fb3-1f77-11ee-ac66-3cd92b4d9bf4'";
                 //PRODUCCION
                 $query = "SELECT Id value, Menu label FROM TiCentral.Menus WHERE DELETED=0 AND IdApp ='161206bc-405b-11ee-8002-d89d6776f970'";
-
-            }elseif ($type == 23) {
+            } elseif ($type == 23) {
                 $query = "SELECT id  value , Nombre label FROM SICSA.Reportes";
-            }elseif ($type == 24) {
+            } elseif ($type == 24) {
                 //$id = $request->NUMOPERACION;
 
                 $query = "SELECT id, Nombre, Auxiliar, Reporte  FROM SICSA.Reportes";
-            }elseif ($type == 25) {
+            } elseif ($type == 25) {
                 $query = "  SELECT id  value , Titular label FROM SICSA.Cat_Destinatarios_Oficios WHERE DELETED=0";
-            }elseif ($type == 26) {
+            } elseif ($type == 26) {
                 $query = "  SELECT id  value , Cargo label FROM SICSA.Cat_Destinatarios_Oficios WHERE DELETED=0";
-            }elseif ($type == 27) {
+            } elseif ($type == 27) {
                 $query = "  SELECT id  value , Nombre label FROM SICSA.Cat_Personal WHERE DELETED=0";
-            }elseif ($type == 28) {
+            } elseif ($type == 28) {
                 $query = "  SELECT id  value , CorreoElectronico label FROM SICSA.Cat_Personal WHERE DELETED=0";
-            }elseif ($type == 29) {
+            } elseif ($type == 29) {
                 $query = "  SELECT id  value , Descripcion label FROM SICSA.Cat_Tipos_Oficios WHERE DELETED=0";
             }
-   
+
 
             $response = DB::select($query);
         } catch (QueryException $e) {
