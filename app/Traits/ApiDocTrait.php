@@ -5,11 +5,18 @@ namespace App\Traits;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request as Psr7Request;
 use GuzzleHttp\Psr7\Utils;
+use InvalidArgumentException;
 
 trait ApiDocTrait
 {
     public function UploadFile($TOKEN, $Ruta, $nombre_archivo, $file, $generaRoute)
     {
+
+
+        // Validar que la ruta del archivo no esté vacía
+        if (empty($file)) {
+            throw new InvalidArgumentException("La ruta del archivo no puede estar vacía");
+        }
 
         $client = new Client();
         $headers = [
@@ -33,7 +40,7 @@ trait ApiDocTrait
                 ],
                 [
                     'name' => 'FILE',
-                    'contents' => $file,
+                    'contents' => Utils::tryFopen($file, 'r'),
                     'filename' => $nombre_archivo,
                     'headers' => [
                         'Content-Type' => '<Content-type header>',
