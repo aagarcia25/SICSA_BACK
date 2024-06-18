@@ -33,7 +33,7 @@ trait ApiDocTrait
                 ],
                 [
                     'name' => 'FILE',
-                    'contents' => Utils::tryFopen($file, 'r'),
+                    // 'contents' => Utils::tryFopen($file, 'r'),
                     'filename' => $nombre_archivo,
                     'headers' => [
                         'Content-Type' => '<Content-type header>',
