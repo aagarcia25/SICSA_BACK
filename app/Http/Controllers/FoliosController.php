@@ -108,21 +108,17 @@ class FoliosController extends Controller
                              LEFT JOIN SICSA.Cat_Destinatarios_Oficios df ON cf.Destinatario = df.id
                              WHERE
                                  cf.deleted = 0
-                             AND (year(cf.Fecha) = (
-                                SELECT ca.anio 
-                                FROM SICSA.Cat_Anios ca 
-                                WHERE ca.anio ='" . $request->Anio . "' 
-                                )
-                                
-                                OR '" . $request->Anio . "'IS NULL 
-                                OR '" . $request->Anio . "'='')
-                                order by 
-                                 CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(cf.Oficio, '-', -2), '-', 1) AS SIGNED) desc
+                            
+                                  
+                              
                                 ";
 
 
                 if ($request->FolioSIGA != "") {
                     $query = $query . " and    aud.FolioSIGA='" . $request->FolioSIGA . "'";
+                }
+                if ($request->Anio != "") {
+                    $query = $query . " and    cf.Anio='" . $request->Anio . "'";
                 }
                 $response = DB::select($query);
             } else if ($type == 5) {
