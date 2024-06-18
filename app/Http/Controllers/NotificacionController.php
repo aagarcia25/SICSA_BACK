@@ -46,7 +46,7 @@ class NotificacionController extends Controller
                 $OBJ->FVencimiento = $request->FVencimiento;
                 $OBJ->idsecretaria = $request->idsecretaria;
                 $OBJ->idunidad = $request->idunidad;
-                $OBJ->idEntrega = $request->idEntrega;
+                $OBJ->idInforme = $request->idEntrega;
                 $OBJ->save();
                 $response = $OBJ;
             } elseif ($type == 2) {
@@ -63,7 +63,7 @@ class NotificacionController extends Controller
                 $OBJ->FVencimiento = $request->FVencimiento;
                 $OBJ->idsecretaria = $request->idsecretaria;
                 $OBJ->idunidad = $request->idunidad;
-                $OBJ->idEntrega = $request->idEntrega;
+                $OBJ->idInforme = $request->idEntrega;
 
                 $OBJ->save();
                 $response = $OBJ;
@@ -83,8 +83,6 @@ class NotificacionController extends Controller
                     ca.FechaCreacion,
                     getUserName(ca.ModificadoPor) modi,
                     getUserName(ca.CreadoPor) creado,
-                    en.id enid,
-					en.Entrega,
                     ci.id ciid,
 					ci.Descripcion ciDescripcion,
                     ca.Oficio,
@@ -101,14 +99,12 @@ class NotificacionController extends Controller
                     FROM SICSA.C_Notificacion_area ca
                     INNER JOIN SICSA.cat_secretarias sec ON ca.idsecretaria = sec.id
                     INNER JOIN SICSA.cat_unidades uni ON ca.idunidad = uni.id
-                    LEFT JOIN SICSA.Entregas en ON ca.idEntrega = en.id
-                    LEFT JOIN SICSA.Cat_Informes ci ON en.Entrega = ci.id
+                    LEFT JOIN SICSA.Cat_Informes ci ON ca.idInforme = ci.id
                     where ca.deleted =0
                     ";
 
-                $query = $query . " and    ca.idEntrega='" . $request->P_IDENTREGA . "'order by Oficio asc";
 
-                //$query = $query . " and    idAuditoria='" . $request->P_IDAUDITORIA . "' ";
+                $query = $query . " and    idAuditoria='" . $request->P_IDAUDITORIA . "' ";
 
 
 
