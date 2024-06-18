@@ -8,6 +8,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use InvalidArgumentException;
 use PhpOffice\PhpSpreadsheet\Calculation\TextData\Replace;
 
 class FoliosFilesController extends Controller
@@ -33,8 +34,12 @@ class FoliosFilesController extends Controller
             $type = $request->NUMOPERACION;
             $FOLIO = $request->FOLIO;
 
+
+
+
             if ($type == 1) {
                 $file = request()->file('FILE');
+
                 $nombre = $file->getClientOriginalName();
                 $data = $this->UploadFile($request->TOKEN, env('APP_DOC_ROUTE') . $FOLIO, $nombre, $file, 'TRUE');
             } elseif ($type == 2) {
