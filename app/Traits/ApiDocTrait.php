@@ -214,7 +214,7 @@ trait ApiDocTrait
             ]
         ];
         $requestter = new Psr7Request('POST', env('APP_DOC_API') . '/api/ApiDoc/GetByRoute', $headers);
-        $res = $client->sendAsync($requestter, $options)->wait();
+        $res = $client->send($requestter, $options);
         $data = json_decode($res->getBody()->getContents());
         return $data;
     }
