@@ -61,7 +61,8 @@ class CNotificacionArea extends Model
         'FRecibido',
         'FVencimiento',
         'idsecretaria',
-        'idunidad'
+        'idunidad',
+        'idInforme'
     ];
 
     public function auditorium()
