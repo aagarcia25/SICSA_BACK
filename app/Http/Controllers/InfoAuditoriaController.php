@@ -168,16 +168,14 @@ class InfoAuditoriaController extends Controller
                 en.deleted,
                 en.UltimaActualizacion,
                 en.FechaCreacion,
-                en.Entrega,
                 en.idAuditoria,
-                ci.Descripcion ciDescripcion,
-                ci.id ciid,
+             
                 en.Oficio,
                 TO_CHAR(en.Fecha, 'DD/MM/YYYY') as Fecha
                
                 FROM SICSA.Entregas en
                 INNER JOIN SICSA.auditoria aud ON en.idAuditoria = aud.id 
-                left JOIN SICSA.Cat_Informes ci ON en.Entrega = ci.id
+              
                 where en.deleted =0
            and aud.NAUDITORIA = ?
                          ";
@@ -205,17 +203,12 @@ class InfoAuditoriaController extends Controller
             coa.Descripcion UnidadAdministrativa,
             oc.Oficio Oficio,
             oc.SIGAOficio FolioSIGA,
-            en.Entrega,
-            ci.id ciid,
-            ci.Descripcion ciDescripcion,
             DATE(oc.FOficio) AS FechaOficioOC,
             DATE(oc.FRecibido) AS FechaRecibidoOC,
             DATE(oc.FVencimiento) ASFechaVencimientoOC
            FROM SICSA.Organo_C oc
            LEFT JOIN SICSA.auditoria aud on oc.idAuditoria = aud.id 
            LEFT JOIN SICSA.Cat_Origen_Auditoria coa ON oc.idOrganoAuditorOrigen = coa.id 
-           LEFT JOIN SICSA.Entregas en ON oc.idEntrega = en.id
-           LEFT JOIN SICSA.Cat_Informes ci ON en.Entrega = ci.id
            WHERE aud.deleted = 0
            AND oc.deleted = 0
            and aud.NAUDITORIA = ?
