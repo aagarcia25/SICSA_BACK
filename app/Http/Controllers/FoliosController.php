@@ -120,6 +120,9 @@ class FoliosController extends Controller
                 if ($request->Anio != "") {
                     $query = $query . " and    cf.Anio='" . $request->Anio . "'";
                 }
+
+                $query = $query . " order by   CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(cf.Oficio, '-', -2), '-', 1) AS SIGNED) desc";
+
                 $response = DB::select($query);
             } else if ($type == 5) {
                 $OBJ = new Cfolio();
