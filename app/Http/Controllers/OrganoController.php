@@ -97,7 +97,7 @@ class OrganoController extends Controller
                 TO_CHAR(ca.Prorroga, 'DD/MM/YYYY') as Prorroga,
                 sec.id secid,
                 sec.Descripcion descripcionsec,
-                (SELECT COUNT(cont.id) FROM SICSA.Organo_R cont WHERE cont.idOrganoC= ca.id) NoContestacion
+                (SELECT COUNT(cont.id) FROM SICSA.Organo_R cont WHERE cont.idOrganoC= ca.id and cont.deleted=0) NoContestacion
                 FROM SICSA.Organo_C ca
                 INNER JOIN SICSA.Cat_Origen_Auditoria sec ON ca.idOrganoAuditorOrigen = sec.id
                 INNER JOIN SICSA.auditoria aud ON ca.idAuditoria = aud.id 
