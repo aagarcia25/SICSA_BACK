@@ -58,6 +58,8 @@ class SelectController extends Controller
                              SELECT 'CGA'       value ,'Coordinación General Administrativa' label FROM DUAL
                              UNION ALL
                              SELECT 'DASA'       value ,'Dirección de Atención y Seguimiento de Auditorías' label FROM DUAL
+                             UNION ALL
+                             SELECT 'A QUIEN CORRESPONDA'       value ,'A QUIEN CORRESPONDA' label FROM DUAL
                              ";
             } elseif ($type == 12) {
                 $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Modalidad WHERE DELETED=0";
