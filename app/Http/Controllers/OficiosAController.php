@@ -120,7 +120,7 @@ class OficiosAController extends Controller
                 tof.Descripcion tofDescripcion,
                 tof.id tofid,
                 ofa.Descripcion,
-                (SELECT COUNT(cont.id) FROM SICSA.Oficios_Contestacion cont WHERE cont.idOficio = ofa.id) NoContestacion
+                (SELECT COUNT(cont.id) FROM SICSA.Oficios_Contestacion cont WHERE cont.idOficio = ofa.id and cont.deleted=0) NoContestacion
                 FROM SICSA.OficiosA ofa
                  LEFT JOIN
                      SICSA.Cat_Tipos_Oficios tof ON ofa.idOficios = tof.id
