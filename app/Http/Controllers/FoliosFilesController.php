@@ -22,6 +22,8 @@ class FoliosFilesController extends Controller
     11._ ELIMINA REGISTROS SELECCIONADOS
      */
 
+    
+
     public function FoliosFilesindex(Request $request)
     {
 
@@ -33,6 +35,7 @@ class FoliosFilesController extends Controller
         try {
             $type = $request->NUMOPERACION;
             $FOLIO = $request->FOLIO;
+            $RUTA = $request ->RUTA;
 
 
 
@@ -104,7 +107,23 @@ class FoliosFilesController extends Controller
                 } else {
                     throw new Exception($data->STRMESSAGE);
                 }
+            }elseif ($type == 16) {
+                Log::info("Ruta: " . trim(env('APP_DOC_ROUTE') . $request->RUTA));
+                $data = $this->ListFileSimple($request->TOKEN, trim(env('APP_DOC_ROUTE') . $request->RUTA));
+                
+                if ($data->SUCCESS) {
+                    $response = $data->RESPONSE;
+                    // Asumiendo que $response es una lista de archivos
+                    $fileCount = count($data->RESPONSE);
+                    Log::info("Cantidad de archivos: " . $fileCount);
+            
+                    // Puedes agregar la cantidad al $response si lo deseas
+                    //$response['fileCount'] = $fileCount;
+                } else {
+                    throw new Exception($data->STRMESSAGE);
+                }
             }
+            
         } catch (QueryException $e) {
             $SUCCESS = false;
             $NUMCODE = 1;
