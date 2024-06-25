@@ -41,26 +41,7 @@ class SelectController extends Controller
             } elseif ($type == 10) {
                 $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Unidad_Admin_Auditora WHERE DELETED=0";
             } elseif ($type == 11) {
-                $query = "   SELECT 'DAF'       value ,'Dirección de Administración Financiera' label FROM DUAL
-                             UNION ALL
-                             SELECT 'DAMOP'     value ,'Dirección de Atención a Municipios y Organismos Paraestatales' label FROM DUAL
-                             UNION ALL
-                             SELECT 'DPCP'	    value ,'Dirección de Presupuesto y Control Presupuestal'  label FROM DUAL
-                             UNION ALL
-                             SELECT 'DCCP'	    value ,'Dirección de Contabilidad y Cuenta Pública' label FROM DUAL
-                             UNION ALL
-                             SELECT 'CPH'	    value ,'Coordinación de Planeación Hacendaria' label FROM DUAL
-                             UNION ALL
-                             SELECT 'PF'	       value ,'Procuraduría Fiscal' label FROM DUAL
-                             UNION ALL
-                             SELECT 'DDPYPF' value ,'Dirección de Deuda Pública y Planeación Financiera' label FROM DUAL
-                             UNION ALL
-                             SELECT 'CGA'       value ,'Coordinación General Administrativa' label FROM DUAL
-                             UNION ALL
-                             SELECT 'DASA'       value ,'Dirección de Atención y Seguimiento de Auditorías' label FROM DUAL
-                             UNION ALL
-                             SELECT 'A QUIEN CORRESPONDA'       value ,'A QUIEN CORRESPONDA' label FROM DUAL
-                             ";
+                $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Dependencias WHERE DELETED=0";
             } elseif ($type == 12) {
                 $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Modalidad WHERE DELETED=0";
             } elseif ($type == 13) {
