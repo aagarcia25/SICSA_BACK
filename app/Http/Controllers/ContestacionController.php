@@ -101,22 +101,25 @@ class ContestacionController extends Controller
                 getUserName(ca.CreadoPor) creado,
                 ca.Oficio,
                 ca.SIGAOficio,
-                 TO_CHAR(ca.FOficio, 'DD/MM/YYYY') as FOficio,
+                TO_CHAR(ca.FOficio, 'DD/MM/YYYY') AS FOficio,
                 sec.id secid,
                 sec.Descripcion secretaria,
                 uni.id uniid,
                 uni.Descripcion unidad, 
-                TO_CHAR(ca.FRecibido, 'DD/MM/YYYY') as FRecibido,
-                TO_CHAR(ca.FVencimiento, 'DD/MM/YYYY') as FVencimiento,
-                TO_CHAR(ca.Prorroga, 'DD/MM/YYYY') as Prorroga,
+                TO_CHAR(ca.FRecibido, 'DD/MM/YYYY') AS FRecibido,
+                TO_CHAR(ca.FVencimiento, 'DD/MM/YYYY') AS FVencimiento,
+                TO_CHAR(ca.Prorroga, 'DD/MM/YYYY') AS Prorroga,
                 na.idAuditoria,
-                aud.NAUDITORIA
-               FROM SICSA.C_Contestacion_area ca
-               INNER JOIN SICSA.cat_secretarias sec ON ca.idsecretaria = sec.id
-               INNER JOIN SICSA.cat_unidades uni ON ca.idunidad = uni.id
-               INNER JOIN SICSA.C_Notificacion_area na ON ca.idNotificacion = na.id
-               INNER JOIN SICSA.auditoria aud ON na.idAuditoria = aud.id
-               WHERE ca.deleted =0
+                aud.NAUDITORIA,
+                dep.Descripcion depDescripcion,
+                dep.id depid
+                FROM SICSA.C_Contestacion_area ca
+                INNER JOIN SICSA.cat_secretarias sec ON ca.idsecretaria = sec.id
+                LEFT JOIN SICSA.cat_unidades uni ON ca.idunidad = uni.id
+                INNER JOIN SICSA.C_Notificacion_area na ON ca.idNotificacion = na.id
+                INNER JOIN SICSA.auditoria aud ON na.idAuditoria = aud.id
+                LEFT JOIN SICSA.Cat_Dependencias dep ON ca.idunidad = dep.id
+                WHERE ca.deleted =0
                     ";
                 $query = $query . " and    idNotificacion='" . $request->P_IDNOTIFICACION . "'
                 order by Oficio desc";
