@@ -40,9 +40,11 @@ class SelectController extends Controller
                 $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Tipos_Auditoria WHERE DELETED=0";
             } elseif ($type == 10) {
                 $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Unidad_Admin_Auditora WHERE DELETED=0";
-            } elseif ($type == 11) {
-                $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Dependencias WHERE DELETED=0";
-            } elseif ($type == 12) {
+            } 
+            // elseif ($type == 11) {
+            //     $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Dependencias WHERE DELETED=0";
+            // } 
+            elseif ($type == 12) {
                 $query = "SELECT id  value , Descripcion label FROM SICSA.Cat_Modalidad WHERE DELETED=0";
             } elseif ($type == 13) {
                 $query = "   SELECT
