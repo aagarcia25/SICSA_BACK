@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CatDependencia;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use App\Models\CatUnidade;
 
 
-class DependenciasController extends Controller
+class UnidadesController extends Controller
 {
     /* SE IDENTIFICA EL TIPO DE OPERACION A REALIZAR
         1._ INSERTAR UN REGISTRO
@@ -18,7 +18,7 @@ class DependenciasController extends Controller
         5._ ELIMINA REGISTROS SELECCIONADOS
        */
 
-       public function Dependencia_index(Request $request)  {
+       public function Unidad_index(Request $request)  {
        
            $SUCCESS = true;
            $NUMCODE = 0;
@@ -30,12 +30,12 @@ class DependenciasController extends Controller
                $type = $request->NUMOPERACION;
    
                if ($type == 1) {
-                   $OBJ = new CatDependencia();
+                   $OBJ = new CatUnidade();
 
                    $OBJ->ModificadoPor = $request->CHUSER;
                    $OBJ->CreadoPor = $request->CHUSER;
                    $OBJ->Descripcion = $request->DESCRIPCION;
-                   $OBJ->Siglas = $request->Siglas;
+                   $OBJ->idSecretaria = $request->idSecretaria;
 
                    $OBJ->save();
                    $response = $OBJ;
@@ -43,18 +43,18 @@ class DependenciasController extends Controller
    
                } else if ($type == 2) {
    
-                   $OBJ = CatDependencia::find($request->CHID);
+                   $OBJ = CatUnidade::find($request->CHID);
                    $OBJ->ModificadoPor = $request->CHUSER;
                    //$OBJ->Nombre = $request->NOMBRE;
                    $OBJ->Descripcion = $request->DESCRIPCION;
-                   $OBJ->Siglas = $request->Siglas;
+                   $OBJ->idSecretaria = $request->idSecretaria;
 
                    $OBJ->save();
                    $response = $OBJ;
    
    
                } else if ($type == 3) {
-                   $OBJ = CatDependencia::find($request->CHID);
+                   $OBJ = CatUnidade::find($request->CHID);
                    $OBJ->deleted = 1;
                    $OBJ->ModificadoPor = $request->CHUSER;
                    $OBJ->save();
@@ -64,16 +64,19 @@ class DependenciasController extends Controller
                } else if ($type == 4) {
                    $query = "
                    SELECT               
-                   id,
-                   deleted,
-                   UltimaActualizacion,
-                   FechaCreacion,
-                   getUserName(ModificadoPor) ModificadoPor,
-                   getUserName(CreadoPor) CreadoPor,
-                   Descripcion,
-                   Siglas
-                   FROM SICSA.Cat_Dependencias   
-                   where deleted =0 
+                   uni.id,
+                   uni.deleted,
+                   uni.UltimaActualizacion,
+                   uni.FechaCreacion,
+                   getUserName(uni.ModificadoPor) ModificadoPor,
+                   getUserName(uni.CreadoPor) CreadoPor,
+                   uni.idSecretaria,
+                   uni.Descripcion uniDescripcion,
+                   sec.id secid,
+                   sec.Descripcion secDescripcion
+                   FROM SICSA.cat_unidades uni  
+				   LEFT JOIN SICSA.cat_secretarias sec ON uni.idSecretaria = sec.id 
+                   where uni.deleted =0 
                    order by FechaCreacion desc
                    ";
                    $response = DB::select($query);
@@ -87,7 +90,7 @@ class DependenciasController extends Controller
                    $response = [];
    
                    foreach ($CHIDs as $CHID) {
-                   $OBJ = CatDependencia::find($CHID);
+                   $OBJ = CatUnidade::find($CHID);
    
                        if ($OBJ) {
                        $OBJ->deleted = 1;

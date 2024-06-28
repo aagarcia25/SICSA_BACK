@@ -38,7 +38,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TiposOficioController;
 use App\Http\Controllers\OficiosContestacionController;
 use App\Http\Controllers\EntregaController;
-use App\Http\Controllers\DependenciasController;
+use App\Http\Controllers\UnidadesController;
 
 
 
@@ -103,6 +103,6 @@ Route::group([
     Route::post('TipoOficio_index', [TiposOficioController::class, 'TipoOficio_index']);
     Route::post('OficiosContestacon_index', [OficiosContestacionController::class, 'OficiosContestacon_index']);
     Route::post('Entregaindex', [EntregaController::class, 'Entregaindex']);
-    Route::post('Dependencia_index', [DependenciasController::class, 'Dependencia_index']);
+    Route::post('Unidad_index', [UnidadesController::class, 'Unidad_index']);
 
 });
