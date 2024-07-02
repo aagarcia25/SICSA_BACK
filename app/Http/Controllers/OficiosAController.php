@@ -46,6 +46,8 @@ class OficiosAController extends Controller
                 $OBJ->FechaVencimiento = $request->FechaVencimiento;
                 $OBJ->idOficios = $request->idOficios;
                 $OBJ->Descripcion = $request->Descripcion;
+                $OBJ->Observacion = $request->Observacion;
+
 
 
 
@@ -93,6 +95,7 @@ class OficiosAController extends Controller
                 $OBJ->FechaVencimiento = $request->FechaVencimiento;
                 $OBJ->idOficios = $request->idOficios;
                 $OBJ->Descripcion = $request->Descripcion;
+                $OBJ->Observacion = $request->Observacion;
 
 
                 $OBJ->save();
@@ -120,6 +123,7 @@ class OficiosAController extends Controller
                 tof.Descripcion tofDescripcion,
                 tof.id tofid,
                 ofa.Descripcion,
+                ofa.Observacion,
                 (SELECT COUNT(cont.id) FROM SICSA.Oficios_Contestacion cont WHERE cont.idOficio = ofa.id and cont.deleted=0) NoContestacion
                 FROM SICSA.OficiosA ofa
                  LEFT JOIN
