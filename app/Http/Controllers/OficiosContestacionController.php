@@ -48,6 +48,8 @@ class OficiosContestacionController extends Controller
                     $OBJ->FVencimiento = $request->FVencimiento;
                     $OBJ->idsecretaria = $request->idsecretaria;
                     $OBJ->idunidad = $request->idunidad;
+                    $OBJ->Observacion = $request->Observacion;
+
                     $OBJ->save();
                     $response = $OBJ;
                 }elseif ($type == 2){
@@ -62,6 +64,8 @@ class OficiosContestacionController extends Controller
                     $OBJ->FVencimiento = $request->FVencimiento;
                     $OBJ->idsecretaria = $request->idsecretaria;
                     $OBJ->idunidad = $request->idunidad;
+                    $OBJ->Observacion = $request->Observacion;
+
                     $OBJ->save();
                     $response = $OBJ;
                 }elseif ($type == 3) {
@@ -91,7 +95,8 @@ class OficiosContestacionController extends Controller
                     sec.id secid,
                     cu.Descripcion cuDescripcion,
                     cu.id cuid,
-                    ofc.Oficio
+                    ofc.Oficio,
+                    ofc.Observacion
 
                     FROM SICSA.Oficios_Contestacion ofc
                     INNER JOIN SICSA.OficiosA oa ON ofc.idOficio = oa.id
