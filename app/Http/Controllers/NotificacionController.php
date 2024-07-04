@@ -47,6 +47,8 @@ class NotificacionController extends Controller
                 $OBJ->idsecretaria = $request->idsecretaria;
                 $OBJ->idunidad = $request->idunidad;
                 $OBJ->idInforme = $request->idEntrega;
+                $OBJ->idOficio = $request->idOficio;
+
                 $OBJ->save();
                 $response = $OBJ;
             } elseif ($type == 2) {
@@ -64,6 +66,8 @@ class NotificacionController extends Controller
                 $OBJ->idsecretaria = $request->idsecretaria;
                 $OBJ->idunidad = $request->idunidad;
                 $OBJ->idInforme = $request->idEntrega;
+                $OBJ->idOficio = $request->idOficio;
+
 
                 $OBJ->save();
                 $response = $OBJ;
@@ -95,17 +99,21 @@ class NotificacionController extends Controller
                     sec.id secid,
                     uni.id uniid,
                     uni.Descripcion unidad,
+                    ca.idOficio,
+                    ofi.Oficio OficioA,
                     (SELECT COUNT(cont.id) FROM SICSA.C_Contestacion_area cont WHERE cont.idNotificacion= ca.id and cont.deleted=0) NoContestacion
                     FROM SICSA.C_Notificacion_area ca
                     INNER JOIN SICSA.cat_secretarias sec ON ca.idsecretaria = sec.id
                     LEFT JOIN SICSA.cat_unidades uni ON ca.idunidad = uni.id
                     LEFT JOIN SICSA.Cat_Informes ci ON ca.idInforme = ci.id
+                    LEFT JOIN SICSA.OficiosA ofi ON ofi.id = ca.idOficio
+                    
                     
                     where ca.deleted =0
                     ";
 
 
-                $query = $query . " and    idAuditoria='" . $request->P_IDAUDITORIA . "' ";
+                $query = $query . " and    ca.idAuditoria='" . $request->P_IDAUDITORIA . "' ";
 
 
 
