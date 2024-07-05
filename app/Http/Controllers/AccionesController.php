@@ -41,6 +41,8 @@ class AccionesController extends Controller
                 $OBJ->accionSuperviviente = $request->accionSuperviviente;
                 $OBJ->numeroResultado = $request->numeroResultado;
                 $OBJ->monto = $request->monto;
+                $OBJ->idOficio = $request->idOficio;
+
                 $OBJ->save();
                 $response = $OBJ;
 
@@ -57,6 +59,7 @@ class AccionesController extends Controller
                 $OBJ->accionSuperviviente = $request->accionSuperviviente;
                 $OBJ->numeroResultado = $request->numeroResultado;
                 $OBJ->monto = $request->monto;
+                $OBJ->idOficio = $request->idOficio;
                 
 
                 $OBJ->save();
@@ -88,6 +91,8 @@ class AccionesController extends Controller
                       accion.numeroResultado,
                       accion.monto,
                       aud.NAUDITORIA,
+                      accion.idOficio,
+                      ofi.Oficio OficioA,
                       cta.Descripcion AS DescripcionTipoDeAccion,
                       cea.Descripcion AS DescripcionEstatusAccion,
                       accion.accionSuperviviente
@@ -95,11 +100,16 @@ class AccionesController extends Controller
                       LEFT JOIN SICSA.auditoria aud ON accion.idAuditoria = aud.id
                       LEFT JOIN SICSA.Cat_Tipos_Accion cta ON accion.idTipoAccion = cta.id
                       LEFT JOIN SICSA.Cat_Estatus_Acciones cea ON accion.idEstatusAccion = cea.id
+                      LEFT JOIN SICSA.OficiosA ofi ON ofi.id = accion.idOficio
+
                     where accion.deleted =0
 
                       ";
 
                 $query = $query . " and accion.idAuditoria='" . $request->P_IDAUDITORIA . "'";
+
+                $query .= " AND ( accion.idOficio = '" . $request->P_IDOFICIO .  "' OR accion.idOficio IS NULL )";
+
 
                 $response = DB::select($query);
 
