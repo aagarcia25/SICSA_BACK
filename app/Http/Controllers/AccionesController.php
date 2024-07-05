@@ -108,6 +108,9 @@ class AccionesController extends Controller
 
                 $query = $query . " and accion.idAuditoria='" . $request->P_IDAUDITORIA . "'";
 
+                $query .= " AND ( accion.idOficio = '" . $request->P_IDOFICIO .  "' OR accion.idOficio IS NULL )";
+
+
                 $response = DB::select($query);
 
             }else if ($type == 9) {
