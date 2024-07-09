@@ -98,6 +98,8 @@ class SelectController extends Controller
             } elseif ($type == 30) {
                 $query = "  SELECT id  value , Oficio label FROM SICSA.OficiosA WHERE DELETED=0"; 
                 $query = $query . " and idAuditoria ='" . $request->P_ID."'";
+            } elseif ($type == 31) {
+                $query = "  SELECT id  value , Descripcion label FROM SICSA.Cat_Etapas WHERE DELETED=0";
             }
 
 

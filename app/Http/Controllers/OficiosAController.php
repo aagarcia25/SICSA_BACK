@@ -47,6 +47,7 @@ class OficiosAController extends Controller
                 $OBJ->idOficios = $request->idOficios;
                 $OBJ->Descripcion = $request->Descripcion;
                 $OBJ->Observacion = $request->Observacion;
+                $OBJ->idEtapa = $request->idEtapa;
 
 
 
@@ -96,6 +97,8 @@ class OficiosAController extends Controller
                 $OBJ->idOficios = $request->idOficios;
                 $OBJ->Descripcion = $request->Descripcion;
                 $OBJ->Observacion = $request->Observacion;
+                $OBJ->idEtapa = $request->idEtapa;
+
 
 
                 $OBJ->save();
@@ -124,10 +127,13 @@ class OficiosAController extends Controller
                 tof.id tofid,
                 ofa.Descripcion,
                 ofa.Observacion,
+                et.id etid,
+                ofa.entregado,
+                et.Descripcion etDescripcion,
                 (SELECT COUNT(cont.id) FROM SICSA.Oficios_Contestacion cont WHERE cont.idOficio = ofa.id and cont.deleted=0) NoContestacion
                 FROM SICSA.OficiosA ofa
-                 LEFT JOIN
-                     SICSA.Cat_Tipos_Oficios tof ON ofa.idOficios = tof.id
+                LEFT JOIN SICSA.Cat_Tipos_Oficios tof ON ofa.idOficios = tof.id
+                LEFT JOIN SICSA.Cat_Etapas et ON ofa.idEtapa = et.id
                 where ofa.deleted =0
                      
                     ";
@@ -135,7 +141,21 @@ class OficiosAController extends Controller
                 order by Oficio desc
                 ";
                 $response = DB::select($query);
-            } else if ($type == 9) {
+            } elseif ($type == 5) {
+                $OBJ = OficiosA::find($request->CHID);
+                $OBJ->ModificadoPor = $request->CHUSER;
+                //$OBJ->entregado = 1;
+
+                if ($OBJ->entregado == 1) {
+                    $OBJ->entregado = 0;
+                } else {
+                    $OBJ->entregado = 1;
+                }
+
+                $OBJ->save();
+                $response = $OBJ;
+
+            }else if ($type == 9) {
                 $CHIDs = $request->input('CHIDs');
                 $response = [];
 
