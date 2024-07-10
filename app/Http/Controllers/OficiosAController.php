@@ -141,19 +141,25 @@ class OficiosAController extends Controller
                 order by Oficio desc
                 ";
                 $response = DB::select($query);
-            } elseif ($type == 5) {
-                $OBJ = OficiosA::find($request->CHID);
-                $OBJ->ModificadoPor = $request->CHUSER;
-                //$OBJ->entregado = 1;
+            } elseif ($type == 5) {                
 
-                if ($OBJ->entregado == 1) {
-                    $OBJ->entregado = 0;
-                } else {
-                    $OBJ->entregado = 1;
-                }
 
-                $OBJ->save();
-                $response = $OBJ;
+                $query = "UPDATE SICSA.OficiosA 
+                SET ModificadoPor = ?, UltimaActualizacion = NOW(), entregado = 1 
+                WHERE idEtapa = ?";
+
+                $response = DB::update($query, [$request->CHUSER, $request->IDETAPA]);
+
+
+            }elseif ($type == 6) {                
+
+
+                $query = "UPDATE SICSA.OficiosA 
+                SET ModificadoPor = ?, UltimaActualizacion = NOW(), entregado = 0 
+                WHERE idEtapa = ?";
+
+                $response = DB::update($query, [$request->CHUSER, $request->IDETAPA]);
+
 
             }else if ($type == 9) {
                 $CHIDs = $request->input('CHIDs');
