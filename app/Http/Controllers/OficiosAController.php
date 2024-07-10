@@ -48,8 +48,7 @@ class OficiosAController extends Controller
                 $OBJ->Descripcion = $request->Descripcion;
                 $OBJ->Observacion = $request->Observacion;
                 $OBJ->idEtapa = $request->idEtapa;
-
-
+                $OBJ->idOficioRelacion = $request->idOficioRelacion;
 
 
                 if ($OBJ->save()) {
@@ -98,8 +97,7 @@ class OficiosAController extends Controller
                 $OBJ->Descripcion = $request->Descripcion;
                 $OBJ->Observacion = $request->Observacion;
                 $OBJ->idEtapa = $request->idEtapa;
-
-
+                $OBJ->idOficioRelacion = $request->idOficioRelacion;
 
                 $OBJ->save();
                 $response = $OBJ;
@@ -129,16 +127,19 @@ class OficiosAController extends Controller
                 ofa.Observacion,
                 et.id etid,
                 ofa.entregado,
+                ofa.idOficioRelacion,
                 et.Descripcion etDescripcion,
+                rel.Oficio OficioRelacion,
                 (SELECT COUNT(cont.id) FROM SICSA.Oficios_Contestacion cont WHERE cont.idOficio = ofa.id and cont.deleted=0) NoContestacion
                 FROM SICSA.OficiosA ofa
                 LEFT JOIN SICSA.Cat_Tipos_Oficios tof ON ofa.idOficios = tof.id
                 LEFT JOIN SICSA.Cat_Etapas et ON ofa.idEtapa = et.id
+                LEFT JOIN SICSA.OficiosA rel ON ofa.idOficioRelacion = rel.id
                 where ofa.deleted =0
                      
                     ";
-                $query =  $query . " and    idAuditoria='" . $request->P_IDAUDITORIA . "'
-                order by Oficio desc
+                $query =  $query . " and    ofa.idAuditoria='" . $request->P_IDAUDITORIA . "'
+                order by ofa.Oficio desc
                 ";
                 $response = DB::select($query);
             } elseif ($type == 5) {                
