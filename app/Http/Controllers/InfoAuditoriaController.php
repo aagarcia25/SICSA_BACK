@@ -162,40 +162,40 @@ class InfoAuditoriaController extends Controller
             }
 
 
-            $query = "
-            SELECT
-                en.id,
-                en.deleted,
-                en.UltimaActualizacion,
-                en.FechaCreacion,
-                en.idAuditoria,
+        //     $query = "
+        //     SELECT
+        //         en.id,
+        //         en.deleted,
+        //         en.UltimaActualizacion,
+        //         en.FechaCreacion,
+        //         en.idAuditoria,
              
-                en.Oficio,
-                TO_CHAR(en.Fecha, 'DD/MM/YYYY') as Fecha
+        //         en.Oficio,
+        //         TO_CHAR(en.Fecha, 'DD/MM/YYYY') as Fecha
                
-                FROM SICSA.Entregas en
-                INNER JOIN SICSA.auditoria aud ON en.idAuditoria = aud.id 
+        //         FROM SICSA.Entregas en
+        //         INNER JOIN SICSA.auditoria aud ON en.idAuditoria = aud.id 
               
-                where en.deleted =0
-           and aud.NAUDITORIA = ?
-                         ";
-            $dataSheet1 = DB::select($query, [$auditoria->NAUDITORIA]);
-            $count = 11;
-            if ($fechas) {
-                for ($i = 0; $i < count($dataSheet1); ++$i) {
-                    $sheet1->setCellValue('V' . $count, $dataSheet1[$i]->ciDescripcion);
-                    $sheet1->setCellValue('W' . $count, $dataSheet1[$i]->Oficio);
-                    $sheet1->setCellValue('X' . $count, $dataSheet1[$i]->Fecha);
-                    ++$count;
-                }
-            } else {
-                for ($i = 0; $i < count($dataSheet1); ++$i) {
-                    $sheet1->setCellValue('R' . $count, $dataSheet1[$i]->ciDescripcion);
-                    $sheet1->setCellValue('S' . $count, $dataSheet1[$i]->Oficio);
-                    $sheet1->setCellValue('T' . $count, $dataSheet1[$i]->Fecha);
-                    ++$count;
-                }
-            }
+        //         where en.deleted =0
+        //    and aud.NAUDITORIA = ?
+        //                  ";
+        //     $dataSheet1 = DB::select($query, [$auditoria->NAUDITORIA]);
+        //     $count = 11;
+        //     if ($fechas) {
+        //         for ($i = 0; $i < count($dataSheet1); ++$i) {
+        //             $sheet1->setCellValue('V' . $count, $dataSheet1[$i]->ciDescripcion);
+        //             $sheet1->setCellValue('W' . $count, $dataSheet1[$i]->Oficio);
+        //             $sheet1->setCellValue('X' . $count, $dataSheet1[$i]->Fecha);
+        //             ++$count;
+        //         }
+        //     } else {
+        //         for ($i = 0; $i < count($dataSheet1); ++$i) {
+        //             $sheet1->setCellValue('R' . $count, $dataSheet1[$i]->ciDescripcion);
+        //             $sheet1->setCellValue('S' . $count, $dataSheet1[$i]->Oficio);
+        //             $sheet1->setCellValue('T' . $count, $dataSheet1[$i]->Fecha);
+        //             ++$count;
+        //         }
+        //     }
 
 
             $query = "
@@ -220,7 +220,7 @@ class InfoAuditoriaController extends Controller
                     $sheet1->setCellValue('Z' . $count, $dataSheet1[$i]->UnidadAdministrativa);
                     $sheet1->setCellValue('AA' . $count, $dataSheet1[$i]->Oficio);
                     $sheet1->setCellValue('AB' . $count, $dataSheet1[$i]->FolioSIGA);
-                    $sheet1->setCellValue('AC' . $count, $dataSheet1[$i]->ciDescripcion);
+                    //$sheet1->setCellValue('AC' . $count, $dataSheet1[$i]->ciDescripcion);
                     $sheet1->setCellValue('AD' . $count, $dataSheet1[$i]->FechaOficioOC);
                     $sheet1->setCellValue('AE' . $count, $dataSheet1[$i]->FechaRecibidoOC);
                     $sheet1->setCellValue('AF' . $count, $dataSheet1[$i]->ASFechaVencimientoOC);
@@ -231,7 +231,7 @@ class InfoAuditoriaController extends Controller
                     $sheet1->setCellValue('V' . $count, $dataSheet1[$i]->UnidadAdministrativa);
                     $sheet1->setCellValue('W' . $count, $dataSheet1[$i]->Oficio);
                     $sheet1->setCellValue('X' . $count, $dataSheet1[$i]->FolioSIGA);
-                    $sheet1->setCellValue('Y' . $count, $dataSheet1[$i]->ciDescripcion);
+                    //$sheet1->setCellValue('Y' . $count, $dataSheet1[$i]->ciDescripcion);
                     $sheet1->setCellValue('Z' . $count, $dataSheet1[$i]->FechaOficioOC);
                     $sheet1->setCellValue('AA' . $count, $dataSheet1[$i]->FechaRecibidoOC);
                     $sheet1->setCellValue('AB' . $count, $dataSheet1[$i]->ASFechaVencimientoOC);
