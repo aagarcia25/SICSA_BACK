@@ -115,7 +115,7 @@ class NotificacionController extends Controller
 
                 $query = $query . " and    ca.idAuditoria='" . $request->P_IDAUDITORIA . "' ";
                 
-                    $query .= " AND ( ca.idOficio = '" . $request->P_IDOFICIO .  "' OR ca.idOficio IS NULL )";
+                    $query .= " AND ( ca.idOficio = '" . $request->P_IDOFICIO .  "' OR ca.idOficio IS NULL ) ORDER BY ci.Descripcion ASC, ca.Oficio ASC";
                 
 
 
