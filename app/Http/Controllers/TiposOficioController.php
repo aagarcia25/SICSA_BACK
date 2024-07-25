@@ -72,7 +72,7 @@ class TiposOficioController extends Controller
                     Descripcion
                     FROM SICSA.Cat_Tipos_Oficios
                     where deleted =0 
-                    order by FechaCreacion desc
+                    order by Clave asc
                     ";
                     $response = DB::select($query);
 
