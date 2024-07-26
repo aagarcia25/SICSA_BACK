@@ -40,6 +40,8 @@ use App\Http\Controllers\OficiosContestacionController;
 use App\Http\Controllers\EntregaController;
 use App\Http\Controllers\UnidadesController;
 use App\Http\Controllers\EtapasController;
+use App\Http\Controllers\DocsExtrasController;
+
 
 
 
@@ -106,5 +108,6 @@ Route::group([
     Route::post('Entregaindex', [EntregaController::class, 'Entregaindex']);
     Route::post('Unidad_index', [UnidadesController::class, 'Unidad_index']);
     Route::post('Etapas_index', [EtapasController::class, 'Etapas_index']);
+    Route::post('DocsExtras_index', [DocsExtrasController::class, 'DocsExtras_index']);
 
 });
