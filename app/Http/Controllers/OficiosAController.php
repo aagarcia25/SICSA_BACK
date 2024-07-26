@@ -139,7 +139,7 @@ class OficiosAController extends Controller
                      
                     ";
                 $query =  $query . " and    ofa.idAuditoria='" . $request->P_IDAUDITORIA . "'
-                order by ofa.Oficio desc
+                ORDER BY et.Descripcion ASC, ofa.Oficio ASC
                 ";
                 $response = DB::select($query);
             } elseif ($type == 5) {                
