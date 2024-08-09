@@ -105,6 +105,12 @@ SELECT 'Acuse' AS value, 'Acuse' AS label;
             } elseif ($type == 31) {
                 $query = "  SELECT id  value , Descripcion label FROM SICSA.Cat_Etapas WHERE DELETED=0";
             }
+            elseif ($type == 32) {
+                $query = "SELECT 'Autorizado' AS value, 'Autorizado' AS label
+                            UNION ALL
+                            SELECT 'Rechazado' AS value, 'Rechazado' AS label;
+                          ";
+            } 
 
 
 

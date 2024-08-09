@@ -110,7 +110,8 @@ class ContestacionController extends Controller
                 TO_CHAR(ca.FVencimiento, 'DD/MM/YYYY') AS FVencimiento,
                 TO_CHAR(ca.Prorroga, 'DD/MM/YYYY') AS Prorroga,
                 na.idAuditoria,
-                aud.NAUDITORIA
+                aud.NAUDITORIA,
+                aud.NombreAudoria
                 
                 FROM SICSA.C_Contestacion_area ca
                 INNER JOIN SICSA.cat_secretarias sec ON ca.idsecretaria = sec.id
