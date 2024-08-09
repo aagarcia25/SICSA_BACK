@@ -42,6 +42,8 @@ class DocsExtrasController extends Controller
                     $OBJ->FVencimiento = $request->FVencimiento;
                     $OBJ->idRelacion = $request->idRelacion;
                     $OBJ->TipoDoc = $request->TipoDoc;
+                    $OBJ->Estatus = $request->Estatus;
+
                     $OBJ->save();
                     $response = $OBJ;
                 }elseif ($type == 2){
@@ -52,6 +54,8 @@ class DocsExtrasController extends Controller
                     $OBJ->FVencimiento = $request->FVencimiento;
                     $OBJ->idRelacion = $request->idRelacion;
                     $OBJ->TipoDoc = $request->TipoDoc;
+                    $OBJ->Estatus = $request->Estatus;
+
 
                     $OBJ->save(); 
                     $response = $OBJ;
@@ -72,6 +76,7 @@ class DocsExtrasController extends Controller
                     doc.Oficio,
                     doc.idRelacion,
                     doc.TipoDoc,
+                    doc.Estatus,
                     getUserName(doc.ModificadoPor) modi,
                     getUserName(doc.CreadoPor) creado,
                     TO_CHAR(doc.Prorroga, 'DD/MM/YYYY') as Prorroga,
