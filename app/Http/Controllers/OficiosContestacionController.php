@@ -39,13 +39,12 @@ class OficiosContestacionController extends Controller
                     $OBJ->id = $id;
                     $OBJ->ModificadoPor = $request->CHUSER;
                     $OBJ->CreadoPor = $request->CHUSER;
-                    $OBJ->Prorroga = $request->Prorroga;
+                    //$OBJ->Prorroga = $request->Prorroga;  ///fecha de vencimiento y prorroga////
                     $OBJ->idOficio = $request->idOficio;
                     $OBJ->Oficio = $request->Oficio;
-                    $OBJ->SIGAOficio = $request->SIGAOficio;
                     $OBJ->FOficio = $request->FOficio;
                     $OBJ->FRecibido = $request->FRecibido;
-                    $OBJ->FVencimiento = $request->FVencimiento;
+                    //$OBJ->FVencimiento = $request->FVencimiento;  ///fecha de vencimiento y prorroga////
                     $OBJ->idsecretaria = $request->idsecretaria;
                     $OBJ->idunidad = $request->idunidad;
                     $OBJ->Observacion = $request->Observacion;
@@ -55,13 +54,12 @@ class OficiosContestacionController extends Controller
                 }elseif ($type == 2){
                     $OBJ = OficiosContestacion::find($request->CHID);
                     $OBJ->ModificadoPor = $request->CHUSER;
-                    $OBJ->Prorroga = $request->Prorroga;
+                    //$OBJ->Prorroga = $request->Prorroga;   ///fecha de vencimiento y prorroga////
                     $OBJ->idOficio = $request->idOficio;
                     $OBJ->Oficio = $request->Oficio;
-                    $OBJ->SIGAOficio = $request->SIGAOficio;
                     $OBJ->FOficio = $request->FOficio;
                     $OBJ->FRecibido = $request->FRecibido;
-                    $OBJ->FVencimiento = $request->FVencimiento;
+                    //$OBJ->FVencimiento = $request->FVencimiento;  ///fecha de vencimiento y prorroga////
                     $OBJ->idsecretaria = $request->idsecretaria;
                     $OBJ->idunidad = $request->idunidad;
                     $OBJ->Observacion = $request->Observacion;

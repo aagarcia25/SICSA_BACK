@@ -101,12 +101,14 @@ class NotificacionController extends Controller
                     uni.Descripcion unidad,
                     ca.idOficio,
                     ofi.Oficio OficioA,
+                    aud.NombreAudoria,
                     (SELECT COUNT(cont.id) FROM SICSA.C_Contestacion_area cont WHERE cont.idNotificacion= ca.id and cont.deleted=0) NoContestacion
                     FROM SICSA.C_Notificacion_area ca
                     INNER JOIN SICSA.cat_secretarias sec ON ca.idsecretaria = sec.id
                     LEFT JOIN SICSA.cat_unidades uni ON ca.idunidad = uni.id
                     LEFT JOIN SICSA.Cat_Informes ci ON ca.idInforme = ci.id
                     LEFT JOIN SICSA.OficiosA ofi ON ofi.id = ca.idOficio
+                    LEFT JOIN SICSA.auditoria aud ON ca.idAuditoria = aud.id
                     
                     
                     where ca.deleted =0

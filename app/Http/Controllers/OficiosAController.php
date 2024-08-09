@@ -130,11 +130,13 @@ class OficiosAController extends Controller
                 ofa.idOficioRelacion,
                 et.Descripcion etDescripcion,
                 rel.Oficio OficioRelacion,
+                aud.NombreAudoria,
                 (SELECT COUNT(cont.id) FROM SICSA.Oficios_Contestacion cont WHERE cont.idOficio = ofa.id and cont.deleted=0) NoContestacion
                 FROM SICSA.OficiosA ofa
                 LEFT JOIN SICSA.Cat_Tipos_Oficios tof ON ofa.idOficios = tof.id
                 LEFT JOIN SICSA.Cat_Etapas et ON ofa.idEtapa = et.id
                 LEFT JOIN SICSA.OficiosA rel ON ofa.idOficioRelacion = rel.id
+                LEFT JOIN SICSA.auditoria aud ON ofa.idAuditoria=aud.id
                 where ofa.deleted =0
                      
                     ";
