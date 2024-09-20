@@ -107,6 +107,7 @@ class MigraDataController extends Controller
                                     $OBJ->Tema = $row[5];
                                     $OBJ->Observaciones = $row[10];
                                     $OBJ->Destinatario = $OBJ->getDestinataria(strval($row[2]));
+                                    $OBJ->Puesto = $row[3];
                                     $OBJ->Solicita = $OBJ->getsolicitante(strval($row[7]));
                                     $OBJ->Nauditoria = $row[6];
                                     $OBJ->save();

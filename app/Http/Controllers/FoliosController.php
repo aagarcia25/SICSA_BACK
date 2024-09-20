@@ -47,6 +47,7 @@ class FoliosController extends Controller
                 $OBJ->Tipo = $request->Tipo;
                 $OBJ->Observaciones = $request->Observaciones;
                 $OBJ->Destinatario = $request->Destinatario;
+                $OBJ->Puesto = $request->Puesto;
                 $OBJ->save();
                 $response = $OBJ;
 
@@ -75,7 +76,7 @@ class FoliosController extends Controller
                 $OBJ->Observaciones = $request->Observaciones;
                 //$OBJ->Cargo = $request->Cargo;
                 $OBJ->Destinatario = $request->Destinatario;
-
+                $OBJ->Puesto = $request->Puesto;
                 $OBJ->save();
                 $response = $OBJ;
             } elseif ($type == 3) {
@@ -85,14 +86,15 @@ class FoliosController extends Controller
                 $OBJ->save();
                 $response = $OBJ;
             } elseif ($type == 4) {
-
+// df.Cargo AS dfCargo,
                 $query = "
-                           SELECT
+                                SELECT
                                  cp.id AS cpid,
                                  cp.Nombre AS cpNombre,
                                  df.id AS dfid,
                                  df.Titular AS dfTitular,
-                                 df.Cargo AS dfCargo,
+                                 df.Cargo,
+                                 cf.Puesto cfPuesto,
                                  cf.*,
                                  CASE
                                      WHEN cf.Tipo = 'CAF' THEN 'COORDINACION DE AUDITORIAS FEDERALES'
@@ -187,6 +189,17 @@ class FoliosController extends Controller
                         $response[] = $OBJ;
                     }
                 }
+            } else if ($type == 9) {
+                $query = "
+                                select
+                                 df.Cargo
+                                 FROM Cat_Destinatarios_Oficios df
+                                 WHERE df.id = ? 
+                              
+                                ";
+                               // $query = $query . " order by   CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(cf.Oficio, '-', -2), '-', 1) AS SIGNED) desc";
+
+                $response = DB::select($query,[$request->Destinatario]);
             }
         } catch (QueryException $e) {
             $SUCCESS = false;
