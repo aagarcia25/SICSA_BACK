@@ -73,7 +73,8 @@ class PlandetrabajoController extends Controller
                         pt.progress,
                         pt.idauditoria
                        FROM SICSA.plandetrabajo pt
-                       WHERE pt.deleted =0
+                       WHERE (pt.deleted =0
+                       or pt.deleted=0x30)
 
                     ";
 
