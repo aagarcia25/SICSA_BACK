@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 
 class FoliosController extends Controller
@@ -170,11 +171,24 @@ class FoliosController extends Controller
                 $response = $OBJ;
             } elseif ($type == 7) {
                 $OBJ = new Cfolio();
-                $OBJ->ModificadoPor = $request->CHUSER;
-                $OBJ->CreadoPor = $request->CHUSER;
-                $OBJ->Oficio = 'BS-'.$request->Oficio;
-                $OBJ->save();
-                $response = $OBJ;
+$OBJ->ModificadoPor = $request->CHUSER;
+$OBJ->CreadoPor = $request->CHUSER;
+$OBJ->Oficio = 'BS-' . $request->Oficio;
+$OBJ->save();
+
+$response = $OBJ;
+Log::info('BS-' . $request->Oficio);
+DB::update("
+    UPDATE SICSA.cfolios
+    SET Anio = CAST(SUBSTRING(Oficio, -4) AS UNSIGNED)
+    WHERE Anio IS NULL
+    AND SUBSTRING(Oficio, -4) REGEXP '^[0-9]{4}$'
+    AND Oficio = ?
+", ['BS-' . $request->Oficio]);
+
+
+
+
             } else if ($type == 8) {
                 $CHIDs = $request->input('CHIDs'); // Supongamos que CHIDs es un array de identificadores
                 $response = [];
