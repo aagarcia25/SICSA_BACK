@@ -68,7 +68,7 @@ class Entidad_FiscalizadaController extends Controller
                     Descripcion
                     FROM SICSA.Cat_Entidad_Fiscalizada   
                     where deleted =0 
-                    order by FechaCreacion desc
+                    order by Descripcion asc
                     ";
                     $response = DB::select($query);
 
