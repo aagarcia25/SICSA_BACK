@@ -375,7 +375,7 @@ class InfoAuditoriaController extends Controller
 
             $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($book);
             $writer->setOffice2003Compatibility(true);
-            $writer->save($_SERVER['DOCUMENT_ROOT'] . '/reportes/auditoria.xlsx');
+            $writer->save(public_path('reportes/auditoria.xlsx'));
             $returninput = public_path() . '/reportes/auditoria.xlsx';
 
             $fragmentos = explode('.', $returninput);
