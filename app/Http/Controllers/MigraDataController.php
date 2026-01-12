@@ -44,7 +44,7 @@ class MigraDataController extends Controller
         $response = "";
 
         try {
-
+            Log::info($request);
             switch ($request->tipo) {
 
                 case 'migraAcciones':
@@ -91,6 +91,7 @@ class MigraDataController extends Controller
                                     Log::info("Filas afectadas: " . $row[5]);
                                     Log::info("Filas afectadas: " . $row[6]);
                                     Log::info("Filas afectadas: " . $row[7]);
+
                             
                                     // Validar si la celda de la fecha no está vacía
                                     $fecha = !empty($row[8]) ? Date::excelToDateTimeObject($row[8])->format('Y-m-d H:i:s') : null;
@@ -99,6 +100,13 @@ class MigraDataController extends Controller
                                     Log::info("Filas afectadas: " . $fecha);
                                     Log::info("Filas afectadas: " . $fechaRecibido);
                                     Log::info("Filas afectadas: " . $row[10]);
+                                    Log::info("****************************");
+
+                                    Log::info("Extrarer el anio al folio");
+
+                                    preg_match('/(\d{4})$/', $row[0], $m);
+                                    $anioFolio = $m[1] ?? null;
+                                    Log::info("Anio: ".$anioFolio);
                                     Log::info("****************************");
                             
                                     $OBJ = new Cfolio();
@@ -117,6 +125,7 @@ class MigraDataController extends Controller
                                     $OBJ->Puesto = $row[3];
                                     $OBJ->Solicita = $OBJ->getsolicitante(strval($row[7]));
                                     $OBJ->Nauditoria = $row[6];
+                                    $OBJ->Anio = $anioFolio;
                                     $OBJ->save();
                                 }
                             }
@@ -171,15 +180,15 @@ class MigraDataController extends Controller
                             // }
 
 
-                            DB::update("
-                          UPDATE SICSA.cfolios cf
-                           SET cf.Anio = (
-                            SELECT SUBSTRING(af.Oficio, -4) 
-                            FROM SICSA.cfolios af 
-                            WHERE af.id = cf.id
-                            )
-                         WHERE cf.Anio IS NULL
-                          ");
+                        //     DB::update("
+                        //   UPDATE SICSA.cfolios cf
+                        //    SET cf.Anio = (
+                        //     SELECT SUBSTRING(af.Oficio, -4) 
+                        //     FROM SICSA.cfolios af 
+                        //     WHERE af.id = cf.id
+                        //     )
+                        //  WHERE cf.Anio IS NULL
+                        //   ");
                         } catch (\Exception $e) {
                             // Manejar la excepción, por ejemplo, registrarla o mostrar un mensaje al usuario.
                             var_dump($e->getMessage());
