@@ -71,6 +71,12 @@ class MigraDataController extends Controller
 
                             foreach ($sheetDataWithoutHeader as $row) {
                                 $id = $this->uuidretrun();
+                                
+                                Log::info("Extrarer el anio al folio");
+                                preg_match('/(?:-|\/)(\d{4})$/', $row[0], $m);
+                                $anioFolio = $m[1] ?? null;
+                                Log::info("Anio: ".$anioFolio);
+                                Log::info("****************************");
                             
                                 if ("cancelado" === strtolower($row[1])) {
                                     Log::info("OFICIO CANCELADO: " . $row[0]);
@@ -80,6 +86,7 @@ class MigraDataController extends Controller
                                     $OBJ->CreadoPor = $request->CHUSER;
                                     $OBJ->Oficio = $row[0];
                                     $OBJ->Cancelado = 1;
+                                    $OBJ->Anio = $anioFolio;
                                     $OBJ->save();
                                 } else {
                                     Log::info("****************************");
@@ -102,12 +109,7 @@ class MigraDataController extends Controller
                                     Log::info("Filas afectadas: " . $row[10]);
                                     Log::info("****************************");
 
-                                    Log::info("Extrarer el anio al folio");
-
-                                    preg_match('/(\d{4})$/', $row[0], $m);
-                                    $anioFolio = $m[1] ?? null;
-                                    Log::info("Anio: ".$anioFolio);
-                                    Log::info("****************************");
+                                   
                             
                                     $OBJ = new Cfolio();
                                     $OBJ->id = $id;
