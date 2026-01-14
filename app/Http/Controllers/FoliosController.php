@@ -52,15 +52,30 @@ class FoliosController extends Controller
                 $OBJ->save();
                 $response = $OBJ;
 
+                // DB::update("
+                //           UPDATE SICSA.cfolios cf
+                //            SET cf.Anio = (
+                //             SELECT SUBSTRING(af.Oficio, -4) 
+                //             FROM SICSA.cfolios af 
+                //             WHERE af.id = cf.id
+                //             )
+                //          WHERE cf.Anio IS NULL
+                //           ");
                 DB::update("
-                          UPDATE SICSA.cfolios cf
-                           SET cf.Anio = (
-                            SELECT SUBSTRING(af.Oficio, -4) 
-                            FROM SICSA.cfolios af 
-                            WHERE af.id = cf.id
-                            )
-                         WHERE cf.Anio IS NULL
-                          ");
+                UPDATE SICSA.cfolios
+                SET Anio = CAST(
+                    RIGHT(
+                    REGEXP_REPLACE(TRIM(Oficio), '[[:space:]]*,?[[:space:]]*(BS|BIS)$', ''),
+                    4
+                    ) AS UNSIGNED
+                )
+                WHERE Anio IS NULL
+                    AND RIGHT(
+                    REGEXP_REPLACE(TRIM(Oficio), '[[:space:]]*,?[[:space:]]*(BS|BIS)$', ''),
+                    4
+                    ) REGEXP '^[0-9]{4}$'
+                ");
+
             } elseif ($type == 2) {
                 $OBJ = Cfolio::find($request->CHID);
                 $OBJ->ModificadoPor = $request->CHUSER;

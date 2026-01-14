@@ -73,7 +73,29 @@ class MigraDataController extends Controller
                                 $id = $this->uuidretrun();
                                 
                                 Log::info("Extrarer el anio al folio");
-                                preg_match('/(?:-|\/)(\d{4})$/', $row[0], $m);
+                                //preg_match('/(?:-|\/)(\d{4})$/', $row[0], $m);
+                                $oficio = (string)($row[0] ?? '');
+
+                                // 1) limpia saltos de línea / tabs
+                                $oficio = str_replace(["\r", "\n", "\t"], ' ', $oficio);
+
+                                // 2) colapsa espacios múltiples
+                                $oficio = preg_replace('/\s+/', ' ', $oficio);
+
+                               // 3) reemplazar cualquier tipo de slash por "-"
+// reemplaza / por -
+$oficio = str_replace('/', '-', $oficio);
+
+// 4) reemplazar cualquier tipo de guion ( - – — ) y quitar espacios alrededor
+$oficio = preg_replace('/\s*[\-\x{2013}\x{2014}]\s*/u', '-', $oficio); 
+// -  –  —
+                                // 5) trim final
+                                $oficio = trim($oficio);
+
+                                // 6) extrae año al final (soporta BS/BIS con o sin coma/espacios)
+                                preg_match('/-(\d{4})(?:\s*,?\s*(?:BS|BIS))?\s*$/i', $oficio, $m);
+                                $anioFolio = isset($m[1]) ? (int)$m[1] : null;
+                                                                
                                 $anioFolio = $m[1] ?? null;
                                 Log::info("Anio: ".$anioFolio);
                                 Log::info("****************************");
