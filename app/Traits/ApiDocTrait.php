@@ -9,6 +9,8 @@ use GuzzleHttp\Psr7\Utils;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use InvalidArgumentException;
 use RuntimeException;
+use Illuminate\Support\Facades\Log;
+
 
 trait ApiDocTrait
 {
