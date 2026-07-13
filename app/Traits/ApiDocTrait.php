@@ -302,6 +302,8 @@ trait ApiDocTrait
             ]
         ];
         $requestter = new Psr7Request('POST', env('APP_DOC_API') . '/api/ApiDoc/ListFileSimple', $headers);
+             Log::info("url prueba: " . env('APP_DOC_API') . '/api/ApiDoc/ListFileSimple');
+
         $res = $client->sendAsync($requestter, $options)->wait();
         $data = json_decode($res->getBody()->getContents());
         return $data;
